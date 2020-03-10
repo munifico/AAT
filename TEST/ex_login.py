@@ -12,7 +12,7 @@ class MyWindow(QMainWindow):
         """
         고유의 CLSID 또는 ProgID를 가진다
         해당 값을 QAxWidget 클래스의 생성자로 전달하면 인스턴스가 생성된다.
-        레지스트리 -> KHOPENAPI.KHOpenAPICtrl.1 -> CLSID -> {A1574A0D-6BFA-4BD7-9020-DED88711818D}0          
+        레지스트리 -> KHOPENAPI.KHOpenAPICtrl.1 -> CLSID -> {A1574A0D-6BFA-4BD7-9020-DED88711818D}        
         """
         self.kiwoom = QAxWidget("KHOPENAPI.KHOpenAPICtrl.1")
 
