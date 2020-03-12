@@ -17,13 +17,14 @@ ma5 = gs['Adj Close'].rolling(window=5).mean()
 
 print(ma5.tail())
 
+"""
+정확한 이평선을 위해 거래량이 0인 날은 제외
+"""
 for j, i in enumerate(gs['Volume']):
     if i == 0:
         print(j)
         print(gs.iloc[[j], :])
-"""
-정확한 이평선을 위해 거래량이 0인 날은 제외
-"""
+
 new_gs = gs[gs['Volume'] != 0]
 
 for j, i in enumerate(new_gs['Volume']):
@@ -31,9 +32,16 @@ for j, i in enumerate(new_gs['Volume']):
         print(i != 0)
         print(new_gs.iloc[[j], :])
 
+new_gs1 = gs[gs['Volume'] > 0]
+
+for j, i in enumerate(new_gs1['Volume']):
+    if i == 0:
+        print(i != 0)
+        print(new_gs1.iloc[[j], :])
+
 ma5 = new_gs['Adj Close'].rolling(window=5).mean()
 
-print(ma5)
+print(ma5.tail())
 """
 DataFrame에 칼럼을 추가하려면 insert 메서드를 사용.
 """
