@@ -2,14 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9523432-406d-4b10-b2ac-7dfa98bbcc28" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/TEST/ex_bar.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TEST/ex_candle.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TEST/ex_matplotlib.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TEST/ex_pie.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/AAT.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/AAT.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TEST/ex_PyQt.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TEST/ex_QtDesigner.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TEST/ex_QtDesigner_event.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TEST/ex_button.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TEST/ex_checkbox.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TEST/ex_label.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TEST/ex_line&amp;status_bar.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TEST/ex_radio_groupbox.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TEST/ex_spinbox.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TEST/ex_tablewidget.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TEST/ex_moving_average_line.py" beforeDir="false" afterPath="$PROJECT_DIR$/TEST/ex_moving_average_line.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -48,7 +51,7 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="C:/Anaconda3/Lib/site-packages/pandas/testing.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
@@ -63,8 +66,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.ex_pie">
-    <configuration name="ex_bar" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.ex_tablewidget">
+    <configuration name="ex_checkbox" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="AAT" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -76,7 +79,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TEST/ex_bar.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TEST/ex_checkbox.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -85,7 +88,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ex_candle" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="ex_line&amp;status_bar" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="AAT" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -97,7 +100,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TEST/ex_candle.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TEST/ex_line&amp;status_bar.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -106,7 +109,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ex_matplotlib" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="ex_radio_groupbox" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="AAT" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -118,7 +121,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TEST/ex_matplotlib.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TEST/ex_radio_groupbox.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -127,7 +130,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ex_moving_average_line" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="ex_spinbox" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="AAT" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -139,7 +142,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TEST/ex_moving_average_line.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TEST/ex_spinbox.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -148,7 +151,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ex_pie" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="ex_tablewidget" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="AAT" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -160,7 +163,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TEST/ex_pie.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TEST/ex_tablewidget.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -171,11 +174,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.ex_pie" />
-        <item itemvalue="Python.ex_bar" />
-        <item itemvalue="Python.ex_candle" />
-        <item itemvalue="Python.ex_matplotlib" />
-        <item itemvalue="Python.ex_moving_average_line" />
+        <item itemvalue="Python.ex_tablewidget" />
+        <item itemvalue="Python.ex_spinbox" />
+        <item itemvalue="Python.ex_checkbox" />
+        <item itemvalue="Python.ex_radio_groupbox" />
+        <item itemvalue="Python.ex_line&amp;status_bar" />
       </list>
     </recent_temporary>
   </component>
@@ -211,7 +214,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583910823849</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Learned the matplotlib">
+      <created>1584009623354</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1584009623354</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -231,7 +241,8 @@
     <MESSAGE value="Learned the base api." />
     <MESSAGE value="Learned the pandas" />
     <MESSAGE value="Learned the zipline but version error" />
-    <option name="LAST_COMMIT_MESSAGE" value="Learned the zipline but version error" />
+    <MESSAGE value="Learned the matplotlib" />
+    <option name="LAST_COMMIT_MESSAGE" value="Learned the matplotlib" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
