@@ -2,16 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9523432-406d-4b10-b2ac-7dfa98bbcc28" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/TEST/ex_PyQt.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TEST/ex_QtDesigner.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TEST/ex_QtDesigner_event.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TEST/ex_button.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TEST/ex_checkbox.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TEST/ex_label.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TEST/ex_line&amp;status_bar.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TEST/ex_radio_groupbox.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TEST/ex_spinbox.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TEST/ex_tablewidget.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -51,7 +41,7 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../notice_alarm/Test" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
