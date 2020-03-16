@@ -230,6 +230,7 @@ class MyWindow(QWidget):
         layout.addLayout(leftLayOut)
         layout.addLayout(rightLayOut)
 
+
         self.setLayout(layout)
 
 if __name__ == "__main__":
