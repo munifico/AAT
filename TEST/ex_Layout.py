@@ -159,6 +159,26 @@ addWidget 메서드에서 행과 열의 인덱스를 차례로 입력받는다.
 QVBoxLayout과 QHBoxLayout를 중첩
 레이아웃 매니저 클래스에서 addWidget 메서드를 통해 레이아웃에 위젯을 추가하듯이.
 addLayout 메서드를 호출하면 레이아웃에 다른 레이아웃 매니저를 추가할 수 있다.
+
+QHBoxLayout 안에 두 개의 QVBoxLayout이 존재.
+
+윈도우 왼쪽에는 QGroupBox와 QCheckBox 위젯이 위치.
+위젯 생성시 크기나 좌표를 설정하지 않는다.
+
+QGroupBox에 여러 개의 QCheckBox를 추가할 때
+QVBoxLayout을 사용해 QCheckBox 위젯을 추가.
+
+QVBoxLayout 객체에는 QCheckBox 위젯이 포함돼 있으므로 QGroupBOx에 QVBoxLayout 객체만 추가하면
+QCheckBox를 QGroupBox 안쪽으로 배치 할 수 있다.
+
+QGroupBox를 윈도우의 안쪽에 배치하기 위해 QVBoxLayout을 사용해 위젯을 추가
+
+QTableWidget 객체를 윈도우의 오른쪽에 위치시키려면 QVBoxLayout 클래스의 객체를 생성.
+QTableWidget 객체를 추가.
+
+QHBoxLayout 클래스의 객체를 생성한 후 레이아웃을 추가.
+
+현재 윈도우에 레이아웃을 layout 객체로 설정.
 """
 
 import sys
