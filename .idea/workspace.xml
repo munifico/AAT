@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9523432-406d-4b10-b2ac-7dfa98bbcc28" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/TEST/ex_dialog.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TEST/ex_pyqt_matplotlib.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TEST/ex_api_daily_sqlite.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TEST/ex_api_daily_sqlite_save.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TEST/ex_api_sqplite_save.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TEST/ex_pandas_sqlite.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TEST/ex_pandas_sqlite_save.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TEST/ex_sqlite.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TEST/ex_Layout.py" beforeDir="false" afterPath="$PROJECT_DIR$/TEST/ex_Layout.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -44,7 +47,7 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../notice_alarm" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
@@ -59,8 +62,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.ex_pyqt_matplotlib">
-    <configuration name="ex_Layout" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.ex_pandas_sqlite">
+    <configuration name="ex_api_daily_sqlite_save (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="AAT" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -72,7 +75,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TEST/ex_Layout.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TEST/ex_api_daily_sqlite_save.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -81,7 +84,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ex_dialog" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="ex_api_daily_sqlite_save" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="AAT" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -93,7 +96,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TEST/ex_dialog.py" />
+      <option name="SCRIPT_NAME" value="D:\source\AAT\TEST\ex_api_daily_sqlite.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -102,7 +105,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ex_pyqt_matplotlib" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="ex_api_sqplite_save" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="AAT" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -114,7 +117,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TEST/ex_pyqt_matplotlib.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TEST/ex_api_sqplite_save.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -123,7 +126,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ex_spinbox" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="ex_pandas_sqlite" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="AAT" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -135,7 +138,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TEST/ex_spinbox.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TEST/ex_pandas_sqlite.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -144,7 +147,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ex_tablewidget" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="ex_sqlite" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="AAT" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -156,7 +159,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TEST/ex_tablewidget.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TEST/ex_sqlite.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -167,11 +170,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.ex_pyqt_matplotlib" />
-        <item itemvalue="Python.ex_dialog" />
-        <item itemvalue="Python.ex_Layout" />
-        <item itemvalue="Python.ex_tablewidget" />
-        <item itemvalue="Python.ex_spinbox" />
+        <item itemvalue="Python.ex_pandas_sqlite" />
+        <item itemvalue="Python.ex_sqlite" />
+        <item itemvalue="Python.ex_api_daily_sqlite_save (1)" />
+        <item itemvalue="Python.ex_api_daily_sqlite_save" />
+        <item itemvalue="Python.ex_api_sqplite_save" />
       </list>
     </recent_temporary>
   </component>
