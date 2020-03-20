@@ -15,6 +15,15 @@ Kiwoom 클래스의 get_connect_state 메서드를 호출해서 서버 연결 �
 키움 OpenAPI는 비밀번호를 저장받아서 자동 로그인이 된다.
 """
 
+"""
+Qt Designer에서 위젯을 선택한 다음 속성편집기 -> objectName 항복의 이름으로 위젯 컨트롤
+
+self.lineEdit.textChanged.connect(self.code_changed)
+시그널 -> 슬롯을 설정했기 때문에 textChanged 이벤트가 발생하면 code_changed 메서드 호출
+
+
+"""
+
 import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
@@ -35,6 +44,16 @@ class MyWindow(QMainWindow, form_class):
         self.timer.start(1000)
         self.timer.timeout.connect(self.timeout)
 
+        self.lineEdit.textChanged.connect(self.code_changed)
+
+        accounts_num = int(self.kiwoom.get_login_info("ACCOUNT_CNT"))
+        accounts = self.kiwoom.get_login_info("ACCNO")
+        print(accounts+'\n')
+        accounts_list = accounts.split(';')[0:accounts_num]
+        self.comboBox.addItems(accounts_list)
+        print(accounts_list)
+        self.pushButton.clicked.connect(self.send_order)
+
     def timeout(self):
         current_time = QTime.currentTime()
         text_time = current_time.toString("hh:mm:ss")
@@ -47,6 +66,25 @@ class MyWindow(QMainWindow, form_class):
             state_msg = "서버 미 연결 중"
 
         self.statusbar.showMessage(state_msg + " | " + time_msg)
+
+    def code_changed(self):
+        code = self.lineEdit.text()
+        name = self.kiwoom.get_master_code_name(code)
+        self.lineEdit_2.setText(name)
+
+    def send_order(self):
+        order_type_lookup = {'신규매수': 1, '신규매도': 2, '매수취소': 3,'매도취소': 4}
+        hoga_lookup = {'지정가': '00', '시장가': '03'}
+
+        account = self.comboBox.currentText()
+        order_type = self.comboBox_2.currentText()
+        code = self.lineEdit.text()
+        hoga = self.comboBox_3.currentText()
+        num = self.spinBox.value()
+        price = self.spinBox_2.value()
+
+        self.kiwoom.send_order("send_order_req", "0101", account, order_type_lookup[order_type], code, num, price, hoga_lookup[hoga], "")
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
