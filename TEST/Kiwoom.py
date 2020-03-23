@@ -103,6 +103,23 @@ GetLoginInfo 메서드 - OpenAPI+에서 계좌 정보 및로그인 사용자 정
     “FIREW_SECGB” – 방화벽 설정 여부. 0:미설정, 1:설정, 2:해지
     Ex) openApi.GetLoginInfo(“ACCOUNT_CNT”);
 """
+
+'''
+TrCode
+
+opw00018 - 계좌평가잔고내역요청
+
+opw00001 - 예수금상세현황요청
+
+TR 요청 및 데이터를 가져오는 과정.
+SetInputValue 메서드를 호출해서 입력 데이터 설정.
+CommRqData 메서드를 호출해서 TR을 서버로 전송
+-- > pytrader.py에서 처리
+TR이 서버로 전송된 후 서버로부터 이벤트가 발생할 때까지 TR을 전송한 프로그램 기다리기.(이벤트 루프)
+서버로부터 이벤트가 발생하면 CommGetData 메서드를 통해 수신 데이터 가져오기.
+
+
+'''
 import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QAxContainer import *
@@ -177,6 +194,10 @@ class Kiwoom(QAxWidget):
 
         if rqname == "opt10081_req":
             self._opt10081(rqname, trcode)
+        elif rqname == "opw00001_req":
+            self._opw00001(rqname, trcode)
+        elif rqname == "opw00018_req":
+            self._opw00018(rqname, trcode)
 
         try:
             self.tr_event_loop.exit()
@@ -219,4 +240,100 @@ class Kiwoom(QAxWidget):
     def get_login_info(self, tag):
         ret = self.dynamicCall("GetLoginInfo(QString)", tag)
         return ret
+
+    def _opw00001(self, rqname, trcode):
+        d2_deposit = self._comm_get_data(trcode,"", rqname, 0, "d+2추정예수금")
+        self.d2_deposit = Kiwoom.change_format(d2_deposit)
+
+    def _opw00018(self, rqname, trcode):
+        total_purchase_price = self._comm_get_data(trcode, "", rqname, 0, "총매입금액")
+        total_eval_price = self._comm_get_data(trcode, "", rqname, 0, "총평가금액")
+        total_eval_profit_loss_price = self._comm_get_data(trcode, "", rqname, 0, "총평가손익금액")
+        total_earning_rate = self._comm_get_data(trcode, "", rqname, 0, "총수익률(%)")
+        estimated_deposit = self._comm_get_data(trcode, "", rqname, 0, "추정예탁자산")
+
+        # total_earning_rate = Kiwoom.change_format(total_earning_rate)
+
+        # if self.get_server_gubun():
+        #     total_earning_rate = float(total_earning_rate) / 100
+        #     total_earning_rate = str(total_earning_rate)
+
+        self.reset_opw00018_output()
+
+        self.opw00018_output['single'].append(Kiwoom.change_format(total_purchase_price))
+        self.opw00018_output['single'].append(Kiwoom.change_format(total_eval_price))
+        self.opw00018_output['single'].append(Kiwoom.change_format(total_eval_profit_loss_price))
+        self.opw00018_output['single'].append(Kiwoom.change_format2(total_earning_rate))
+        self.opw00018_output['single'].append(Kiwoom.change_format(estimated_deposit))
+
+        rows = self._get_repeat_cnt(trcode, rqname)
+
+        for i in range(rows):
+            name = self._comm_get_data(trcode, "", rqname, i, "종목명")
+            quantity = self._comm_get_data(trcode, "", rqname, i, "보유수량")
+            purchase_price = self._comm_get_data(trcode, "", rqname, i, "매입가")
+            current_price = self._comm_get_data(trcode, "", rqname, i, "현재가")
+            eval_profit_loss_price = self._comm_get_data(trcode, "", rqname, i, "평가손익")
+            earning_rate = self._comm_get_data(trcode, "", rqname, i, "수익률(%)")
+
+            quantity = Kiwoom.change_format(quantity)
+            purchase_price = Kiwoom.change_format(purchase_price)
+            current_price = Kiwoom.change_format(current_price)
+            eval_profit_loss_price = Kiwoom.change_format(eval_profit_loss_price)
+            earning_rate = Kiwoom.change_format2(earning_rate)
+
+            self.opw00018_output['multi'].append([name, quantity, purchase_price, current_price, eval_profit_loss_price, earning_rate])
+
+        print(self.opw00018_output['single'])
+        print(earning_rate)
+
+    def reset_opw00018_output(self):
+        self.opw00018_output = {'single': [], 'multi': []}
+
+    def get_server_gubun(self):
+        ret = self.dynamicCall("KOA_Functions(QString, QString)", "GetServerGubun", "")
+        return ret
+
+    @staticmethod
+    def change_format(data):
+        strip_data = data.lstrip('-0')
+
+        if strip_data == '':
+            strip_data = '0'
+
+        try:
+            format_data = format(int(strip_data),',d')
+        except:
+            format_data = format(float(strip_data))
+
+        if data.startswith('-'):
+            format_data = '-' + format_data
+
+        return format_data
+
+    @staticmethod
+    def change_format2(data):
+        strip_data = data.lstrip('-0')
+
+        if strip_data == '':
+            strip_data = '0'
+
+        if strip_data.startswith('.'):
+            strip_data = '0' + strip_data
+
+        if data.startswith('-'):
+            strip_data = '-' + strip_data
+
+        return strip_data
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    kiwoom = Kiwoom()
+    kiwoom.comm_connect()
+
+    account_number = kiwoom.get_login_info("ACCNO")
+    account_number = account_number.split(';')[0]
+
+    kiwoom.set_input_value("계좌번호", account_number)
+    kiwoom.comm_rq_data("opw00018_req", "opw00018", 0, "2000")
 
