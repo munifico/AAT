@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9523432-406d-4b10-b2ac-7dfa98bbcc28" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/AAT.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/AAT.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TEST/Kiwoom.py" beforeDir="false" afterPath="$PROJECT_DIR$/TEST/Kiwoom.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TEST/pytrader.py" beforeDir="false" afterPath="$PROJECT_DIR$/TEST/pytrader.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TEST/pytrader.ui" beforeDir="false" afterPath="$PROJECT_DIR$/TEST/pytrader.ui" afterDir="false" />
     </list>
@@ -283,13 +281,23 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/TEST/pytrader.py</url>
-          <line>66</line>
+          <line>180</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/TEST/pytrader.py</url>
-          <line>62</line>
+          <line>176</line>
           <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TEST/pytrader.py</url>
+          <line>153</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TEST/pytrader.py</url>
+          <line>141</line>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
