@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9523432-406d-4b10-b2ac-7dfa98bbcc28" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/TEST/ex.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TEST/pymon.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TEST/pytrader.py" beforeDir="false" afterPath="$PROJECT_DIR$/TEST/pytrader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TEST/pytrader.ui" beforeDir="false" afterPath="$PROJECT_DIR$/TEST/pytrader.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TEST/buy_list.txt" beforeDir="false" afterPath="$PROJECT_DIR$/TEST/buy_list.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -58,7 +59,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.pytrader">
+  <component name="RunManager" selected="Python.pymon">
     <configuration name="Kiwoom" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="AAT" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -80,7 +81,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ex_development" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="ex" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="AAT" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -92,7 +93,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TEST/ex_development.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TEST/ex.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -101,7 +102,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ex_pandas_sqlite" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="pymon" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="AAT" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -113,7 +114,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TEST/ex_pandas_sqlite.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TEST/pymon.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -166,11 +167,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.pymon" />
+        <item itemvalue="Python.ex" />
         <item itemvalue="Python.pytrader" />
         <item itemvalue="Python.Kiwoom" />
         <item itemvalue="Python.test" />
-        <item itemvalue="Python.ex_development" />
-        <item itemvalue="Python.ex_pandas_sqlite" />
       </list>
     </recent_temporary>
   </component>
@@ -298,6 +299,11 @@
           <url>file://$PROJECT_DIR$/TEST/pytrader.py</url>
           <line>141</line>
           <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TEST/ex.py</url>
+          <line>4</line>
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
