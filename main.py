@@ -51,7 +51,7 @@ class MainWindow(QMainWindow, form_class):
 
         self.connect_state()
 
-        if hour == 18 and min == 5 and self.non_login_state:
+        if hour == 8 and min == 50 and self.non_login_state:
             self.button_clicked()
             self.non_login_state = False
 
