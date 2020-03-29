@@ -14,25 +14,25 @@ Y/N 같은 이벤트를 받는데 사용.
 QCoreApplication.instance()를 이용하면 app 변수가 바인딩하고 있는 동일한 객체를 얻어올 수 있다.
 app이 바인딩하고 있는 객체는 QApplication 클래스의 인스턴스인데 해당 객체는 quit라는 메서드를 포함.
 """
-import sys
-from PyQt5.QtWidgets import *
-from PyQt5.QtCore import *
-
-class MyWindow(QMainWindow):
-    def __init__(self):
-        super().__init__()
-        self.setupUI()
-
-    def setupUI(self):
-        btn1 = QPushButton("닫기", self)
-        btn1.move(20, 20)
-        btn1.clicked.connect(QCoreApplication.instance().quit)
-
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    mywindow = MyWindow()
-    mywindow.show()
-    app.exec_()
+# import sys
+# from PyQt5.QtWidgets import *
+# from PyQt5.QtCore import *
+#
+# class MyWindow(QMainWindow):
+#     def __init__(self):
+#         super().__init__()
+#         self.setupUI()
+#
+#     def setupUI(self):
+#         btn1 = QPushButton("닫기", self)
+#         btn1.move(20, 20)
+#         btn1.clicked.connect(QCoreApplication.instance().quit)
+#
+# if __name__ == "__main__":
+#     app = QApplication(sys.argv)
+#     mywindow = MyWindow()
+#     mywindow.show()
+#     app.exec_()
 
 """
 위와 동일한 코드지만 유지보수성이 낮다.

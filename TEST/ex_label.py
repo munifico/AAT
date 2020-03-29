@@ -22,11 +22,18 @@ resize 메서드를 호출해 크기를 조정.
 """
 import sys
 from PyQt5.QtWidgets import *
+from PyQt5 import uic
 
-class MyWindow(QMainWindow):
+form_class = uic.loadUiType("pytrader.ui")[0]
+
+class MyWindow(QMainWindow, form_class):
     def __init__(self):
         super().__init__()
-        self.setupUI()
+        self.setupUi(self)
+        # self.setupUI()
+        a = self.Form()
+        a.show()
+        self.pushButton
 
     def setupUI(self):
         self.setGeometry(800, 400, 300, 150)
@@ -48,9 +55,22 @@ class MyWindow(QMainWindow):
 
     def btn1_clicked(self):
         self.label.setText("버튼이 클릭되었습니다.")
+        self.a = Mywindow2()
+        self.a.show()
+        # a.exec_()
 
     def btn2_clicked(self):
         self.label.clear()
+
+class Mywindow2(QWidget):
+   def __init__(self):
+       super().__init__()
+       self.setupUI()
+
+   def setupUI(self):
+       self.setGeometry(800,400,300,100)
+
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
