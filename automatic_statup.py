@@ -11,7 +11,7 @@ app.start("C:/KiwoomFlash3/Bin/NKMiniStarter.exe")
 title = "번개3 Login"
 dlg = timings.WaitUntilPasses(20, 0.5, lambda: app.window_(title=title))
 
-with open(os.path.join(SECU_BASE_DIR, "top_security2.txt"), 'r+', encoding='utf-8') as f_read:
+with open(os.path.join(SECU_BASE_DIR, "super.txt"), 'r+', encoding='utf-8') as f_read:
     service_key = f_read.readline().split(',')
 
 print(service_key)

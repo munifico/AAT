@@ -87,7 +87,7 @@ class MainWindow(QMainWindow, form_class):
         return holiday_day
 
     def open_file(self):
-        with open(os.path.join(SECU_BASE_DIR, "security.txt"),'r+', encoding='utf-8') as f_read:
+        with open(os.path.join(SECU_BASE_DIR, "key.txt"),'r+', encoding='utf-8') as f_read:
             service_key = f_read.readline()
         return service_key
 
