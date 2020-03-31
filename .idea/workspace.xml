@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e9523432-406d-4b10-b2ac-7dfa98bbcc28" name="Default Changelist" comment="Learned the matplotlib">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/slack.py" beforeDir="false" afterPath="$PROJECT_DIR$/slack.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -57,7 +57,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.slack">
+  <component name="RunManager" selected="Python.main">
     <configuration name="automatic_statup" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="AAT" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -165,8 +165,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.slack" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.slack" />
         <item itemvalue="Python.kiwoom" />
         <item itemvalue="Python.automatic_statup" />
         <item itemvalue="Python.ex_a" />
@@ -310,7 +310,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main.py</url>
-          <line>44</line>
+          <line>60</line>
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -353,6 +353,16 @@
           <line>22</line>
           <option name="timeStamp" value="28" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>54</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>57</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
@@ -363,6 +373,8 @@
         <watch expression="self.holidays in day" />
         <watch expression="login_event_loop" />
         <watch expression="self.login_event_loop" />
+        <watch expression="hour &lt; 9" />
+        <watch expression="hour &lt; 9 or ((hour &gt;= 15) and (min &gt; 30))" language="Python" />
       </configuration>
     </watches-manager>
   </component>

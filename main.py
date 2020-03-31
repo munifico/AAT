@@ -26,6 +26,20 @@ class MainWindow(QMainWindow, form_class):
 
         self.pushButton_2.clicked.connect(self.button_clicked)
 
+        self.action.triggered.connect(self.show_sub_windows)
+        self.action_2.triggered.connect(self.show_sub_windows)
+
+        print(self.action.isChecked())
+
+    def show_sub_windows(self):
+        if self.action.isCheckable():
+            print("A")
+        elif self.action_2.isChecked():
+            print("B")
+        print(self.action.isEnabled())
+        print(self.action_2.isEnabled())
+        print(self.action_2.toggled())
+
     def display_time(self):
         today_time = datetime.datetime.today().strftime('%Y-%m-%d / %p.%H:%M:%S')
 
@@ -36,10 +50,12 @@ class MainWindow(QMainWindow, form_class):
         hour = int(datetime.datetime.today().strftime('%H'))
         min = int(datetime.datetime.today().strftime('%M'))
 
+        hour_P_min = str(hour) + str(min)
+
         if week == 6 or week == 0:
             self.label_2.setText("주말 입니다.")
             self._open_close(False)
-        elif hour < 9 or ((hour >= 15) and (min > 30)):    # 9 - 15:30
+        elif hour < 9 or (int(hour_P_min) > 1500):    # 9 - 15:30 # 일단 이렇게 보류 / 더 나은 방법 찾아보기
             self.label_2.setText("개장 시간이 아닙니다.")
             self._open_close(False)
         elif day in self.holidays:
