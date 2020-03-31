@@ -12,7 +12,12 @@ import requests
 from bs4 import BeautifulSoup
 import os
 
-slack_token = "xoxb-1031024079200-1037160759654-WcC4fT9pVtV2GdLLXwBBmvfF"
+SECU_BASE_DIR = os.path.join(os.path.abspath(os.path.dirname(__file__)),"security_file")
+
+with open(os.path.join(SECU_BASE_DIR, 'token.txt'), 'r+',encoding='utf-8') as f_read:
+    slack_token = f_read.readline()
+
+
 slack = Slacker(slack_token)
 ch = "#aat-graduation-work"
 

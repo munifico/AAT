@@ -225,10 +225,94 @@
     <property name="title">
      <string>매매</string>
     </property>
+    <addaction name="action"/>
+    <addaction name="action_2"/>
+    <addaction name="action_7"/>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>계좌관리</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menu_3">
+    <property name="title">
+     <string>알림설정</string>
+    </property>
+    <addaction name="actionPC"/>
+    <addaction name="action_3"/>
+    <addaction name="action_4"/>
+   </widget>
+   <widget class="QMenu" name="menu_4">
+    <property name="title">
+     <string>데이터</string>
+    </property>
+    <addaction name="action_5"/>
+    <addaction name="action_6"/>
+   </widget>
+   <widget class="QMenu" name="menu_5">
+    <property name="title">
+     <string>암호화 설정</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menu_6">
+    <property name="title">
+     <string>자동실행 설정</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menu_7">
+    <property name="title">
+     <string>데이터시각화</string>
+    </property>
    </widget>
    <addaction name="menu"/>
+   <addaction name="menu_2"/>
+   <addaction name="menu_3"/>
+   <addaction name="menu_4"/>
+   <addaction name="menu_5"/>
+   <addaction name="menu_6"/>
+   <addaction name="menu_7"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="action">
+   <property name="text">
+    <string>자동매매</string>
+   </property>
+  </action>
+  <action name="action_2">
+   <property name="text">
+    <string>수동매매</string>
+   </property>
+  </action>
+  <action name="actionPC">
+   <property name="text">
+    <string>PC</string>
+   </property>
+  </action>
+  <action name="action_3">
+   <property name="text">
+    <string>텔레그램</string>
+   </property>
+  </action>
+  <action name="action_4">
+   <property name="text">
+    <string>슬랙</string>
+   </property>
+  </action>
+  <action name="action_5">
+   <property name="text">
+    <string>금융감독원</string>
+   </property>
+  </action>
+  <action name="action_6">
+   <property name="text">
+    <string>재무재표</string>
+   </property>
+  </action>
+  <action name="action_7">
+   <property name="text">
+    <string>거래내역</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
