@@ -7,6 +7,7 @@ from kiwoom import *
 import requests
 from bs4 import BeautifulSoup
 import os
+from manual_trading import *
 
 form_class = uic.loadUiType("main.ui")[0]
 SECU_BASE_DIR = os.path.join(os.path.abspath(os.path.dirname(__file__)),"security_file")
@@ -26,19 +27,25 @@ class MainWindow(QMainWindow, form_class):
 
         self.pushButton_2.clicked.connect(self.button_clicked)
 
-        self.action.triggered.connect(self.show_sub_windows)
-        self.action_2.triggered.connect(self.show_sub_windows)
+        self.auto_trading_action.triggered.connect(lambda: self.show_sub_windows(self.auto_trading_action.text()))
+        self.manual_trading_action.triggered.connect(lambda: self.show_sub_windows(self.manual_trading_action.text()))
 
-        print(self.action.isChecked())
 
-    def show_sub_windows(self):
-        if self.action.isCheckable():
-            print("A")
-        elif self.action_2.isChecked():
-            print("B")
-        print(self.action.isEnabled())
-        print(self.action_2.isEnabled())
-        print(self.action_2.toggled())
+    def show_sub_windows(self, action):
+        if action == self.auto_trading_action.text():
+            pass
+            # self.auto_trading = AutoTrading()
+            # self.auto_trading.show()
+        elif action == self.manual_trading_action.text():
+            # self.manual_trading = ManualTrading(self.state)
+            self.manual_trading = ManualTrading(self.kiwoom, self.state)
+            self.manual_trading.show()
+        # if self.action.isCheckable():
+        #     print("A")
+        # elif self.action_2.isChecked():
+        #     print("B")
+        # print(self.action.isEnabled())
+        # print(self.action_2.isEnabled())
 
     def display_time(self):
         today_time = datetime.datetime.today().strftime('%Y-%m-%d / %p.%H:%M:%S')
@@ -47,15 +54,15 @@ class MainWindow(QMainWindow, form_class):
 
         week = int(datetime.datetime.today().strftime('%w'))
         day = int(datetime.datetime.today().strftime('%d'))
-        hour = int(datetime.datetime.today().strftime('%H'))
-        min = int(datetime.datetime.today().strftime('%M'))
+        hour = datetime.datetime.today().strftime('%H')
+        min = datetime.datetime.today().strftime('%M')
 
-        hour_P_min = str(hour) + str(min)
+        hour_P_min = hour + min
 
         if week == 6 or week == 0:
             self.label_2.setText("주말 입니다.")
             self._open_close(False)
-        elif hour < 9 or (int(hour_P_min) > 1500):    # 9 - 15:30 # 일단 이렇게 보류 / 더 나은 방법 찾아보기
+        elif int(hour) < 9 or (int(hour_P_min) > 1500):    # 9 - 15:30 # 일단 이렇게 보류 / 더 나은 방법 찾아보기
             self.label_2.setText("개장 시간이 아닙니다.")
             self._open_close(False)
         elif day in self.holidays:
@@ -67,7 +74,7 @@ class MainWindow(QMainWindow, form_class):
 
         self.connect_state()
 
-        if hour == 8 and min == 50 and self.non_login_state:
+        if int(hour) == 8 and int(min) == 50 and self.non_login_state:
             self.button_clicked()
             self.non_login_state = False
 
@@ -124,17 +131,18 @@ class MainWindow(QMainWindow, form_class):
             pass
 
     def connect_state(self):
-        state = self.kiwoom.get_connect_state()
+        self.state = self.kiwoom.get_connect_state()
 
-        if state == 1:
+        if self.state == 1:
             self.label_3.setText("서버 연결 상태 😁")
             self.label_3.setStyleSheet("Color : Blue")
-        elif state == 0:
+        elif self.state == 0:
             self.label_3.setText("서버 미연결 상태 😅")
             self.label_3.setStyleSheet("Color : Black")
 
     def button_clicked(self):
         self.kiwoom.comm_connect()
+        self.manual_trading_action.setEnabled(True)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

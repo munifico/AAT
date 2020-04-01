@@ -6,32 +6,35 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1626</width>
-    <height>1629</height>
+    <width>1334</width>
+    <height>1086</height>
    </rect>
   </property>
+  <property name="mouseTracking">
+   <bool>true</bool>
+  </property>
   <property name="windowTitle">
-   <string>PyTrader v0.4</string>
+   <string>Manual Trading</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>251</width>
-      <height>341</height>
+      <x>40</x>
+      <y>20</y>
+      <width>231</width>
+      <height>351</height>
      </rect>
     </property>
     <property name="title">
-     <string>수동주문</string>
+     <string>수동 주문</string>
     </property>
     <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
-       <x>30</x>
+       <x>20</x>
        <y>30</y>
-       <width>77</width>
+       <width>41</width>
        <height>18</height>
       </rect>
      </property>
@@ -42,7 +45,7 @@
     <widget class="QLabel" name="label_2">
      <property name="geometry">
       <rect>
-       <x>30</x>
+       <x>20</x>
        <y>60</y>
        <width>77</width>
        <height>18</height>
@@ -55,7 +58,7 @@
     <widget class="QLabel" name="label_3">
      <property name="geometry">
       <rect>
-       <x>30</x>
+       <x>20</x>
        <y>100</y>
        <width>77</width>
        <height>18</height>
@@ -68,8 +71,8 @@
     <widget class="QLabel" name="label_4">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>170</y>
+       <x>20</x>
+       <y>180</y>
        <width>77</width>
        <height>18</height>
       </rect>
@@ -81,8 +84,8 @@
     <widget class="QLabel" name="label_5">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>210</y>
+       <x>20</x>
+       <y>220</y>
        <width>77</width>
        <height>18</height>
       </rect>
@@ -94,8 +97,8 @@
     <widget class="QLabel" name="label_6">
      <property name="geometry">
       <rect>
-       <x>30</x>
-       <y>250</y>
+       <x>20</x>
+       <y>260</y>
        <width>77</width>
        <height>18</height>
       </rect>
@@ -107,9 +110,9 @@
     <widget class="QComboBox" name="comboBox">
      <property name="geometry">
       <rect>
-       <x>110</x>
+       <x>90</x>
        <y>30</y>
-       <width>161</width>
+       <width>121</width>
        <height>24</height>
       </rect>
      </property>
@@ -117,9 +120,9 @@
     <widget class="QComboBox" name="comboBox_2">
      <property name="geometry">
       <rect>
-       <x>110</x>
+       <x>90</x>
        <y>60</y>
-       <width>106</width>
+       <width>121</width>
        <height>24</height>
       </rect>
      </property>
@@ -144,12 +147,38 @@
       </property>
      </item>
     </widget>
+    <widget class="QLineEdit" name="lineEdit">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>100</y>
+       <width>121</width>
+       <height>25</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_2">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>140</y>
+       <width>121</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(170, 255, 255)</string>
+     </property>
+    </widget>
     <widget class="QComboBox" name="comboBox_3">
      <property name="geometry">
       <rect>
-       <x>110</x>
-       <y>170</y>
-       <width>106</width>
+       <x>90</x>
+       <y>180</y>
+       <width>121</width>
        <height>24</height>
       </rect>
      </property>
@@ -164,63 +193,31 @@
       </property>
      </item>
     </widget>
-    <widget class="QLineEdit" name="lineEdit">
-     <property name="geometry">
-      <rect>
-       <x>110</x>
-       <y>100</y>
-       <width>113</width>
-       <height>25</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="lineEdit_2">
-     <property name="geometry">
-      <rect>
-       <x>110</x>
-       <y>130</y>
-       <width>113</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(123, 249, 255);</string>
-     </property>
-    </widget>
     <widget class="QSpinBox" name="spinBox">
      <property name="geometry">
       <rect>
-       <x>110</x>
-       <y>210</y>
-       <width>111</width>
+       <x>90</x>
+       <y>220</y>
+       <width>121</width>
        <height>25</height>
       </rect>
-     </property>
-     <property name="maximum">
-      <number>1000000</number>
      </property>
     </widget>
     <widget class="QSpinBox" name="spinBox_2">
      <property name="geometry">
       <rect>
-       <x>110</x>
-       <y>250</y>
-       <width>111</width>
+       <x>90</x>
+       <y>260</y>
+       <width>121</width>
        <height>25</height>
       </rect>
-     </property>
-     <property name="maximum">
-      <number>100000000</number>
-     </property>
-     <property name="singleStep">
-      <number>50</number>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>290</y>
+       <x>100</x>
+       <y>300</y>
        <width>112</width>
        <height>34</height>
       </rect>
@@ -234,9 +231,9 @@
     <property name="geometry">
      <rect>
       <x>320</x>
-      <y>60</y>
-      <width>961</width>
-      <height>781</height>
+      <y>30</y>
+      <width>991</width>
+      <height>951</height>
      </rect>
     </property>
     <property name="title">
@@ -245,11 +242,14 @@
     <widget class="QTableWidget" name="tableWidget">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>30</y>
+       <x>30</x>
+       <y>50</y>
        <width>931</width>
-       <height>91</height>
+       <height>81</height>
       </rect>
+     </property>
+     <property name="showGrid">
+      <bool>true</bool>
      </property>
      <property name="rowCount">
       <number>1</number>
@@ -277,7 +277,7 @@
      </column>
      <column>
       <property name="text">
-       <string>총수익률 (%)</string>
+       <string>총손익률 (%)</string>
       </property>
      </column>
      <column>
@@ -289,11 +289,14 @@
     <widget class="QTableWidget" name="tableWidget_2">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>140</y>
+       <x>30</x>
+       <y>150</y>
        <width>941</width>
-       <height>571</height>
+       <height>711</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>false</bool>
      </property>
      <column>
       <property name="text">
@@ -329,8 +332,8 @@
     <widget class="QPushButton" name="pushButton_2">
      <property name="geometry">
       <rect>
-       <x>790</x>
-       <y>730</y>
+       <x>850</x>
+       <y>880</y>
        <width>112</width>
        <height>34</height>
       </rect>
@@ -342,68 +345,15 @@
     <widget class="QCheckBox" name="checkBox">
      <property name="geometry">
       <rect>
-       <x>650</x>
-       <y>740</y>
+       <x>690</x>
+       <y>880</y>
        <width>131</width>
-       <height>22</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="text">
       <string>실시간 조회</string>
      </property>
-    </widget>
-   </widget>
-   <widget class="QGroupBox" name="groupBox_3">
-    <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>890</y>
-      <width>961</width>
-      <height>611</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>자동 선정 종목 리스트</string>
-    </property>
-    <widget class="QTableWidget" name="tableWidget_3">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>40</y>
-       <width>911</width>
-       <height>192</height>
-      </rect>
-     </property>
-     <column>
-      <property name="text">
-       <string>주문유형</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>종목명</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>호가구분</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>수량</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>가격</string>
-      </property>
-     </column>
-     <column>
-      <property name="text">
-       <string>상태</string>
-      </property>
-     </column>
     </widget>
    </widget>
   </widget>
@@ -412,7 +362,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1626</width>
+     <width>1334</width>
      <height>31</height>
     </rect>
    </property>

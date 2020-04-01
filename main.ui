@@ -225,8 +225,8 @@
     <property name="title">
      <string>매매</string>
     </property>
-    <addaction name="action"/>
-    <addaction name="action_2"/>
+    <addaction name="auto_trading_action"/>
+    <addaction name="manual_trading_action"/>
     <addaction name="action_7"/>
    </widget>
    <widget class="QMenu" name="menu_2">
@@ -273,12 +273,24 @@
    <addaction name="menu_7"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="action">
+  <action name="auto_trading_action">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>자동매매</string>
    </property>
   </action>
-  <action name="action_2">
+  <action name="manual_trading_action">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="text">
     <string>수동매매</string>
    </property>
