@@ -8,6 +8,7 @@ class Kiwoom(QAxWidget):
         super().__init__()
         self._create_kiwoom_instance()
         self._set_signal_slots()
+        self.chejan_lists = []
 
     def _create_kiwoom_instance(self):
         self.setControl("KHOPENAPI.KHOpenAPICtrl.1")
@@ -16,6 +17,7 @@ class Kiwoom(QAxWidget):
     def _set_signal_slots(self):
         self.OnEventConnect.connect(self._event_connect)
         self.OnReceiveTrData.connect(self._receive_tr_data)
+        self.OnReceiveChejanData.connect(self._receive_chejan_data)
         print("signal_slots")
 
     def _event_connect(self, err_code):
@@ -41,6 +43,18 @@ class Kiwoom(QAxWidget):
             self.tr_event_loop.exit()
         except AttributeError:
             pass
+
+    def _receive_chejan_data(self, gubun, item_cnt, fid_list):
+        order_num = self.get_chejan_data(9203)
+        item_code = self.get_chejan_data(9001)
+        state = self.get_chejan_data(913)
+        name = self.get_chejan_data(302)
+        order_quantity = self.get_chejan_data(900)
+        order_price = self.get_chejan_data(901)
+        miss_quantity = self.get_chejan_data(903)
+        sell_buy_gubun = self.get_chejan_data(907)
+
+        self.chejan_lists.append([state, name, sell_buy_gubun])
 
     def _opw00018(self, rqname, trcode):
         total_purchase_price = self._comm_get_data(trcode, "", rqname, 0, "총매입금액")
@@ -120,6 +134,10 @@ class Kiwoom(QAxWidget):
         code_name = self.dynamicCall("GetMasterCodeName(QString)", code)
         return code_name
 
+    def get_chejan_data(self, fid):
+        ret = self.dynamicCall("GetChejanData(int)", fid)
+        return ret
+
     def send_order(self, rqname, screen_no, acc_no, order_type, code, quantity, price, hoga, order_no):
         self.dynamicCall("SendOrder(QString, QString, QString, int, QString, int, int, QString, QString",
                          [rqname, screen_no, acc_no, order_type, code, quantity, price, hoga, order_no])
@@ -129,6 +147,7 @@ class Kiwoom(QAxWidget):
 
     def set_input_value(self, id, value):
         self.dynamicCall("SetInputValue(QString, QString)", id, value)
+
 
     @staticmethod
     def change_format(data):

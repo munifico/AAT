@@ -71,6 +71,7 @@ class ManualTrading(QMainWindow, form_class):
 
         self.kiwoom.send_order("send_order_req", "0101", account, order_type_lookup[order_type], code, num, price, hoga_lookup[hoga], "")
 
+
     def check_balance(self):
         self.kiwoom.reset_opw00018_output()
         account_number = self.comboBox.currentText()
@@ -112,6 +113,47 @@ class ManualTrading(QMainWindow, form_class):
     def timeout(self):
         if self.checkBox.isChecked():
             self.check_balance()
+
+            if len(self.kiwoom.chejan_lists) != 0:
+                item_count = len(self.kiwoom.chejan_lists)
+                self.tableWidget_3.setRowCount(item_count)
+
+                print(self.kiwoom.chejan_lists)
+
+                for i in range(item_count):
+                    row = self.kiwoom.chejan_lists[i]
+                    for j in range(len(row)):
+                        item = QTableWidgetItem(row[j])
+                        item.setTextAlignment(Qt.AlignVCenter | Qt.AlignRight)
+                        self.tableWidget_3.setItem(i, j, item)
+                self.tableWidget_3.resizeRowsToContents()
+
+    # def chejan_data(self):
+    #     self.order_num = self.kiwoom.get_chejan_data(9203)
+    #     self.item_code = self.kiwoom.get_chejan_data(9001)
+    #     self.state = self.kiwoom.get_chejan_data(913)
+    #     self.name = self.kiwoom.get_chejan_data(302)
+    #     self.order_quantity = self.kiwoom.get_chejan_data(900)
+    #     self.order_price = self.kiwoom.get_chejan_data(901)
+    #     self.miss_quantity = self.kiwoom.get_chejan_data(903)
+    #     self.sell_buy_gubun = self.kiwoom.get_chejan_data(907)
+    #
+    # def trade_log(self):
+    #     # state = self.kiwoom.get_chejan_data(913)
+    #     # name = self.kiwoom.get_chejan_data(302)
+    #     # sell_buy_gubun = self.kiwoom.get_chejan_data(907)
+    #     state = self.kiwoom.state
+    #     name = self.kiwoom.name
+    #     sell_buy_gubun = self.kiwoom.sell_buy_gubun
+    #
+    #     list = [state, name, sell_buy_gubun]
+    #
+    #     for i in range(3):
+    #         item = QTableWidgetItem(list[i])
+    #         item.setTextAlignment(Qt.AlignVCenter | Qt.AlignRight)
+    #         self.tableWidget_3.setItem(0, i, item)
+    #
+    #     self.tableWidget_3.resizeRowsToContents()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

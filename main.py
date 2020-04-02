@@ -40,6 +40,7 @@ class MainWindow(QMainWindow, form_class):
             # self.manual_trading = ManualTrading(self.state)
             self.manual_trading = ManualTrading(self.kiwoom, self.state)
             self.manual_trading.show()
+
         # if self.action.isCheckable():
         #     print("A")
         # elif self.action_2.isChecked():
@@ -62,7 +63,7 @@ class MainWindow(QMainWindow, form_class):
         if week == 6 or week == 0:
             self.label_2.setText("주말 입니다.")
             self._open_close(False)
-        elif int(hour) < 9 or (int(hour_P_min) > 1500):    # 9 - 15:30 # 일단 이렇게 보류 / 더 나은 방법 찾아보기
+        elif int(hour) < 9 or (int(hour_P_min) > 1530):    # 9 - 15:30 # 일단 이렇게 보류 / 더 나은 방법 찾아보기
             self.label_2.setText("개장 시간이 아닙니다.")
             self._open_close(False)
         elif day in self.holidays:

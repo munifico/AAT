@@ -235,7 +235,9 @@ class Kiwoom(QAxWidget):
         print(self.get_chejan_data(9203))
         print(self.get_chejan_data(302))
         print(self.get_chejan_data(900))
+        print(self.get_chejan_data(913))
         print(self.get_chejan_data(901))
+        print("\n")
 
     def get_login_info(self, tag):
         ret = self.dynamicCall("GetLoginInfo(QString)", tag)
