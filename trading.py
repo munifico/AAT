@@ -76,8 +76,9 @@ class Trading(QMainWindow, form_class):
         hoga = self.comboBox_3.currentText()
         num = self.spinBox.value()
         price = self.spinBox_2.value()
+        order_num = self.lineEdit_3.text()
 
-        self.kiwoom.send_order("send_order_req", "0101", account, order_type_lookup[order_type], code, num, price, hoga_lookup[hoga], "")
+        self.kiwoom.send_order("send_order_req", "0101", account, order_type_lookup[order_type], code, num, price, hoga_lookup[hoga], order_num
 
 
     def check_balance(self):
@@ -135,6 +136,11 @@ class Trading(QMainWindow, form_class):
                         item.setTextAlignment(Qt.AlignVCenter | Qt.AlignRight)
                         self.tableWidget_3.setItem(i, j, item)
                 self.tableWidget_3.resizeRowsToContents()
+                self.tableWidget_3.resizeColumnToContents(0)
+                self.tableWidget_3.resizeColumnToContents(1)
+                self.tableWidget_3.resizeColumnToContents(3)
+
+
 
     # def chejan_data(self):
     #     self.order_num = self.kiwoom.get_chejan_data(9203)

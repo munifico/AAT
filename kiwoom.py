@@ -9,6 +9,7 @@ class Kiwoom(QAxWidget):
         self._create_kiwoom_instance()
         self._set_signal_slots()
         self.chejan_lists = []
+        self.un_chejan_lists = []
 
     def _create_kiwoom_instance(self):
         self.setControl("KHOPENAPI.KHOpenAPICtrl.1")
@@ -45,16 +46,51 @@ class Kiwoom(QAxWidget):
             pass
 
     def _receive_chejan_data(self, gubun, item_cnt, fid_list):
+        '''
+        FID        설명
+        9201        계좌번호
+        9203        주문번호
+        9205        관리자사번
+        9001        종목코드, 업종코드
+        912        주문업무분류(JJ: 주식주문, FJ: 선물옵션, JG: 주식잔고, FG: 선물옵션잔고)
+        913        주문상태(접수, 확인, 체결)
+        302        종목명
+        900        주문수량
+        901        주문가격
+        902        미체결수량
+        903        체결누계금액
+        904        원주문번호
+        905        주문구분(+현금내수, -현금매도…)
+        906        매매구분(보통, 시장가…)
+        907        매도수구분(1: 매도, 2: 매수)
+        908        주문 / 체결시간(HHMMSSMS)
+        909        체결번호
+        910        체결가
+        911        체결량
+        10        현재가, 체결가, 실시간종가
+        27(최우선)        매도호가
+        28(최우선)        매수호가
+        914        단위체결가
+        915        단위체결량
+        938        당일매매 수수료
+        939        당일매매세금
+        '''
+        sell_buy_num = {1: "매도",
+                             2: "매수"}
+
         order_num = self.get_chejan_data(9203)
         item_code = self.get_chejan_data(9001)
         state = self.get_chejan_data(913)
         name = self.get_chejan_data(302)
+        name = name.strip()
         order_quantity = self.get_chejan_data(900)
         order_price = self.get_chejan_data(901)
-        miss_quantity = self.get_chejan_data(903)
+        miss_quantity = self.get_chejan_data(902)
         sell_buy_gubun = self.get_chejan_data(907)
 
-        self.chejan_lists.append([state, name, sell_buy_gubun])
+        self.chejan_lists.append([order_num, state, name, sell_buy_num[sell_buy_gubun], order_quantity, miss_quantity])
+        # 미 체결 리스트는 나중에 추가
+        # self.un_chejan_lists.append([order_num, item_code, order_quantity, miss_quantity, sell_buy_num[sell_buy_gubun]])
 
     def _opw00018(self, rqname, trcode):
         total_purchase_price = self._comm_get_data(trcode, "", rqname, 0, "총매입금액")
