@@ -49,6 +49,8 @@ class Trading(QMainWindow, form_class):
             self.lineEdit.textChanged.connect(self.code_changed)
             self.pushButton.clicked.connect(self.send_order)
             self.pushButton_2.clicked.connect(self.check_balance)
+            self.comboBox_3.activated.connect(self.type_changed)
+            self.comboBox_2.activated.connect(self.type_order)
 
             self.timer = QTimer(self)
             self.timer.start(1000*10)
@@ -57,6 +59,15 @@ class Trading(QMainWindow, form_class):
             self.pushButton.setEnabled(False)
             self.pushButton_2.setEnabled(False)
             self.checkBox.setEnabled(False)
+
+    def type_changed(self, index):
+        print(index)
+        if index == 1:
+            self.spinBox_2.setValue(0)
+
+    def type_order(self, index):
+        if index == 0 or index == 1:
+            self.lineEdit_3.setText('')
 
     def code_changed(self):
         code = self.lineEdit.text()
@@ -77,9 +88,8 @@ class Trading(QMainWindow, form_class):
         num = self.spinBox.value()
         price = self.spinBox_2.value()
         order_num = self.lineEdit_3.text()
-
-        self.kiwoom.send_order("send_order_req", "0101", account, order_type_lookup[order_type], code, num, price, hoga_lookup[hoga], order_num
-
+        print("d" + order_num)
+        self.kiwoom.send_order("send_order_req", "0101", account, order_type_lookup[order_type], code, num, price, hoga_lookup[hoga], order_num)
 
     def check_balance(self):
         self.kiwoom.reset_opw00018_output()
@@ -138,7 +148,8 @@ class Trading(QMainWindow, form_class):
                 self.tableWidget_3.resizeRowsToContents()
                 self.tableWidget_3.resizeColumnToContents(0)
                 self.tableWidget_3.resizeColumnToContents(1)
-                self.tableWidget_3.resizeColumnToContents(3)
+                self.tableWidget_3.resizeColumnToContents(2)
+                self.tableWidget_3.resizeColumnToContents(4)
 
 
 

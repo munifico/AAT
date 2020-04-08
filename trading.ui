@@ -18,7 +18,7 @@
     <rect>
      <x>1310</x>
      <y>40</y>
-     <width>1091</width>
+     <width>911</width>
      <height>581</height>
     </rect>
    </property>
@@ -30,7 +30,7 @@
      <rect>
       <x>20</x>
       <y>40</y>
-      <width>1061</width>
+      <width>871</width>
       <height>511</height>
      </rect>
     </property>
@@ -256,6 +256,9 @@
       <height>25</height>
      </rect>
     </property>
+    <property name="maximum">
+     <number>999</number>
+    </property>
    </widget>
    <widget class="QSpinBox" name="spinBox_2">
     <property name="geometry">
@@ -265,6 +268,9 @@
       <width>121</width>
       <height>25</height>
      </rect>
+    </property>
+    <property name="maximum">
+     <number>999999999</number>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton">

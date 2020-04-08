@@ -75,8 +75,9 @@ class Kiwoom(QAxWidget):
         938        당일매매 수수료
         939        당일매매세금
         '''
-        sell_buy_num = {1: "매도",
-                             2: "매수"}
+        sell_buy_num = {'1': "매도",
+                        '2': "매수",
+                        "" : ""}
 
         order_num = self.get_chejan_data(9203)
         item_code = self.get_chejan_data(9001)
@@ -87,8 +88,13 @@ class Kiwoom(QAxWidget):
         order_price = self.get_chejan_data(901)
         miss_quantity = self.get_chejan_data(902)
         sell_buy_gubun = self.get_chejan_data(907)
+        origin_order_num = self.get_chejan_data(904)
 
-        self.chejan_lists.append([order_num, state, name, sell_buy_num[sell_buy_gubun], order_quantity, miss_quantity])
+        print(sell_buy_num[sell_buy_gubun])
+        if order_num == '':
+            pass
+        else:
+            self.chejan_lists.append([order_num,origin_order_num, state, name, sell_buy_num[sell_buy_gubun], order_quantity, miss_quantity])
         # 미 체결 리스트는 나중에 추가
         # self.un_chejan_lists.append([order_num, item_code, order_quantity, miss_quantity, sell_buy_num[sell_buy_gubun]])
 
@@ -175,6 +181,7 @@ class Kiwoom(QAxWidget):
         return ret
 
     def send_order(self, rqname, screen_no, acc_no, order_type, code, quantity, price, hoga, order_no):
+        print(price)
         self.dynamicCall("SendOrder(QString, QString, QString, int, QString, int, int, QString, QString",
                          [rqname, screen_no, acc_no, order_type, code, quantity, price, hoga, order_no])
 
