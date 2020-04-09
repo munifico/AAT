@@ -29,15 +29,15 @@ class MainWindow(QMainWindow, form_class):
         self.start.pushButton_2.clicked.connect(self.button_clicked)
 
         if self.start.login_state == True:
-
             pass
         # 탭 컨트롤 성공 / 탭을 가져옴
         # self.table_widget = Start(self)
         # self.setCentralWidget(self.table_widget)
 
+
     def button_clicked(self):
         trading = Trading(self, self.start.kiwoom)
-        self.tabWidget.addTab(trading, "trading")
+        self.tabWidget.addTab(trading, "수동 매매")
 
 # class Start(QWidget, form_class1):
 #     def __init__(self, parent):

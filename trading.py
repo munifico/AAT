@@ -47,8 +47,16 @@ class Trading(QMainWindow, form_class):
             self.comboBox.addItems(accounts_list)
 
             self.lineEdit.textChanged.connect(self.code_changed)
+
             self.pushButton.clicked.connect(self.send_order)
             self.pushButton_2.clicked.connect(self.check_balance)
+            self.pushButton_3.clicked.connect(self.set_stacked_widget)
+            self.pushButton_4.clicked.connect(self.set_stacked_widget)
+            self.pushButton_5.clicked.connect(self.set_stacked_widget)
+            self.pushButton_6.clicked.connect(self.set_stacked_widget)
+            self.pushButton_7.clicked.connect(self.set_stacked_widget)
+            self.pushButton_8.clicked.connect(self.set_stacked_widget)
+
             self.comboBox_3.activated.connect(self.type_changed)
             self.comboBox_2.activated.connect(self.type_order)
 
@@ -59,6 +67,12 @@ class Trading(QMainWindow, form_class):
             self.pushButton.setEnabled(False)
             self.pushButton_2.setEnabled(False)
             self.checkBox.setEnabled(False)
+
+    def set_stacked_widget(self):
+        if self.pushButton_3.isChecked():
+            self.stackedWidget.setCurrentIndex(0)
+        elif self.pushButton_4.isChecked():
+            self.stackedWidget.setCurrentIndex(1)
 
     def type_changed(self, index):
         print(index)
@@ -88,8 +102,10 @@ class Trading(QMainWindow, form_class):
         num = self.spinBox.value()
         price = self.spinBox_2.value()
         order_num = self.lineEdit_3.text()
-        print("d" + order_num)
+
         self.kiwoom.send_order("send_order_req", "0101", account, order_type_lookup[order_type], code, num, price, hoga_lookup[hoga], order_num)
+        if code != '' and num != 0:
+            QMessageBox.about(self, "주문", "주문이 요청되었습니다.\n실시간 체결 현황을 확인해주세요")
 
     def check_balance(self):
         self.kiwoom.reset_opw00018_output()

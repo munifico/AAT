@@ -34,6 +34,9 @@ class Start(QWidget,form_class):
 
 
         self.pushButton_2.clicked.connect(self.button_clicked)
+
+        # self.open = False
+
         # parent.pushButton_2.clicked.connect(parent.button_clicked)
 
         # self.auto_trading_action.triggered.connect(lambda: self.show_sub_windows(self.auto_trading_action.text()))
@@ -127,18 +130,24 @@ class Start(QWidget,form_class):
         return service_key
 
     def _open_close(self, door):
+
         if door == True:
             self.radioButton.setChecked(True)
             self.radioButton.setStyleSheet("Color : Blue")
             self.label.setStyleSheet("Color : Blue")
 
             self.radioButton_2.setStyleSheet("Color : Black")
+            # if self.open != door:
+            #     QMessageBox.about(self, "장 오픈", "지금부터 장이 열립니다")
+            #     self.open == door
+
         elif door == False:
             self.radioButton_2.setChecked(True)
             self.radioButton_2.setStyleSheet("Color : Red")
 
             self.radioButton.setStyleSheet("Color : Black")
             self.label.setStyleSheet("Color : Black")
+            # QMessageBox.about(self, "장 마감", "지금은 장이 마감상태입니다.")
         else:
             pass
 

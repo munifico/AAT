@@ -3,7 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="e9523432-406d-4b10-b2ac-7dfa98bbcc28" name="Default Changelist" comment="Learned the matplotlib">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kiwoom.py" beforeDir="false" afterPath="$PROJECT_DIR$/kiwoom.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.ui" beforeDir="false" afterPath="$PROJECT_DIR$/main.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/start.ui" beforeDir="false" afterPath="$PROJECT_DIR$/start.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/start_point.py" beforeDir="false" afterPath="$PROJECT_DIR$/start_point.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/trading.py" beforeDir="false" afterPath="$PROJECT_DIR$/trading.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/trading.ui" beforeDir="false" afterPath="$PROJECT_DIR$/trading.ui" afterDir="false" />
     </list>
@@ -372,12 +375,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trading.py</url>
-          <line>76</line>
+          <line>90</line>
           <option name="timeStamp" value="45" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trading.py</url>
-          <line>81</line>
+          <line>95</line>
           <option name="timeStamp" value="46" />
         </line-breakpoint>
       </breakpoints>
