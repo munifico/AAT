@@ -19,6 +19,7 @@ class Kiwoom(QAxWidget):
         self.OnEventConnect.connect(self._event_connect)
         self.OnReceiveTrData.connect(self._receive_tr_data)
         self.OnReceiveChejanData.connect(self._receive_chejan_data)
+        self.OnReceiveRealData.connect(self._receive_real_data)
         print("signal_slots")
 
     def _event_connect(self, err_code):
@@ -44,6 +45,43 @@ class Kiwoom(QAxWidget):
             self.tr_event_loop.exit()
         except AttributeError:
             pass
+
+    def _opw00018(self, rqname, trcode):
+        total_purchase_price = self._comm_get_data(trcode, "", rqname, 0, "총매입금액")
+        total_eval_price = self._comm_get_data(trcode, "", rqname, 0, "총평가금액")
+        total_eval_profit_loss_price = self._comm_get_data(trcode, "", rqname, 0, "총평가손익금액")
+        total_earning_rate = self._comm_get_data(trcode, "", rqname, 0, "총수익률(%)")
+        estimated_deposit = self._comm_get_data(trcode, "", rqname, 0, "추정예탁자산")
+
+        # self.reset_opw00018_output()
+
+        self.opw00018_output['single'].append(Kiwoom.change_format(total_purchase_price))
+        self.opw00018_output['single'].append(Kiwoom.change_format(total_eval_price))
+        self.opw00018_output['single'].append(Kiwoom.change_format(total_eval_profit_loss_price))
+        self.opw00018_output['single'].append(Kiwoom.change_format2(total_earning_rate))
+        self.opw00018_output['single'].append(Kiwoom.change_format(estimated_deposit))
+
+        rows = self._get_repeat_cnt(trcode, rqname)
+
+        for i in range(rows):
+            name = self._comm_get_data(trcode, "", rqname, i, "종목명")
+            quantity = self._comm_get_data(trcode, "", rqname, i, "보유수량")
+            purchase_price = self._comm_get_data(trcode, "", rqname, i, "매입가")
+            current_price = self._comm_get_data(trcode, "", rqname, i, "현재가")
+            eval_profit_loss_price = self._comm_get_data(trcode, "", rqname, i, "평가손익")
+            earning_rate = self._comm_get_data(trcode, "", rqname, i, "수익률(%)")
+
+            quantity = Kiwoom.change_format(quantity)
+            purchase_price = Kiwoom.change_format(purchase_price)
+            current_price = Kiwoom.change_format(current_price)
+            eval_profit_loss_price = Kiwoom.change_format(eval_profit_loss_price)
+            earning_rate = Kiwoom.change_format2(earning_rate)
+
+            self.opw00018_output['multi'].append([name, quantity, purchase_price, current_price, eval_profit_loss_price, earning_rate])
+
+    def _opw00001(self, rqname, trcode):
+        d2_deposit = self._comm_get_data(trcode, "", rqname, 0, "d+2추정예수금")
+        self.d2_deposit = Kiwoom.change_format(d2_deposit)
 
     def _receive_chejan_data(self, gubun, item_cnt, fid_list):
         '''
@@ -98,42 +136,33 @@ class Kiwoom(QAxWidget):
         # 미 체결 리스트는 나중에 추가
         # self.un_chejan_lists.append([order_num, item_code, order_quantity, miss_quantity, sell_buy_num[sell_buy_gubun]])
 
-    def _opw00018(self, rqname, trcode):
-        total_purchase_price = self._comm_get_data(trcode, "", rqname, 0, "총매입금액")
-        total_eval_price = self._comm_get_data(trcode, "", rqname, 0, "총평가금액")
-        total_eval_profit_loss_price = self._comm_get_data(trcode, "", rqname, 0, "총평가손익금액")
-        total_earning_rate = self._comm_get_data(trcode, "", rqname, 0, "총수익률(%)")
-        estimated_deposit = self._comm_get_data(trcode, "", rqname, 0, "추정예탁자산")
+    def _receive_real_data(self, code, typea, data):
+        print("real_data 이벤트 : ", typea)
+        print("real_data data : ", data)
+        print(type(data))
+        self.real_data = []
 
-        # self.reset_opw00018_output()
+        now_price = self.get_comm_real_data(code, 10)
+        previous_day_price = self.get_comm_real_data(code, 11)
+        up_down_per = self.get_comm_real_data(code, 12)
+        first_sell_hoga = self.get_comm_real_data(code, 27)
+        first_buy_hoga = self.get_comm_real_data(code, 28)
+        trading_volume = self.get_comm_real_data(code, 13)
+        trading_price = self.get_comm_real_data(code, 14)
+        open = self.get_comm_real_data(code, 16)
+        high = self.get_comm_real_data(code, 17)
+        low = self.get_comm_real_data(code, 18)
 
-        self.opw00018_output['single'].append(Kiwoom.change_format(total_purchase_price))
-        self.opw00018_output['single'].append(Kiwoom.change_format(total_eval_price))
-        self.opw00018_output['single'].append(Kiwoom.change_format(total_eval_profit_loss_price))
-        self.opw00018_output['single'].append(Kiwoom.change_format2(total_earning_rate))
-        self.opw00018_output['single'].append(Kiwoom.change_format(estimated_deposit))
-
-        rows = self._get_repeat_cnt(trcode, rqname)
-
-        for i in range(rows):
-            name = self._comm_get_data(trcode, "", rqname, i, "종목명")
-            quantity = self._comm_get_data(trcode, "", rqname, i, "보유수량")
-            purchase_price = self._comm_get_data(trcode, "", rqname, i, "매입가")
-            current_price = self._comm_get_data(trcode, "", rqname, i, "현재가")
-            eval_profit_loss_price = self._comm_get_data(trcode, "", rqname, i, "평가손익")
-            earning_rate = self._comm_get_data(trcode, "", rqname, i, "수익률(%)")
-
-            quantity = Kiwoom.change_format(quantity)
-            purchase_price = Kiwoom.change_format(purchase_price)
-            current_price = Kiwoom.change_format(current_price)
-            eval_profit_loss_price = Kiwoom.change_format(eval_profit_loss_price)
-            earning_rate = Kiwoom.change_format2(earning_rate)
-
-            self.opw00018_output['multi'].append([name, quantity, purchase_price, current_price, eval_profit_loss_price, earning_rate])
-
-    def _opw00001(self, rqname, trcode):
-        d2_deposit = self._comm_get_data(trcode, "", rqname, 0, "d+2추정예수금")
-        self.d2_deposit = Kiwoom.change_format(d2_deposit)
+        self.real_data.append(now_price)
+        self.real_data.append(previous_day_price)
+        self.real_data.append(up_down_per)
+        self.real_data.append(first_sell_hoga)
+        self.real_data.append(first_buy_hoga)
+        self.real_data.append(trading_volume)
+        self.real_data.append(trading_price)
+        self.real_data.append(open)
+        self.real_data.append(high)
+        self.real_data.append(low)
 
     def _comm_get_data(self, code, real_type, field_name, index, item_name):
         ret = self.dynamicCall("CommGetData(QString, QString, QString, int, QString)", code, real_type, field_name, index, item_name)
@@ -157,6 +186,11 @@ class Kiwoom(QAxWidget):
     def get_connect_state(self):
         result = self.dynamicCall("GetConnectState()")
         return result
+
+    def get_comm_real_data(self, code, fid):
+        ret = self.dynamicCall("GetCommRealData(QString, int)", code, fid)
+        print("get_comm_real_data", ret)
+        return ret
 
     def get_login_info(self, s_Tag):
         """
@@ -188,9 +222,18 @@ class Kiwoom(QAxWidget):
     def reset_opw00018_output(self):
         self.opw00018_output = {'single': [], 'multi': []}
 
+    def reset_real_fid(self):
+        self.real_data = ['0'] * 10
+        self.real_hoga = ['0']
+
     def set_input_value(self, id, value):
         self.dynamicCall("SetInputValue(QString, QString)", id, value)
 
+    def set_real_reg(self, screen_no, code_list, fid_list, opt_type):
+        # ret = self.dynamicCall("SetRealReg(QString, QString, QString, QString)", screen_no, code_list, fid_list, opt_type)
+        # print("set_real_reg", ret)
+        # return ret
+        self.dynamicCall("SetRealReg(QString, QString, QString, QString)", screen_no, code_list, fid_list, opt_type)
 
     @staticmethod
     def change_format(data):
