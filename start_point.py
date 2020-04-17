@@ -68,7 +68,7 @@ class Start(QWidget,form_class):
         self.label.setText(today_time)
 
         week = int(datetime.datetime.today().strftime('%w'))
-        day = int(datetime.datetime.today().strftime('%d'))
+        day = datetime.datetime.today().strftime('%d')
         hour = datetime.datetime.today().strftime('%H')
         min = datetime.datetime.today().strftime('%M')
 
@@ -77,11 +77,11 @@ class Start(QWidget,form_class):
         if week == 6 or week == 0:
             self.label_2.setText("주말 입니다.")
             self._open_close(False)
-        elif int(hour) < 9 or (int(hour_P_min) > 1530):    # 9 - 15:30 # 일단 이렇게 보류 / 더 나은 방법 찾아보기
-            self.label_2.setText("개장 시간이 아닙니다.")
-            self._open_close(False)
         elif day in self.holidays:
             self.label_2.setText("휴무일 입니다.")
+            self._open_close(False)
+        elif int(hour) < 9 or (int(hour_P_min) > 1530):    # 9 - 15:30 # 일단 이렇게 보류 / 더 나은 방법 찾아보기
+            self.label_2.setText("개장 시간이 아닙니다.")
             self._open_close(False)
         else:
             self.label_2.setText("장 오픈 !")
@@ -111,7 +111,7 @@ class Start(QWidget,form_class):
 
         holiday_req = requests.get(url=url)
         holiday_xml = holiday_req.text
-
+        # print(holiday_xml)
         soup = BeautifulSoup(holiday_xml, "xml")
         holidays = soup.find_all("locdate")
 
@@ -122,6 +122,7 @@ class Start(QWidget,form_class):
             holiday_slice = holiday_slice[6:8]
             holiday_day.append(holiday_slice)
         print("open_api_hoilday")
+        print(holiday_day)
         return holiday_day
 
     def open_file(self):

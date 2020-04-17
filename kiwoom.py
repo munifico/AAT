@@ -136,33 +136,137 @@ class Kiwoom(QAxWidget):
         # 미 체결 리스트는 나중에 추가
         # self.un_chejan_lists.append([order_num, item_code, order_quantity, miss_quantity, sell_buy_num[sell_buy_gubun]])
 
-    def _receive_real_data(self, code, typea, data):
-        print("real_data 이벤트 : ", typea)
-        print("real_data data : ", data)
-        print(type(data))
-        self.real_data = []
+    def _receive_real_data(self, code, fid_type, data):
+        print("real_data 이벤트 : ", fid_type)
+        # print("real_data data : ", data)
+        # print(type(data))
+        if fid_type == "주식체결":
+            self.real_data = []
 
-        now_price = self.get_comm_real_data(code, 10)
-        previous_day_price = self.get_comm_real_data(code, 11)
-        up_down_per = self.get_comm_real_data(code, 12)
-        first_sell_hoga = self.get_comm_real_data(code, 27)
-        first_buy_hoga = self.get_comm_real_data(code, 28)
-        trading_volume = self.get_comm_real_data(code, 13)
-        trading_price = self.get_comm_real_data(code, 14)
-        open = self.get_comm_real_data(code, 16)
-        high = self.get_comm_real_data(code, 17)
-        low = self.get_comm_real_data(code, 18)
+            now_price = self.get_comm_real_data(code, 10)
+            previous_day_price = self.get_comm_real_data(code, 11)
+            up_down_per = self.get_comm_real_data(code, 12)
+            first_sell_hoga = self.get_comm_real_data(code, 27)
+            first_buy_hoga = self.get_comm_real_data(code, 28)
+            trading_volume = self.get_comm_real_data(code, 13)
+            trading_price = self.get_comm_real_data(code, 14)
+            open = self.get_comm_real_data(code, 16)
+            high = self.get_comm_real_data(code, 17)
+            low = self.get_comm_real_data(code, 18)
+            yester_trading_quantity_per = self.get_comm_real_data(code, 30)
 
-        self.real_data.append(now_price)
-        self.real_data.append(previous_day_price)
-        self.real_data.append(up_down_per)
-        self.real_data.append(first_sell_hoga)
-        self.real_data.append(first_buy_hoga)
-        self.real_data.append(trading_volume)
-        self.real_data.append(trading_price)
-        self.real_data.append(open)
-        self.real_data.append(high)
-        self.real_data.append(low)
+            self.real_data.append(now_price)
+            self.real_data.append(previous_day_price)
+            self.real_data.append(up_down_per)
+            self.real_data.append(first_sell_hoga)
+            self.real_data.append(first_buy_hoga)
+            self.real_data.append(trading_volume)
+            self.real_data.append(trading_price)
+            self.real_data.append(open)
+            self.real_data.append(high)
+            self.real_data.append(low)
+            self.real_data.append(yester_trading_quantity_per)
+
+            print(self.real_data)
+
+        elif fid_type == "주식호가잔량":
+            self.real_hoga = []
+            sub_ho = []
+            sell_ho_list = []
+            sell_ho_quantity_list = []
+            buy_ho_list = []
+            buy_ho_quantity_list = []
+
+            ho_time = self.get_comm_real_data(code, 21)
+            sell_total_quantity = self.get_comm_real_data(code, 121)
+            buy_total_quantity = self.get_comm_real_data(code, 125)
+            expect_che = self.get_comm_real_data(code, 23)
+            expect_che_quantity = self.get_comm_real_data(code, 24)
+            yester_close_expect_che = self.get_comm_real_data(code, 200)
+            yester_close_expect_che_per = self.get_comm_real_data(code, 201)
+            yester_close = int(expect_che) - int(yester_close_expect_che)
+            up_max = yester_close + (yester_close * 0.3)
+            down_min = yester_close - (yester_close * 0.3)
+            total_trading_quantity = self.get_comm_real_data(code, 13)
+
+            sub_ho.append(ho_time)
+            sub_ho.append(sell_total_quantity)
+            sub_ho.append(buy_total_quantity)
+            sub_ho.append(expect_che)
+            sub_ho.append(expect_che_quantity)
+            sub_ho.append(yester_close_expect_che)
+            sub_ho.append(yester_close_expect_che_per)
+            sub_ho.append(str(up_max))
+            sub_ho.append(str(down_min))
+            sub_ho.append(total_trading_quantity)
+
+            for i in range(41, 51):
+                sell_ho_list.append(self.get_comm_real_data(code, i))
+
+            for i in range(61, 71):
+                sell_ho_quantity_list.append(self.get_comm_real_data(code, i))
+
+            for i in range(51, 61):
+                buy_ho_list.append(self.get_comm_real_data(code, i))
+
+            for i in range(71, 81):
+                buy_ho_quantity_list.append(self.get_comm_real_data(code, i))
+
+            self.real_hoga.append(sub_ho)
+            self.real_hoga.append(sell_ho_list)
+            self.real_hoga.append(sell_ho_quantity_list)
+            self.real_hoga.append(buy_ho_list)
+            self.real_hoga.append(buy_ho_quantity_list)
+
+            print(self.real_hoga)
+            # sell_ho_1 = self.get_comm_real_data(code, 41)
+            # sell_ho_2 = self.get_comm_real_data(code, 42)
+            # sell_ho_3 = self.get_comm_real_data(code, 43)
+            # sell_ho_4 = self.get_comm_real_data(code, 44)
+            # sell_ho_5 = self.get_comm_real_data(code, 45)
+            # sell_ho_6 = self.get_comm_real_data(code, 46)
+            # sell_ho_7 = self.get_comm_real_data(code, 47)
+            # sell_ho_8 = self.get_comm_real_data(code, 48)
+            # sell_ho_9 = self.get_comm_real_data(code, 49)
+            # sell_ho_10 = self.get_comm_real_data(code, 50)
+
+
+            # sell_ho_quantity_1 = self.get_comm_real_data(code, 61)
+            # sell_ho_quantity_2 = self.get_comm_real_data(code, 62)
+            # sell_ho_quantity_3 = self.get_comm_real_data(code, 63)
+            # sell_ho_quantity_4 = self.get_comm_real_data(code, 64)
+            # sell_ho_quantity_5 = self.get_comm_real_data(code, 65)
+            # sell_ho_quantity_6 = self.get_comm_real_data(code, 66)
+            # sell_ho_quantity_7 = self.get_comm_real_data(code, 67)
+            # sell_ho_quantity_8 = self.get_comm_real_data(code, 68)
+            # sell_ho_quantity_9 = self.get_comm_real_data(code, 69)
+            # sell_ho_quantity_10 = self.get_comm_real_data(code, 70)
+
+
+            # buy_ho_1 = self.get_comm_real_data(code, 51)
+            # buy_ho_2 = self.get_comm_real_data(code, 52)
+            # buy_ho_3 = self.get_comm_real_data(code, 53)
+            # buy_ho_4 = self.get_comm_real_data(code, 54)
+            # buy_ho_5 = self.get_comm_real_data(code, 55)
+            # buy_ho_6 = self.get_comm_real_data(code, 56)
+            # buy_ho_7 = self.get_comm_real_data(code, 57)
+            # buy_ho_8 = self.get_comm_real_data(code, 58)
+            # buy_ho_9 = self.get_comm_real_data(code, 59)
+            # buy_ho_10 = self.get_comm_real_data(code, 60)
+
+
+            # buy_ho_quantity_1 = self.get_comm_real_data(code, 71)
+            # buy_ho_quantity_2 = self.get_comm_real_data(code, 72)
+            # buy_ho_quantity_3 = self.get_comm_real_data(code, 73)
+            # buy_ho_quantity_4 = self.get_comm_real_data(code, 74)
+            # buy_ho_quantity_5 = self.get_comm_real_data(code, 75)
+            # buy_ho_quantity_6 = self.get_comm_real_data(code, 76)
+            # buy_ho_quantity_7 = self.get_comm_real_data(code, 77)
+            # buy_ho_quantity_8 = self.get_comm_real_data(code, 78)
+            # buy_ho_quantity_9 = self.get_comm_real_data(code, 79)
+            # buy_ho_quantity_10 = self.get_comm_real_data(code, 80)
+
+
 
     def _comm_get_data(self, code, real_type, field_name, index, item_name):
         ret = self.dynamicCall("CommGetData(QString, QString, QString, int, QString)", code, real_type, field_name, index, item_name)
@@ -222,9 +326,10 @@ class Kiwoom(QAxWidget):
     def reset_opw00018_output(self):
         self.opw00018_output = {'single': [], 'multi': []}
 
+    # 초기에 보여줘야 하는 값 0으로 셋팅
     def reset_real_fid(self):
-        self.real_data = ['0'] * 10
-        self.real_hoga = ['0']
+        self.real_data = ['0'] * 11
+        self.real_hoga = [['0'] * 10 for i in range(5)]
 
     def set_input_value(self, id, value):
         self.dynamicCall("SetInputValue(QString, QString)", id, value)

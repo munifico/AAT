@@ -59,6 +59,27 @@ class Trading(QMainWindow, form_class):
             self.pushButton_7.clicked.connect(lambda:self.set_stacked_widget(num=4))
             self.pushButton_8.clicked.connect(lambda:self.set_stacked_widget(num=5))
             self.pushButton_9.clicked.connect(self.hoga)
+            self.pushButton_10.clicked.connect(lambda:self.hoga_clicked(num=10))
+            self.pushButton_11.clicked.connect(lambda:self.hoga_clicked(num=11))
+            self.pushButton_12.clicked.connect(lambda:self.hoga_clicked(num=12))
+            self.pushButton_13.clicked.connect(lambda:self.hoga_clicked(num=13))
+            self.pushButton_14.clicked.connect(lambda:self.hoga_clicked(num=14))
+            self.pushButton_15.clicked.connect(lambda:self.hoga_clicked(num=15))
+            self.pushButton_16.clicked.connect(lambda:self.hoga_clicked(num=16))
+            self.pushButton_17.clicked.connect(lambda:self.hoga_clicked(num=17))
+            self.pushButton_18.clicked.connect(lambda:self.hoga_clicked(num=18))
+            self.pushButton_19.clicked.connect(lambda:self.hoga_clicked(num=19))
+            self.pushButton_20.clicked.connect(lambda:self.hoga_clicked(num=20))
+            self.pushButton_21.clicked.connect(lambda:self.hoga_clicked(num=21))
+            self.pushButton_22.clicked.connect(lambda:self.hoga_clicked(num=22))
+            self.pushButton_23.clicked.connect(lambda:self.hoga_clicked(num=23))
+            self.pushButton_24.clicked.connect(lambda:self.hoga_clicked(num=24))
+            self.pushButton_25.clicked.connect(lambda:self.hoga_clicked(num=25))
+            self.pushButton_26.clicked.connect(lambda:self.hoga_clicked(num=26))
+            self.pushButton_27.clicked.connect(lambda:self.hoga_clicked(num=27))
+            self.pushButton_28.clicked.connect(lambda:self.hoga_clicked(num=28))
+            self.pushButton_29.clicked.connect(lambda:self.hoga_clicked(num=29))
+
 
             self.comboBox_3.activated.connect(self.type_changed)
             self.comboBox_2.activated.connect(self.type_order)
@@ -74,6 +95,54 @@ class Trading(QMainWindow, form_class):
             self.pushButton.setEnabled(False)
             self.pushButton_2.setEnabled(False)
             self.checkBox.setEnabled(False)
+
+    def hoga_clicked(self, num):
+        # for i in range(10, 30):
+        #     if i == num:
+        #         pass
+        self.comboBox_3.setCurrentIndex(0)
+        if num == 10:
+            price = self.pushButton_10.text()
+        elif num == 11:
+            price = self.pushButton_11.text()
+        elif num == 12:
+            price = self.pushButton_12.text()
+        elif num == 13:
+            price = self.pushButton_13.text()
+        elif num == 14:
+            price = self.pushButton_14.text()
+        elif num == 15:
+            price = self.pushButton_15.text()
+        elif num == 16:
+            price = self.pushButton_16.text()
+        elif num == 17:
+            price = self.pushButton_17.text()
+        elif num == 18:
+            price = self.pushButton_18.text()
+        elif num == 19:
+            price = self.pushButton_19.text()
+        elif num == 20:
+            price = self.pushButton_20.text()
+        elif num == 21:
+            price = self.pushButton_21.text()
+        elif num == 22:
+            price = self.pushButton_22.text()
+        elif num == 23:
+            price = self.pushButton_23.text()
+        elif num == 24:
+            price = self.pushButton_24.text()
+        elif num == 25:
+            price = self.pushButton_25.text()
+        elif num == 26:
+            price = self.pushButton_26.text()
+        elif num == 27:
+            price = self.pushButton_27.text()
+        elif num == 28:
+            price = self.pushButton_28.text()
+        elif num == 29:
+            price = self.pushButton_29.text()
+        value = int(price)
+        self.spinBox_2.setValue(value)
 
     def hoga(self):
         """
@@ -204,7 +273,9 @@ class Trading(QMainWindow, form_class):
 
         code = self.lineEdit_4.text()
         # fid_list = "41;51;42;52;27;28;10;11;12;15;13;14;16;17;18"
-        fid_list = "10;11;12;27;28;13;14;16;17;18"
+        che_fid = "10;11;12;27;28;13;14;16;17;18"
+        ho_fid = "41;61;51;71;42;62;52;72;43;63;53;73;44;64;54;74;45;65;55;75;46;66;56;76;47;67;57;77;48;68;58;78;49;69;59;79;50;70;60;80;121;125;23;24"
+        fid_list = che_fid + ";" + ho_fid
         type = 0
         # 10 현재가, 체결가, 실시간종가
         #     11 전일 대비
@@ -239,6 +310,64 @@ class Trading(QMainWindow, form_class):
         self.label_53.setText(self.kiwoom.real_data[9])
         self.label_54.setText(self.kiwoom.real_data[3])
         self.label_55.setText(self.kiwoom.real_data[4])
+        self.label_22.setText(self.kiwoom.real_data[10])
+
+        ###
+
+        self.pushButton_10.setText(self.kiwoom.real_hoga[1][9])
+        self.pushButton_11.setText(self.kiwoom.real_hoga[1][8])
+        self.pushButton_12.setText(self.kiwoom.real_hoga[1][7])
+        self.pushButton_13.setText(self.kiwoom.real_hoga[1][6])
+        self.pushButton_14.setText(self.kiwoom.real_hoga[1][5])
+        self.pushButton_15.setText(self.kiwoom.real_hoga[1][4])
+        self.pushButton_16.setText(self.kiwoom.real_hoga[1][3])
+        self.pushButton_17.setText(self.kiwoom.real_hoga[1][2])
+        self.pushButton_18.setText(self.kiwoom.real_hoga[1][1])
+        self.pushButton_19.setText(self.kiwoom.real_hoga[1][0])
+
+        self.pushButton_20.setText(self.kiwoom.real_hoga[3][0])
+        self.pushButton_21.setText(self.kiwoom.real_hoga[3][1])
+        self.pushButton_22.setText(self.kiwoom.real_hoga[3][2])
+        self.pushButton_23.setText(self.kiwoom.real_hoga[3][3])
+        self.pushButton_24.setText(self.kiwoom.real_hoga[3][4])
+        self.pushButton_25.setText(self.kiwoom.real_hoga[3][5])
+        self.pushButton_26.setText(self.kiwoom.real_hoga[3][6])
+        self.pushButton_27.setText(self.kiwoom.real_hoga[3][7])
+        self.pushButton_28.setText(self.kiwoom.real_hoga[3][8])
+        self.pushButton_29.setText(self.kiwoom.real_hoga[3][9])
+
+        self.label_70.setText(self.kiwoom.real_hoga[2][9])
+        self.label_71.setText(self.kiwoom.real_hoga[2][8])
+        self.label_72.setText(self.kiwoom.real_hoga[2][7])
+        self.label_73.setText(self.kiwoom.real_hoga[2][6])
+        self.label_74.setText(self.kiwoom.real_hoga[2][5])
+        self.label_75.setText(self.kiwoom.real_hoga[2][4])
+        self.label_76.setText(self.kiwoom.real_hoga[2][3])
+        self.label_77.setText(self.kiwoom.real_hoga[2][2])
+        self.label_78.setText(self.kiwoom.real_hoga[2][1])
+        self.label_79.setText(self.kiwoom.real_hoga[2][0])
+
+        self.label_80.setText(self.kiwoom.real_hoga[4][0])
+        self.label_81.setText(self.kiwoom.real_hoga[4][1])
+        self.label_82.setText(self.kiwoom.real_hoga[4][2])
+        self.label_83.setText(self.kiwoom.real_hoga[4][3])
+        self.label_84.setText(self.kiwoom.real_hoga[4][4])
+        self.label_85.setText(self.kiwoom.real_hoga[4][5])
+        self.label_86.setText(self.kiwoom.real_hoga[4][6])
+        self.label_87.setText(self.kiwoom.real_hoga[4][7])
+        self.label_88.setText(self.kiwoom.real_hoga[4][8])
+        self.label_89.setText(self.kiwoom.real_hoga[4][9])
+
+        self.label_62.setText(self.kiwoom.real_hoga[0][0])
+        self.label_64.setText(self.kiwoom.real_hoga[0][1])
+        self.label_59.setText(self.kiwoom.real_hoga[0][2])
+        self.label_61.setText(self.kiwoom.real_hoga[0][3])
+        self.label_63.setText(self.kiwoom.real_hoga[0][4])
+        self.label_60.setText(self.kiwoom.real_hoga[0][5])
+        self.label_58.setText(self.kiwoom.real_hoga[0][6])
+        self.label_18.setText(self.kiwoom.real_hoga[0][7])
+        self.label_19.setText(self.kiwoom.real_hoga[0][8])
+        self.label_21.setText(self.kiwoom.real_hoga[0][9])
 
     def set_stacked_widget(self, num):
         if num == 0:
