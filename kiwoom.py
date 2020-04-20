@@ -40,6 +40,8 @@ class Kiwoom(QAxWidget):
             self._opw00018(rqname, trcode)
         elif rqname == "opw00001_req":
             self._opw00001(rqname, trcode)
+        elif rqname == "":
+            pass
 
         try:
             self.tr_event_loop.exit()
@@ -185,8 +187,8 @@ class Kiwoom(QAxWidget):
             yester_close_expect_che = self.get_comm_real_data(code, 200)
             yester_close_expect_che_per = self.get_comm_real_data(code, 201)
             yester_close = int(expect_che) - int(yester_close_expect_che)
-            up_max = yester_close + (yester_close * 0.3)
-            down_min = yester_close - (yester_close * 0.3)
+            up_max = yester_close + int(yester_close * 0.3)
+            down_min = yester_close - int(yester_close * 0.3)
             total_trading_quantity = self.get_comm_real_data(code, 13)
 
             sub_ho.append(ho_time)
@@ -286,6 +288,9 @@ class Kiwoom(QAxWidget):
         self.dynamicCall("commRqData(QString, QString, int, QString)", rqname, trcode, next, screen_no)
         self.tr_event_loop = QEventLoop()
         self.tr_event_loop.exec_()
+
+    def comm_kw_rq_data(self, code_list, next, code_count, type_flag, rqname, screen):
+        pass
 
     def get_connect_state(self):
         result = self.dynamicCall("GetConnectState()")

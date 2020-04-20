@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9523432-406d-4b10-b2ac-7dfa98bbcc28" name="Default Changelist" comment="Learned the matplotlib">
-      <change afterPath="$PROJECT_DIR$/C.qml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CForm.ui.qml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CForm.ui.qml" beforeDir="false" afterPath="$PROJECT_DIR$/CForm.ui.qml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CForm.ui.qml.autosave" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/kiwoom.py" beforeDir="false" afterPath="$PROJECT_DIR$/kiwoom.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/start_point.py" beforeDir="false" afterPath="$PROJECT_DIR$/start_point.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/trading.py" beforeDir="false" afterPath="$PROJECT_DIR$/trading.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/trading.ui" beforeDir="false" afterPath="$PROJECT_DIR$/trading.ui" afterDir="false" />
     </list>
@@ -375,32 +374,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trading.py</url>
-          <line>406</line>
+          <line>354</line>
           <option name="timeStamp" value="45" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trading.py</url>
-          <line>411</line>
+          <line>359</line>
           <option name="timeStamp" value="46" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/kiwoom.py</url>
-          <line>138</line>
+          <line>140</line>
           <option name="timeStamp" value="47" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/kiwoom.py</url>
-          <line>293</line>
-          <option name="timeStamp" value="48" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/kiwoom.py</url>
-          <line>336</line>
+          <line>341</line>
           <option name="timeStamp" value="49" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/kiwoom.py</url>
-          <line>329</line>
+          <line>334</line>
           <option name="timeStamp" value="50" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -410,18 +404,23 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trading.py</url>
-          <line>302</line>
+          <line>303</line>
           <option name="timeStamp" value="52" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/kiwoom.py</url>
-          <line>145</line>
+          <line>147</line>
           <option name="timeStamp" value="53" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/kiwoom.py</url>
-          <line>146</line>
+          <line>148</line>
           <option name="timeStamp" value="54" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/kiwoom.py</url>
+          <line>298</line>
+          <option name="timeStamp" value="55" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
