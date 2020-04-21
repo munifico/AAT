@@ -42,6 +42,8 @@ class Trading(QMainWindow, form_class):
             self.checkBox.setEnabled(True)
             self.checkBox_2.setEnabled(False)
 
+            self.interest_stock_list = []
+
             account_num = int(self.kiwoom.get_login_info("ACCOUNT_CNT"))
             accounts = self.kiwoom.get_login_info("ACCNO")
             accounts_list = accounts.split(';')[0:account_num]
@@ -49,6 +51,7 @@ class Trading(QMainWindow, form_class):
 
             self.lineEdit.textChanged.connect(self.code_changed)
             self.lineEdit_4.textChanged.connect(self.code_changed_hoga)
+            self.lineEdit_7.textChanged.connect(self.code_changed_interest)
 
             self.pushButton.clicked.connect(self.send_order)
             self.pushButton_2.clicked.connect(self.check_balance)
@@ -79,6 +82,8 @@ class Trading(QMainWindow, form_class):
             self.pushButton_27.clicked.connect(lambda:self.hoga_clicked(num=27))
             self.pushButton_28.clicked.connect(lambda:self.hoga_clicked(num=28))
             self.pushButton_29.clicked.connect(lambda:self.hoga_clicked(num=29))
+            self.pushButton_30.clicked.connect(self.add_interest_stock)
+            self.pushButton_31.clicked.connect(self.del_interest_stock)
 
 
             self.comboBox_3.activated.connect(self.type_changed)
@@ -352,6 +357,11 @@ class Trading(QMainWindow, form_class):
         self.lineEdit_5.setText(name)
         self.lineEdit.setText(code)
 
+    def code_changed_interest(self):
+        code = self.lineEdit_7.text()
+        name = self.kiwoom.get_master_code_name(code=code)
+        self.lineEdit_8.setText(name)
+
     def send_order(self):
         """
         매수 정정, 매도 정정은 거래 내역 만들고 추가
@@ -367,9 +377,10 @@ class Trading(QMainWindow, form_class):
         price = self.spinBox_2.value()
         order_num = self.lineEdit_3.text()
 
-        self.kiwoom.send_order("send_order_req", "0101", account, order_type_lookup[order_type], code, num, price, hoga_lookup[hoga], order_num)
         if code != '' and num != 0:
-            QMessageBox.about(self, "주문", "주문이 요청되었습니다.\n실시간 체결 현황을 확인해주세요")
+             self.kiwoom.send_order("send_order_req", "0101", account, order_type_lookup[order_type], code, num, price,
+                                    hoga_lookup[hoga], order_num)
+             QMessageBox.about(self, "주문", "주문이 요청되었습니다.\n실시간 체결 현황을 확인해주세요")
 
     def check_balance(self):
         self.kiwoom.reset_opw00018_output()
@@ -409,6 +420,34 @@ class Trading(QMainWindow, form_class):
 
         self.tableWidget_2.resizeRowsToContents()
 
+    def add_interest_stock(self):
+        if self.lineEdit_8.text() != "":
+            code = self.lineEdit_7.text()
+            name = self.lineEdit_8.text()
+            stock_list = []
+            stock_list.append(code)
+            stock_list.append(name)
+            self.interest_stock_list.append(stock_list)
+
+            list_count = len(self.interest_stock_list)
+            self.tableWidget_4.setRowCount(list_count)
+
+            for i in range(list_count):
+                for count, item in enumerate(self.interest_stock_list[i]):
+                    item = QTableWidgetItem(item)
+                    self.tableWidget_4.setItem(i, count, item)
+
+            # self.tableWidget_4.setItem(0, 0, code)
+            # self.tableWidget_4.setItem(0, 1, name)
+
+            self.tableWidget_4.resizeRowsToContents()
+            self.tableWidget_4.resizeColumnsToContents()
+        else:
+            QMessageBox.about(self, "오류", "정상적인 종목코드를 입력하세요")
+
+    def del_interest_stock(self):
+        pass
+
     def stacked_0_timeout(self):
         if self.checkBox.isChecked():
             self.check_balance()
@@ -446,7 +485,7 @@ class Trading(QMainWindow, form_class):
             self.label_43.setText(str)
             color, str = self.color(self.kiwoom.real_data[5])
             self.label_44.setStyleSheet(color)
-            self.label_44.setText(str)
+            self.label_44.setText(self.kiwoom.real_data[5])
             color, str = self.color(self.kiwoom.real_data[6])
             self.label_45.setStyleSheet(color)
             self.label_45.setText(str)
@@ -467,7 +506,7 @@ class Trading(QMainWindow, form_class):
             self.label_55.setText(str)
             color, str = self.color(self.kiwoom.real_data[10])
             self.label_23.setStyleSheet(color)
-            self.label_23.setText(str)
+            self.label_23.setText(self.kiwoom.real_data[10])
 
             color, str = self.color(self.kiwoom.real_hoga[1][9])
             self.pushButton_10.setStyleSheet(color)
@@ -610,15 +649,13 @@ class Trading(QMainWindow, form_class):
             self.label_63.setText(str)
             color, str = self.color(self.kiwoom.real_hoga[0][5])
             self.label_60.setStyleSheet(color)
-            self.label_60.setText(str)
+            self.label_60.setText(self.kiwoom.real_hoga[0][5])
             color, str = self.color(self.kiwoom.real_hoga[0][6])
             self.label_58.setStyleSheet(color)
-            self.label_58.setText(str)
+            self.label_58.setText(self.kiwoom.real_hoga[0][6])
             color, str = self.color(self.kiwoom.real_hoga[0][7])
-            self.label_18.setStyleSheet(color)
             self.label_18.setText(str)
             color, str = self.color(self.kiwoom.real_hoga[0][8])
-            self.label_19.setStyleSheet(color)
             self.label_19.setText(str)
             color, str = self.color(self.kiwoom.real_hoga[0][9])
             self.label_21.setStyleSheet(color)

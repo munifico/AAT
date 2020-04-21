@@ -372,7 +372,7 @@
     <enum>QFrame::Plain</enum>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="page">
     <widget class="QGroupBox" name="groupBox_2">
@@ -934,7 +934,7 @@
         <x>50</x>
         <y>40</y>
         <width>321</width>
-        <height>611</height>
+        <height>681</height>
        </rect>
       </property>
       <property name="font">
@@ -949,9 +949,9 @@
        <property name="geometry">
         <rect>
          <x>110</x>
-         <y>320</y>
+         <y>350</y>
          <width>193</width>
-         <height>271</height>
+         <height>309</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_15">
@@ -1296,7 +1296,7 @@ background-color: rgb(255, 156, 158);
          <x>20</x>
          <y>30</y>
          <width>193</width>
-         <height>271</height>
+         <height>299</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -1618,7 +1618,7 @@ QPushButton:hover
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>300</y>
+         <y>330</y>
          <width>281</width>
          <height>20</height>
         </rect>
@@ -1632,7 +1632,7 @@ QPushButton:hover
       <property name="geometry">
        <rect>
         <x>429</x>
-        <y>380</y>
+        <y>440</y>
         <width>311</width>
         <height>281</height>
        </rect>
@@ -1762,7 +1762,7 @@ QPushButton:hover
       <property name="geometry">
        <rect>
         <x>450</x>
-        <y>91</y>
+        <y>111</y>
         <width>60</width>
         <height>20</height>
        </rect>
@@ -1775,7 +1775,7 @@ QPushButton:hover
       <property name="geometry">
        <rect>
         <x>559</x>
-        <y>91</y>
+        <y>111</y>
         <width>85</width>
         <height>20</height>
        </rect>
@@ -1788,7 +1788,7 @@ QPushButton:hover
       <property name="geometry">
        <rect>
         <x>429</x>
-        <y>240</y>
+        <y>290</y>
         <width>221</width>
         <height>111</height>
        </rect>
@@ -1885,7 +1885,7 @@ QPushButton:hover
       <property name="geometry">
        <rect>
         <x>450</x>
-        <y>51</y>
+        <y>71</y>
         <width>80</width>
         <height>20</height>
        </rect>
@@ -1898,7 +1898,7 @@ QPushButton:hover
       <property name="geometry">
        <rect>
         <x>559</x>
-        <y>51</y>
+        <y>71</y>
         <width>85</width>
         <height>20</height>
        </rect>
@@ -1911,7 +1911,7 @@ QPushButton:hover
       <property name="geometry">
        <rect>
         <x>449</x>
-        <y>191</y>
+        <y>220</y>
         <width>147</width>
         <height>20</height>
        </rect>
@@ -1924,7 +1924,7 @@ QPushButton:hover
       <property name="geometry">
        <rect>
         <x>626</x>
-        <y>191</y>
+        <y>220</y>
         <width>85</width>
         <height>20</height>
        </rect>
@@ -1937,7 +1937,7 @@ QPushButton:hover
       <property name="geometry">
        <rect>
         <x>626</x>
-        <y>151</y>
+        <y>180</y>
         <width>85</width>
         <height>20</height>
        </rect>
@@ -1950,7 +1950,7 @@ QPushButton:hover
       <property name="geometry">
        <rect>
         <x>449</x>
-        <y>151</y>
+        <y>180</y>
         <width>147</width>
         <height>20</height>
        </rect>
@@ -1963,7 +1963,7 @@ QPushButton:hover
       <property name="geometry">
        <rect>
         <x>660</x>
-        <y>90</y>
+        <y>110</y>
         <width>77</width>
         <height>18</height>
        </rect>
@@ -1996,6 +1996,9 @@ QPushButton:hover
         <height>192</height>
        </rect>
       </property>
+      <property name="rowCount">
+       <number>0</number>
+      </property>
       <column>
        <property name="text">
         <string>종목코드</string>
@@ -2011,9 +2014,9 @@ QPushButton:hover
     <widget class="QGroupBox" name="groupBox_11">
      <property name="geometry">
       <rect>
-       <x>320</x>
-       <y>150</y>
-       <width>381</width>
+       <x>160</x>
+       <y>90</y>
+       <width>671</width>
        <height>121</height>
       </rect>
      </property>
@@ -2051,7 +2054,7 @@ QPushButton:hover
        <rect>
         <x>30</x>
         <y>30</y>
-        <width>325</width>
+        <width>223</width>
         <height>29</height>
        </rect>
       </property>
@@ -2067,6 +2070,35 @@ QPushButton:hover
         <widget class="QLineEdit" name="lineEdit_7"/>
        </item>
       </layout>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_8">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>370</x>
+        <y>30</y>
+        <width>113</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(170, 255, 255)</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_24">
+      <property name="geometry">
+       <rect>
+        <x>300</x>
+        <y>30</y>
+        <width>60</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>종목명</string>
+      </property>
      </widget>
     </widget>
     <widget class="QGroupBox" name="groupBox_12">

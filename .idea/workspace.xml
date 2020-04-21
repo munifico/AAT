@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9523432-406d-4b10-b2ac-7dfa98bbcc28" name="Default Changelist" comment="Learned the matplotlib">
+      <change beforePath="$PROJECT_DIR$/.idea/AAT.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/AAT.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CForm.ui.qml" beforeDir="false" afterPath="$PROJECT_DIR$/CForm.ui.qml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CForm.ui.qml.autosave" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/kiwoom.py" beforeDir="false" afterPath="$PROJECT_DIR$/kiwoom.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/trading.py" beforeDir="false" afterPath="$PROJECT_DIR$/trading.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/trading.ui" beforeDir="false" afterPath="$PROJECT_DIR$/trading.ui" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,16 +33,15 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="IgnoredFileRootStore">
-    <option name="generatedRoots">
-      <set>
-        <option value="D:\source\AAT\.idea" />
-      </set>
-    </option>
-  </component>
   <component name="ProjectId" id="1YncJrQyZi9s5Q67MB6q5vh8CNE" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="C:/Program Files (x86)/Battle.net/Battle.net.11943/Qt5Qml.dll" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
@@ -53,18 +50,6 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\source\AAT\TEST" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="Python.main (1)">
     <configuration name="kiwoom" type="PythonConfigurationType" factoryName="Python" temporary="true">
@@ -229,13 +214,12 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Learned the base api." />
@@ -243,6 +227,60 @@
     <MESSAGE value="Learned the zipline but version error" />
     <MESSAGE value="Learned the matplotlib" />
     <option name="LAST_COMMIT_MESSAGE" value="Learned the matplotlib" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="937" y="302" key="#main_(1)" timestamp="1587394310788">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="937" y="302" key="#main_(1)/0.0.2560.1400@0.0.2560.1400" timestamp="1587394310788" />
+    <state width="784" height="466" key="DebuggerActiveHint" timestamp="1587482163857">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="784" height="466" key="DebuggerActiveHint/0.0.2560.1400@0.0.2560.1400" timestamp="1587482163857" />
+    <state width="1258" height="264" key="GridCell.Tab.0.bottom" timestamp="1587484729682">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1258" height="264" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1587484729682" />
+    <state width="1258" height="264" key="GridCell.Tab.0.center" timestamp="1587484729682">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1258" height="264" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1587484729682" />
+    <state width="1258" height="264" key="GridCell.Tab.0.left" timestamp="1587484729682">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1258" height="264" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1587484729682" />
+    <state width="1258" height="264" key="GridCell.Tab.0.right" timestamp="1587484729682">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1258" height="264" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1587484729682" />
+    <state width="1258" height="408" key="GridCell.Tab.1.bottom" timestamp="1587484697907">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1258" height="408" key="GridCell.Tab.1.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1587484697907" />
+    <state width="1258" height="408" key="GridCell.Tab.1.center" timestamp="1587484697907">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1258" height="408" key="GridCell.Tab.1.center/0.0.2560.1400@0.0.2560.1400" timestamp="1587484697907" />
+    <state width="1258" height="408" key="GridCell.Tab.1.left" timestamp="1587484697907">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1258" height="408" key="GridCell.Tab.1.left/0.0.2560.1400@0.0.2560.1400" timestamp="1587484697907" />
+    <state width="1258" height="408" key="GridCell.Tab.1.right" timestamp="1587484697907">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1258" height="408" key="GridCell.Tab.1.right/0.0.2560.1400@0.0.2560.1400" timestamp="1587484697907" />
+    <state x="732" y="355" key="SettingsEditor" timestamp="1587394320750">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="732" y="355" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1587394320750" />
+    <state x="1351" y="0" width="1058" height="1092" key="dock-window-1" timestamp="1587480818495">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1351" y="0" width="1058" height="1092" key="dock-window-1/0.0.2560.1400@0.0.2560.1400" timestamp="1587480818495" />
+    <state x="1325" y="1" width="1058" height="1092" key="dock-window-2" timestamp="1587484589706">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1325" y="1" width="1058" height="1092" key="dock-window-2/0.0.2560.1400@0.0.2560.1400" timestamp="1587484589706" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -374,12 +412,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trading.py</url>
-          <line>354</line>
+          <line>364</line>
           <option name="timeStamp" value="45" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trading.py</url>
-          <line>359</line>
+          <line>369</line>
           <option name="timeStamp" value="46" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -399,12 +437,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trading.py</url>
-          <line>299</line>
+          <line>304</line>
           <option name="timeStamp" value="51" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trading.py</url>
-          <line>303</line>
+          <line>308</line>
           <option name="timeStamp" value="52" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -421,6 +459,26 @@
           <url>file://$PROJECT_DIR$/kiwoom.py</url>
           <line>298</line>
           <option name="timeStamp" value="55" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/trading.py</url>
+          <line>483</line>
+          <option name="timeStamp" value="57" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/trading.py</url>
+          <line>422</line>
+          <option name="timeStamp" value="58" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/trading.py</url>
+          <line>439</line>
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/trading.py</url>
+          <line>440</line>
+          <option name="timeStamp" value="60" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
