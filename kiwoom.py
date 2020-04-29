@@ -40,8 +40,8 @@ class Kiwoom(QAxWidget):
             self._opw00018(rqname, trcode)
         elif rqname == "opw00001_req":
             self._opw00001(rqname, trcode)
-        elif rqname == "":
-            pass
+        elif rqname == "OPTKWFID_req":
+            self._optkwfid(rqname, trcode)
 
         try:
             self.tr_event_loop.exit()
@@ -80,10 +80,39 @@ class Kiwoom(QAxWidget):
             earning_rate = Kiwoom.change_format2(earning_rate)
 
             self.opw00018_output['multi'].append([name, quantity, purchase_price, current_price, eval_profit_loss_price, earning_rate])
+            print(self.opw00018_output['multi'])
 
     def _opw00001(self, rqname, trcode):
         d2_deposit = self._comm_get_data(trcode, "", rqname, 0, "d+2추정예수금")
         self.d2_deposit = Kiwoom.change_format(d2_deposit)
+
+    def _optkwfid(self, rqname, trcode):
+        print("opt_kw_fid")
+        cnt = self._get_repeat_cnt(trcode, rqname)
+        self.info_list = []
+        print(cnt)
+        for i in range(cnt):
+            info = []
+
+            code = self.get_comm_data(trcode, rqname, i, "종목코드")
+            name = self.get_comm_data(trcode, rqname, i, "종목명")
+            price = self.get_comm_data(trcode, rqname, i, "현재가")
+            previous_day_price = self.get_comm_data(trcode, rqname, i, "전일대비")
+            up_down_per = self.get_comm_data(trcode, rqname, i, "등락율")
+            volume = self.get_comm_data(trcode, rqname, i, "거래량")
+            yesterday_volume_per = self.get_comm_data(trcode, rqname, i, "전일거래량대비")
+
+            info.append(code)
+            info.append(name)
+            info.append(price)
+            info.append(previous_day_price)
+            info.append(up_down_per)
+            info.append(volume)
+            info.append(yesterday_volume_per)
+
+            print("info = ", info)
+
+            self.info_list.append(info)
 
     def _receive_chejan_data(self, gubun, item_cnt, fid_list):
         '''
@@ -142,8 +171,10 @@ class Kiwoom(QAxWidget):
         print("real_data 이벤트 : ", fid_type)
         # print("real_data data : ", data)
         # print(type(data))
+
         if fid_type == "주식체결":
             self.real_data = []
+            self.interest_data = []
 
             now_price = self.get_comm_real_data(code, 10)
             previous_day_price = self.get_comm_real_data(code, 11)
@@ -170,6 +201,25 @@ class Kiwoom(QAxWidget):
             self.real_data.append(yester_trading_quantity_per)
 
             print(self.real_data)
+################################################################################################
+
+            print(code)
+            name = self.get_master_code_name(code)
+            price = self.get_comm_real_data(code, 10)
+            previous_day_price = self.get_comm_real_data(code, 11)
+            up_down_per = self.get_comm_real_data(code, 12)
+            volume = self.get_comm_real_data(code, 13)
+            yester_volume_per = self.get_comm_real_data(code, 30)
+
+            self.interest_data.append(code)
+            self.interest_data.append(name)
+            self.interest_data.append(price)
+            self.interest_data.append(previous_day_price)
+            self.interest_data.append(up_down_per)
+            self.interest_data.append(volume)
+            self.interest_data.append(yester_volume_per)
+
+            print(self.interest_data)
 
         elif fid_type == "주식호가잔량":
             self.real_hoga = []
@@ -270,8 +320,8 @@ class Kiwoom(QAxWidget):
 
 
 
-    def _comm_get_data(self, code, real_type, field_name, index, item_name):
-        ret = self.dynamicCall("CommGetData(QString, QString, QString, int, QString)", code, real_type, field_name, index, item_name)
+    def _comm_get_data(self, code, real_type, rqname, index, item_name):
+        ret = self.dynamicCall("CommGetData(QString, QString, QString, int, QString)", code, real_type, rqname, index, item_name)
         return ret.strip()
 
     def _get_repeat_cnt(self, trcode, rqname):
@@ -289,12 +339,19 @@ class Kiwoom(QAxWidget):
         self.tr_event_loop = QEventLoop()
         self.tr_event_loop.exec_()
 
-    def comm_kw_rq_data(self, code_list, next, code_count, type_flag, rqname, screen):
-        pass
+    def comm_kw_rq_data(self, code_list, code_count, screen):
+        print("comm_kw_rq_data")
+        self.dynamicCall("CommKwRqData(QString, int, int, int, QString, QString)", code_list, 0, code_count, 0, "OPTKWFID_req", screen)
+        self.tr_event_loop = QEventLoop()
+        self.tr_event_loop.exec_()
 
     def get_connect_state(self):
         result = self.dynamicCall("GetConnectState()")
         return result
+
+    def get_comm_data(self, trcode, rqname, index, name):
+        ret = self.dynamicCall("GetCommData(QString, QString, int, QString", trcode, rqname, index, name)
+        return ret.strip()
 
     def get_comm_real_data(self, code, fid):
         ret = self.dynamicCall("GetCommRealData(QString, int)", code, fid)
@@ -344,6 +401,10 @@ class Kiwoom(QAxWidget):
         # print("set_real_reg", ret)
         # return ret
         self.dynamicCall("SetRealReg(QString, QString, QString, QString)", screen_no, code_list, fid_list, opt_type)
+
+    def set_real_remove(self, screen_no, code):
+        print("set_real_remove")
+        self.dynamicCall("SetRealRemove(QString, QString)", screen_no, code)
 
     @staticmethod
     def change_format(data):

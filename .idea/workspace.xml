@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e9523432-406d-4b10-b2ac-7dfa98bbcc28" name="Default Changelist" comment="Learned the matplotlib">
-      <change beforePath="$PROJECT_DIR$/.idea/AAT.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/AAT.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kiwoom.py" beforeDir="false" afterPath="$PROJECT_DIR$/kiwoom.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testt.py" beforeDir="false" afterPath="$PROJECT_DIR$/testt.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/trading.py" beforeDir="false" afterPath="$PROJECT_DIR$/trading.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/trading.ui" beforeDir="false" afterPath="$PROJECT_DIR$/trading.ui" afterDir="false" />
     </list>
@@ -160,10 +160,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.main (1)" />
+        <item itemvalue="Python.kiwoom" />
         <item itemvalue="Python.testt" />
         <item itemvalue="Python.start_point" />
         <item itemvalue="Python.trading" />
-        <item itemvalue="Python.kiwoom" />
       </list>
     </recent_temporary>
   </component>
@@ -237,50 +237,58 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="784" height="466" key="DebuggerActiveHint/0.0.2560.1400@0.0.2560.1400" timestamp="1587482163857" />
-    <state width="1258" height="264" key="GridCell.Tab.0.bottom" timestamp="1587484729682">
+    <state width="1258" height="263" key="GridCell.Tab.0.bottom" timestamp="1588127533708">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1258" height="264" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1587484729682" />
-    <state width="1258" height="264" key="GridCell.Tab.0.center" timestamp="1587484729682">
+    <state width="1258" height="263" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1588127533708" />
+    <state width="1258" height="263" key="GridCell.Tab.0.center" timestamp="1588127533708">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1258" height="264" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1587484729682" />
-    <state width="1258" height="264" key="GridCell.Tab.0.left" timestamp="1587484729682">
+    <state width="1258" height="263" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1588127533708" />
+    <state width="1258" height="263" key="GridCell.Tab.0.left" timestamp="1588127533708">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1258" height="264" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1587484729682" />
-    <state width="1258" height="264" key="GridCell.Tab.0.right" timestamp="1587484729682">
+    <state width="1258" height="263" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1588127533708" />
+    <state width="1258" height="263" key="GridCell.Tab.0.right" timestamp="1588127533708">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1258" height="264" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1587484729682" />
-    <state width="1258" height="408" key="GridCell.Tab.1.bottom" timestamp="1587484697907">
+    <state width="1258" height="263" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1588127533708" />
+    <state width="1258" height="406" key="GridCell.Tab.1.bottom" timestamp="1588127405998">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1258" height="408" key="GridCell.Tab.1.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1587484697907" />
-    <state width="1258" height="408" key="GridCell.Tab.1.center" timestamp="1587484697907">
+    <state width="1258" height="406" key="GridCell.Tab.1.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1588127405998" />
+    <state width="1258" height="406" key="GridCell.Tab.1.center" timestamp="1588127405997">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1258" height="408" key="GridCell.Tab.1.center/0.0.2560.1400@0.0.2560.1400" timestamp="1587484697907" />
-    <state width="1258" height="408" key="GridCell.Tab.1.left" timestamp="1587484697907">
+    <state width="1258" height="406" key="GridCell.Tab.1.center/0.0.2560.1400@0.0.2560.1400" timestamp="1588127405997" />
+    <state width="1258" height="406" key="GridCell.Tab.1.left" timestamp="1588127405997">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1258" height="408" key="GridCell.Tab.1.left/0.0.2560.1400@0.0.2560.1400" timestamp="1587484697907" />
-    <state width="1258" height="408" key="GridCell.Tab.1.right" timestamp="1587484697907">
+    <state width="1258" height="406" key="GridCell.Tab.1.left/0.0.2560.1400@0.0.2560.1400" timestamp="1588127405997" />
+    <state width="1258" height="406" key="GridCell.Tab.1.right" timestamp="1588127405998">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1258" height="408" key="GridCell.Tab.1.right/0.0.2560.1400@0.0.2560.1400" timestamp="1587484697907" />
+    <state width="1258" height="406" key="GridCell.Tab.1.right/0.0.2560.1400@0.0.2560.1400" timestamp="1588127405998" />
     <state x="732" y="355" key="SettingsEditor" timestamp="1587394320750">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="732" y="355" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1587394320750" />
+    <state x="444" y="617" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1587994871802">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="444" y="617" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.2560.1400@0.0.2560.1400" timestamp="1587994871802" />
     <state x="1351" y="0" width="1058" height="1092" key="dock-window-1" timestamp="1587480818495">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1351" y="0" width="1058" height="1092" key="dock-window-1/0.0.2560.1400@0.0.2560.1400" timestamp="1587480818495" />
-    <state x="1325" y="1" width="1058" height="1092" key="dock-window-2" timestamp="1587484589706">
+    <state x="1325" y="1" width="1058" height="1092" key="dock-window-2" timestamp="1587968162391">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1325" y="1" width="1058" height="1092" key="dock-window-2/0.0.2560.1400@0.0.2560.1400" timestamp="1587484589706" />
+    <state x="1325" y="1" width="1058" height="1092" key="dock-window-2/0.0.2560.1400@0.0.2560.1400" timestamp="1587968162391" />
+    <state x="303" y="320" width="672" height="160" key="search.everywhere.popup" timestamp="1588127298448">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="303" y="320" width="672" height="160" key="search.everywhere.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1588127298448" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -351,21 +359,6 @@
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/kiwoom.py</url>
-          <line>24</line>
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/kiwoom.py</url>
-          <line>18</line>
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/kiwoom.py</url>
-          <line>26</line>
-          <option name="timeStamp" value="24" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/TEST/Kiwoom.py</url>
           <line>212</line>
           <option name="timeStamp" value="31" />
@@ -374,16 +367,6 @@
           <url>file://$PROJECT_DIR$/TEST/manual_trading.py</url>
           <line>33</line>
           <option name="timeStamp" value="32" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/TEST/manual_trading.py</url>
-          <line>74</line>
-          <option name="timeStamp" value="36" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/TEST/manual_trading.py</url>
-          <line>75</line>
-          <option name="timeStamp" value="37" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/TEST/manual_trading.py</url>
@@ -412,90 +395,168 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trading.py</url>
-          <line>364</line>
+          <line>388</line>
           <option name="timeStamp" value="45" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trading.py</url>
-          <line>369</line>
+          <line>393</line>
           <option name="timeStamp" value="46" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/kiwoom.py</url>
-          <line>140</line>
-          <option name="timeStamp" value="47" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/kiwoom.py</url>
-          <line>341</line>
+          <line>398</line>
           <option name="timeStamp" value="49" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/kiwoom.py</url>
-          <line>334</line>
+          <line>391</line>
           <option name="timeStamp" value="50" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trading.py</url>
-          <line>304</line>
+          <line>318</line>
           <option name="timeStamp" value="51" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trading.py</url>
-          <line>308</line>
+          <line>323</line>
           <option name="timeStamp" value="52" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/kiwoom.py</url>
-          <line>147</line>
-          <option name="timeStamp" value="53" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/kiwoom.py</url>
-          <line>148</line>
-          <option name="timeStamp" value="54" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/kiwoom.py</url>
-          <line>298</line>
-          <option name="timeStamp" value="55" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trading.py</url>
-          <line>483</line>
-          <option name="timeStamp" value="57" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/trading.py</url>
-          <line>422</line>
+          <line>446</line>
           <option name="timeStamp" value="58" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trading.py</url>
-          <line>439</line>
+          <line>502</line>
           <option name="timeStamp" value="59" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trading.py</url>
-          <line>440</line>
+          <line>503</line>
           <option name="timeStamp" value="60" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/trading.py</url>
+          <line>482</line>
+          <option name="timeStamp" value="61" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/trading.py</url>
+          <line>479</line>
+          <option name="timeStamp" value="62" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/trading.py</url>
+          <line>487</line>
+          <option name="timeStamp" value="64" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/trading.py</url>
+          <line>512</line>
+          <option name="timeStamp" value="65" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/kiwoom.py</url>
+          <line>404</line>
+          <option name="timeStamp" value="66" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/trading.py</url>
+          <line>555</line>
+          <option name="timeStamp" value="68" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/trading.py</url>
+          <line>343</line>
+          <option name="timeStamp" value="69" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/trading.py</url>
+          <line>344</line>
+          <option name="timeStamp" value="70" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/trading.py</url>
+          <line>559</line>
+          <option name="timeStamp" value="71" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/trading.py</url>
+          <line>560</line>
+          <option name="timeStamp" value="72" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/trading.py</url>
+          <line>561</line>
+          <option name="timeStamp" value="73" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/trading.py</url>
+          <line>562</line>
+          <option name="timeStamp" value="74" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/trading.py</url>
+          <line>563</line>
+          <option name="timeStamp" value="75" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/kiwoom.py</url>
+          <line>88</line>
+          <option name="timeStamp" value="76" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/kiwoom.py</url>
+          <line>90</line>
+          <option name="timeStamp" value="77" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/kiwoom.py</url>
+          <line>94</line>
+          <option name="timeStamp" value="78" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/kiwoom.py</url>
+          <line>105</line>
+          <option name="timeStamp" value="79" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/kiwoom.py</url>
+          <line>112</line>
+          <option name="timeStamp" value="80" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/kiwoom.py</url>
+          <line>341</line>
+          <option name="timeStamp" value="81" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/kiwoom.py</url>
+          <line>342</line>
+          <option name="timeStamp" value="82" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/kiwoom.py</url>
+          <line>343</line>
+          <option name="timeStamp" value="83" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/trading.py</url>
+          <line>553</line>
+          <option name="timeStamp" value="84" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
-        <watch expression="err_code" />
-        <watch expression="self.kiwoom.OnEventConnect" />
-        <watch expression="datetime.datetime.strftime(&quot;%w&quot;)" language="Python" />
-        <watch expression="self.holidays in day" />
-        <watch expression="login_event_loop" />
-        <watch expression="self.login_event_loop" />
-        <watch expression="hour &lt; 9" />
-        <watch expression="hour &lt; 9 or ((hour &gt;= 15) and (min &gt; 30))" language="Python" />
-        <watch expression="self.manual_trading" />
-        <watch expression="len(self.kiwoom.chejan_lists)" />
-        <watch expression="sell_buy_num[sell_buy_gubun]" language="Python" />
-        <watch expression="self.real_hoga" language="Python" />
+        <watch expression="stock_list" />
+        <watch expression="code" />
+        <watch expression="name" />
+        <watch expression="list_count" />
+        <watch expression="item" />
       </configuration>
     </watches-manager>
   </component>

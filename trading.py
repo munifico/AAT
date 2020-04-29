@@ -1,3 +1,8 @@
+"""
+화면 번호
+4000 - 관심 종목
+6000 - 실시간 데이터 처리
+"""
 from PyQt5 import uic
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
@@ -52,6 +57,7 @@ class Trading(QMainWindow, form_class):
             self.lineEdit.textChanged.connect(self.code_changed)
             self.lineEdit_4.textChanged.connect(self.code_changed_hoga)
             self.lineEdit_7.textChanged.connect(self.code_changed_interest)
+            self.lineEdit_7.returnPressed.connect(self.add_interest_stock)
 
             self.pushButton.clicked.connect(self.send_order)
             self.pushButton_2.clicked.connect(self.check_balance)
@@ -84,18 +90,25 @@ class Trading(QMainWindow, form_class):
             self.pushButton_29.clicked.connect(lambda:self.hoga_clicked(num=29))
             self.pushButton_30.clicked.connect(self.add_interest_stock)
             self.pushButton_31.clicked.connect(self.del_interest_stock)
+            self.pushButton_32.clicked.connect(self.remove_real_data)
 
+            # self.tableWidget_4.cellChanged.connect(self.info_interest_stock)
 
             self.comboBox_3.activated.connect(self.type_changed)
             self.comboBox_2.activated.connect(self.type_order)
 
-            self.timer = QTimer(self)
-            self.timer.start(1000*10)
-            self.timer.timeout.connect(self.stacked_0_timeout)
+            self.timer_0 = QTimer(self)
+            self.timer_0.start(1000*10)
+            self.timer_0.timeout.connect(self.stacked_0_timeout)
 
-            self.timer = QTimer(self)
-            self.timer.start(1000*1)
-            self.timer.timeout.connect(self.stacked_1_timeout)
+            self.timer_1 = QTimer(self)
+            self.timer_1.start(1000*1)
+            self.timer_1.timeout.connect(self.stacked_1_timeout)
+
+            self.timer_2 = QTimer(self)
+            self.timer_2.start(1000*1)
+            self.timer_2.timeout.connect(self.stacked_2_timeout)
+
         else:
             self.pushButton.setEnabled(False)
             self.pushButton_2.setEnabled(False)
@@ -277,6 +290,7 @@ class Trading(QMainWindow, form_class):
         self.checkBox_2.setEnabled(True)
 
         code = self.lineEdit_4.text()
+        self.code = code
         # fid_list = "41;51;42;52;27;28;10;11;12;15;13;14;16;17;18"
         che_fid = "10;11;12;27;28;13;14;16;17;18"
         ho_fid = "41;61;51;71;42;62;52;72;43;63;53;73;44;64;54;74;45;65;55;75;46;66;56;76;47;67;57;77;48;68;58;78;49;69;59;79;50;70;60;80;121;125;23;24"
@@ -305,6 +319,7 @@ class Trading(QMainWindow, form_class):
         self.kiwoom.set_real_reg(6000, code, fid_list, type)
 
         self.checkBox_2.setChecked(True)
+        self.pushButton_32.setEnabled(True)
         # self.lineEdit_6.setText(self.kiwoom.real_data[0])
         # self.label_41.setText(self.kiwoom.real_data[0])
         # self.label_42.setText(self.kiwoom.real_data[1])
@@ -320,9 +335,18 @@ class Trading(QMainWindow, form_class):
 
         ###
 
-
+    def remove_real_data(self):
+        print("remove_real_data")
+        code = self.code
+        self.kiwoom.set_real_remove(screen_no= 6000, code= code)
+        print(code)
 
     def set_stacked_widget(self, num):
+        self.checkBox.setChecked(False)
+        self.checkBox_2.setChecked(False)
+        self.checkBox_3.setChecked(False)
+        self.kiwoom.set_real_remove("ALL", "ALL")
+
         if num == 0:
             self.stackedWidget.setCurrentIndex(0)
         elif num == 1:
@@ -422,31 +446,128 @@ class Trading(QMainWindow, form_class):
 
     def add_interest_stock(self):
         if self.lineEdit_8.text() != "":
-            code = self.lineEdit_7.text()
-            name = self.lineEdit_8.text()
             stock_list = []
-            stock_list.append(code)
-            stock_list.append(name)
-            self.interest_stock_list.append(stock_list)
+            if len(self.interest_stock_list) == 0:
+                code = self.lineEdit_7.text()
+                name = self.lineEdit_8.text()
 
-            list_count = len(self.interest_stock_list)
-            self.tableWidget_4.setRowCount(list_count)
+                stock_list.append(code)
+                stock_list.append(name)
+                self.interest_stock_list.append(stock_list)
 
-            for i in range(list_count):
-                for count, item in enumerate(self.interest_stock_list[i]):
-                    item = QTableWidgetItem(item)
-                    self.tableWidget_4.setItem(i, count, item)
+                list_count = len(self.interest_stock_list)
+                self.tableWidget_4.setRowCount(list_count)
 
-            # self.tableWidget_4.setItem(0, 0, code)
-            # self.tableWidget_4.setItem(0, 1, name)
+                for i in range(list_count):
+                    for count, item in enumerate(self.interest_stock_list[i]):
+                        item = QTableWidgetItem(item)
+                        self.tableWidget_4.setItem(i, count, item)
+                        print(i,count)
 
-            self.tableWidget_4.resizeRowsToContents()
-            self.tableWidget_4.resizeColumnsToContents()
+                # self.tableWidget_4.setItem(0, 0, code)
+                # self.tableWidget_4.setItem(0, 1, name)
+
+                # self.tableWidget_4.cellChanged.connect(self.info_interest_stock)
+
+                self.tableWidget_4.resizeRowsToContents()
+                self.tableWidget_4.resizeColumnsToContents()
+
+                self.info_interest_stock()
+            else:
+                code = self.lineEdit_7.text()
+                name = ""
+
+                for i, stock in enumerate(self.interest_stock_list):
+                    if stock[0] == code:
+                        name = ""
+                        QMessageBox.about(self, "오류", "이미 추가된 종목입니다.")
+                        break
+                    else:
+                        name = self.lineEdit_8.text()
+
+                if name == "":
+                    pass
+                else:
+                    stock_list.append(code)
+                    stock_list.append(name)
+                    self.interest_stock_list.append(stock_list)
+
+                    list_count = len(self.interest_stock_list)
+                    self.tableWidget_4.setRowCount(list_count)
+
+                    for i in range(list_count):
+                        for count, item in enumerate(self.interest_stock_list[i]):
+                            item = QTableWidgetItem(item)
+                            self.tableWidget_4.setItem(i, count, item)
+
+                    # self.tableWidget_4.setItem(0, 0, code)
+                    # self.tableWidget_4.setItem(0, 1, name)
+
+                    self.tableWidget_4.resizeRowsToContents()
+                    self.tableWidget_4.resizeColumnsToContents()
+
+                    self.info_interest_stock()
         else:
             QMessageBox.about(self, "오류", "정상적인 종목코드를 입력하세요")
 
     def del_interest_stock(self):
-        pass
+        if self.lineEdit_8.text() != "":
+            stock_list = []
+            if len(self.interest_stock_list) == 0:
+                QMessageBox.about(self, "오류", "등록된 관심종목이 없습니다.")
+            else:
+                code = self.lineEdit_7.text()
+                name = self.lineEdit_8.text()
+                stock_list.append(code)
+                stock_list.append(name)
+
+                for stock in self.interest_stock_list:
+                    if stock[0] == code:
+                        self.interest_stock_list.remove(stock_list)
+                    else:
+                        pass
+
+                line_count = len(self.interest_stock_list)
+                self.tableWidget_4.setRowCount(line_count)
+
+                for i in range(line_count):
+                    for count, item in enumerate(self.interest_stock_list[i]):
+                        item = QTableWidgetItem(item)
+                        self.tableWidget_4.setItem(i, count, item)
+
+                self.tableWidget_4.resizeRowsToContents()
+                self.tableWidget_4.resizeColumnsToContents()
+        else:
+            QMessageBox.about(self, "오류", "정상적인 종목코드를 입력하세요")
+
+    def info_interest_stock(self):
+        cnt = len(self.interest_stock_list)
+
+        if self.interest_stock_list[0][0] == "":
+            pass
+        else:
+            code = self.interest_stock_list[0][0]
+            print("cnt = " + str(cnt))
+            for i in range(1, cnt):
+                code = code + ';' + self.interest_stock_list[i][0]
+
+            self.kiwoom.comm_kw_rq_data(code, cnt, 4000)
+
+            # self.kiwoom.info_list
+            print(self.kiwoom.info_list)
+            self.tableWidget_5.setRowCount(cnt)
+
+            for i in range(cnt):
+                for count, info in enumerate(self.kiwoom.info_list[i]):
+                    item = QTableWidgetItem(info)
+                    print(info)
+                    self.tableWidget_5.setItem(i, count, item)
+
+            # self.tableWidget_4.setItem(0, 0, code)
+            # self.tableWidget_4.setItem(0, 1, name)
+
+            self.tableWidget_5.resizeRowsToContents()
+            self.tableWidget_5.resizeColumnsToContents()
 
     def stacked_0_timeout(self):
         if self.checkBox.isChecked():
@@ -732,6 +853,26 @@ class Trading(QMainWindow, form_class):
             # self.label_18.setText(self.kiwoom.real_hoga[0][7])
             # self.label_19.setText(self.kiwoom.real_hoga[0][8])
             # self.label_21.setText(self.kiwoom.real_hoga[0][9])
+
+    def stacked_2_timeout(self):
+        if self.checkBox_3.isChecked():
+            # self.kiwoom.interest_data
+            print(self.interest_stock_list)
+            cnt = len(self.interest_stock_list)
+            print(cnt)
+            self.tableWidget_5.setRowCount(cnt)
+            for i in range(cnt):
+                if self.kiwoom.interest_data[0] == self.interest_stock_list[i][0]:
+                    for count, info in enumerate(self.kiwoom.interest_data):
+                        item = QTableWidgetItem(info)
+                        print(info)
+                        self.tableWidget_5.setItem(i, count, item)
+
+            # self.tableWidget_4.setItem(0, 0, code)
+            # self.tableWidget_4.setItem(0, 1, name)
+
+            self.tableWidget_5.resizeRowsToContents()
+            self.tableWidget_5.resizeColumnsToContents()
 
     def color(self, str):
         if str.startswith('+'):
