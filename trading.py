@@ -6,6 +6,7 @@
 from PyQt5 import uic
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
+from PyQt5 import QtGui
 import sys
 from kiwoom import *
 import time
@@ -537,6 +538,8 @@ class Trading(QMainWindow, form_class):
 
                 self.tableWidget_4.resizeRowsToContents()
                 self.tableWidget_4.resizeColumnsToContents()
+
+                self.info_interest_stock()
         else:
             QMessageBox.about(self, "오류", "정상적인 종목코드를 입력하세요")
 
@@ -559,8 +562,17 @@ class Trading(QMainWindow, form_class):
 
             for i in range(cnt):
                 for count, info in enumerate(self.kiwoom.info_list[i]):
-                    item = QTableWidgetItem(info)
-                    print(info)
+                    color, data = self.color_2(info)
+                    item = QTableWidgetItem(data)
+                    if color == "red":
+                        item.setForeground(QtGui.QBrush(Qt.red))
+                    elif color == "blue":
+                        item.setForeground(QtGui.QBrush(Qt.blue))
+                    else:
+                        item.setForeground(QtGui.QBrush(Qt.black))
+                    # item.setBackground(QtGui.QColor(255, 0, 0))
+                    # item.setForeground(QtGui.QBrush(Qt.blue))
+                    print("Trading info", info)
                     self.tableWidget_5.setItem(i, count, item)
 
             # self.tableWidget_4.setItem(0, 0, code)
@@ -861,12 +873,24 @@ class Trading(QMainWindow, form_class):
             cnt = len(self.interest_stock_list)
             print(cnt)
             self.tableWidget_5.setRowCount(cnt)
-            for i in range(cnt):
-                if self.kiwoom.interest_data[0] == self.interest_stock_list[i][0]:
-                    for count, info in enumerate(self.kiwoom.interest_data):
-                        item = QTableWidgetItem(info)
-                        print(info)
-                        self.tableWidget_5.setItem(i, count, item)
+            try:
+                for i in range(cnt):
+                    if self.kiwoom.interest_data[0] == self.interest_stock_list[i][0]:
+                        for count, info in enumerate(self.kiwoom.interest_data):
+                            color, data = self.color_2(info)
+                            item = QTableWidgetItem(data)
+                            if color == "red":
+                                item.setForeground(QtGui.QBrush(Qt.red))
+                            elif color == "blue":
+                                item.setForeground(QtGui.QBrush(Qt.blue))
+                            else:
+                                item.setForeground(QtGui.QBrush(Qt.black))
+                            self.tableWidget_5.setItem(i, count, item)
+            except AttributeError as e:
+                print("장마감")
+                QMessageBox.about(self, "장 마감", "개장시에만 동작합니다.")
+                self.checkBox_3.setChecked(False)
+
 
             # self.tableWidget_4.setItem(0, 0, code)
             # self.tableWidget_4.setItem(0, 1, name)
@@ -886,6 +910,18 @@ class Trading(QMainWindow, form_class):
             num = str[1:]
         color = "color: " + color + ";"
         return color, num
+
+    def color_2(self, str):
+        if str.startswith('+'):
+            color = "red"
+            data = str[1:]
+        elif str.startswith('-'):
+            color = "blue"
+            data = str[1:]
+        else:
+            color = "black"
+            data = str
+        return color, data
 
     # def chejan_data(self):
     #     self.order_num = self.kiwoom.get_chejan_data(9203)
