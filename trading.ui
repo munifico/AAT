@@ -375,7 +375,7 @@
     <enum>QFrame::Plain</enum>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>3</number>
    </property>
    <widget class="QWidget" name="page">
     <widget class="QGroupBox" name="groupBox_2">
@@ -2199,7 +2199,297 @@ QPushButton:hover
      </widget>
     </widget>
    </widget>
-   <widget class="QWidget" name="page_3"/>
+   <widget class="QWidget" name="page_3">
+    <widget class="QGroupBox" name="groupBox_13">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>90</y>
+       <width>511</width>
+       <height>80</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>시장 구분</string>
+     </property>
+     <widget class="QRadioButton" name="radioButton_3">
+      <property name="geometry">
+       <rect>
+        <x>330</x>
+        <y>40</y>
+        <width>130</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>코스닥</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButton_2">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>40</y>
+        <width>130</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>코스피</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButton">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>40</y>
+        <width>130</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>전체</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_14">
+     <property name="geometry">
+      <rect>
+       <x>620</x>
+       <y>90</y>
+       <width>401</width>
+       <height>80</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>등락 구분</string>
+     </property>
+     <widget class="QRadioButton" name="radioButton_4">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>40</y>
+        <width>130</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>상한가</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButton_5">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>40</y>
+        <width>130</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>하한가</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_15">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>230</y>
+       <width>901</width>
+       <height>581</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>상한가 / 하한가</string>
+     </property>
+     <widget class="QTableWidget" name="tableWidget_6">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>40</y>
+        <width>841</width>
+        <height>511</height>
+       </rect>
+      </property>
+      <column>
+       <property name="text">
+        <string>종목코드</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>종목명</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>현재가</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>대비</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>등락률</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>거래량</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>매수잔량</string>
+       </property>
+      </column>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_16">
+     <property name="geometry">
+      <rect>
+       <x>1090</x>
+       <y>230</y>
+       <width>901</width>
+       <height>1201</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>상한가 / 하한가 근접</string>
+     </property>
+     <widget class="QTableWidget" name="tableWidget_7">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>40</y>
+        <width>841</width>
+        <height>1131</height>
+       </rect>
+      </property>
+      <column>
+       <property name="text">
+        <string>종목코드</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>종목명</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>현재가</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>대비</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>등락률</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>거래량</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>매수잔량</string>
+       </property>
+      </column>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_17">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>850</y>
+       <width>901</width>
+       <height>581</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>상한가 / 하한가 이탈</string>
+     </property>
+     <widget class="QTableWidget" name="tableWidget_8">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>40</y>
+        <width>841</width>
+        <height>511</height>
+       </rect>
+      </property>
+      <column>
+       <property name="text">
+        <string>종목코드</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>종목명</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>현재가</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>대비</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>등락률</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>거래량</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>매수잔량</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>매도잔량</string>
+       </property>
+      </column>
+     </widget>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_4">
+     <property name="geometry">
+      <rect>
+       <x>1070</x>
+       <y>120</y>
+       <width>161</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>실시간 데이터</string>
+     </property>
+    </widget>
+   </widget>
    <widget class="QWidget" name="page_4"/>
    <widget class="QWidget" name="page_5"/>
   </widget>

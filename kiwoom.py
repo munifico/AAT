@@ -42,6 +42,8 @@ class Kiwoom(QAxWidget):
             self._opw00001(rqname, trcode)
         elif rqname == "OPTKWFID_req":
             self._optkwfid(rqname, trcode)
+        elif rqname == "opt10027_req":
+            self._opt10027(rqname, trcode)
 
         try:
             self.tr_event_loop.exit()
@@ -113,6 +115,50 @@ class Kiwoom(QAxWidget):
             print("info = ", info)
 
             self.info_list.append(info)
+
+    def _opt10027(self, rqname, trcode):
+        print("opt_10027")
+        cnt = 100
+
+        self.up_stock_list = []
+        self.up_near_stock_list = []
+
+        for i in range(cnt):
+            up_stock = []
+            up_near_stock = []
+
+            code = self.get_comm_data(trcode, rqname, i, "종목코드")
+            name = self.get_comm_data(trcode, rqname, i, "종목명")
+            price = self.get_comm_data(trcode, rqname, i, "현재가")
+            previous_dat_price = self.get_comm_data(trcode, rqname, i, "전일대비")
+            up_down_per = self.get_comm_data(trcode, rqname, i, "등락률")
+            volume = self.get_comm_data(trcode, rqname, i, "현재거래량")
+            buy_quantity = self.get_comm_data(trcode, rqname, i, "매수잔량")
+            sell_quantity = self.get_comm_data(trcode, rqname, i, "매도잔량")
+
+            up_down = up_down_per[1:]
+
+            if float(up_down) > 28.0:
+                up_stock.append(code)
+                up_stock.append(name)
+                up_stock.append(price)
+                up_stock.append(previous_dat_price)
+                up_stock.append(up_down_per)
+                up_stock.append(volume)
+                up_stock.append(buy_quantity)
+
+                self.up_stock_list.append(up_stock)
+            else:
+                up_near_stock.append(code)
+                up_near_stock.append(name)
+                up_near_stock.append(price)
+                up_near_stock.append(previous_dat_price)
+                up_near_stock.append(up_down_per)
+                up_near_stock.append(volume)
+                up_near_stock.append(buy_quantity)
+
+                self.up_near_stock_list.append(up_near_stock)
+
 
     def _receive_chejan_data(self, gubun, item_cnt, fid_list):
         '''

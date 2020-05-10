@@ -1,5 +1,6 @@
 """
 화면 번호
+1000 - 상한가 / 하한가
 4000 - 관심 종목
 6000 - 실시간 데이터 처리
 """
@@ -50,6 +51,9 @@ class Trading(QMainWindow, form_class):
 
             self.interest_stock_list = []
 
+            self.market_gubun = "000"
+            self.up_down_gubun = "1"
+
             account_num = int(self.kiwoom.get_login_info("ACCOUNT_CNT"))
             accounts = self.kiwoom.get_login_info("ACCNO")
             accounts_list = accounts.split(';')[0:account_num]
@@ -93,6 +97,11 @@ class Trading(QMainWindow, form_class):
             self.pushButton_31.clicked.connect(self.del_interest_stock)
             self.pushButton_32.clicked.connect(self.remove_real_data)
 
+            self.radioButton.clicked.connect(lambda: self.market_change(num=0))
+            self.radioButton_2.clicked.connect(lambda: self.market_change(num=1))
+            self.radioButton_3.clicked.connect(lambda: self.market_change(num=2))
+            self.radioButton_4.clicked.connect(lambda: self.up_down_change(num=0))
+            self.radioButton_5.clicked.connect(lambda: self.up_down_change(num=1))
             # self.tableWidget_4.cellChanged.connect(self.info_interest_stock)
 
             self.comboBox_3.activated.connect(self.type_changed)
@@ -110,6 +119,9 @@ class Trading(QMainWindow, form_class):
             self.timer_2.start(1000*1)
             self.timer_2.timeout.connect(self.stacked_2_timeout)
 
+            self.timer_3 = QTimer(self)
+            self.timer_3.start(1000*4)  ## 1시간 TR 조회 제한까지 커버 가능
+            self.timer_3.timeout.connect(self.stacked_3_timeout)
         else:
             self.pushButton.setEnabled(False)
             self.pushButton_2.setEnabled(False)
@@ -356,6 +368,7 @@ class Trading(QMainWindow, form_class):
             self.stackedWidget.setCurrentIndex(2)
         elif num == 3:
             self.stackedWidget.setCurrentIndex(3)
+            self.up_down()
         elif num == 4:
             self.stackedWidget.setCurrentIndex(4)
         elif num == 5:
@@ -580,6 +593,103 @@ class Trading(QMainWindow, form_class):
 
             self.tableWidget_5.resizeRowsToContents()
             self.tableWidget_5.resizeColumnsToContents()
+
+    def up_down(self):
+        """
+        시장구분 = 000:전체, 001:코스피, 101:코스닥
+        정렬구분 = 1:상승률, 2:상승폭, 3:하락률, 4:하락폭
+        거래량조건 = 0000:전체조회, 0010:만주이상, 0050:5만주이상, 0100:10만주이상, 0150:15만주이상, 0200:20만주이상, 0300:30만주이상, 0500:50만주이상, 1000:백만주이상
+        종목조건 = 0:전체조회, 1:관리종목제외, 4:우선주+관리주제외, 3:우선주제외, 5:증100제외, 6:증100만보기, 7:증40만보기, 8:증30만보기, 9:증20만보기, 11:정리매매종목제외
+        신용조건 = 0:전체조회, 1:신용융자A군, 2:신용융자B군, 3:신용융자C군, 4:신용융자D군, 9:신용융자전체
+        상하한포함 = 0:불 포함, 1:포함
+        가격조건 = 0:전체조회, 1:1천원미만, 2:1천원~2천원, 3:2천원~5천원, 4:5천원~1만원, 5:1만원이상, 8:1천원이상
+        거래대금조건 = 0:전체조회, 3:3천만원이상, 5:5천만원이상, 10:1억원이상, 30:3억원이상, 50:5억원이상, 100:10억원이상, 300:30억원이상, 500:50억원이상, 1000:100억원이상, 3000:300억원이상, 5000:500억원이상
+        """
+
+        market_gubun = self.market_gubun
+        up_down_gubun = self.up_down_gubun
+
+        volume_condition = "0000"
+        stock_condition = "0"
+        credit_condition = "0"
+        in_up_down = "1"
+        price_condition = "0"
+        trading_price_condition = "0"
+
+        self.kiwoom.set_input_value("시장구분", market_gubun)
+        self.kiwoom.set_input_value("정렬구분", up_down_gubun)
+        self.kiwoom.set_input_value("거래량조건", volume_condition)
+        self.kiwoom.set_input_value("종목조건", stock_condition)
+        self.kiwoom.set_input_value("신용조건", credit_condition)
+        self.kiwoom.set_input_value("상한가포함", in_up_down)
+        self.kiwoom.set_input_value("가격조건", price_condition)
+        self.kiwoom.set_input_value("거래대금조건", trading_price_condition)
+
+        self.kiwoom.comm_rq_data(rqname="opt10027_req", trcode="opt10027", next="0", screen_no="1000")
+
+        ## 데이터 받고 가공 시작
+
+        # self.kiwoom.up_stock_list
+
+        cnt = len(self.kiwoom.up_stock_list)
+
+        self.tableWidget_6.setRowCount(cnt)
+
+        for i in range(cnt):
+            for count, stock in enumerate(self.kiwoom.up_stock_list[i]):
+                color, data = self.color_2(stock)
+                item = QTableWidgetItem(data)
+
+                if color == "red":
+                    item.setForeground(QtGui.QBrush(Qt.red))
+                elif color == "blue":
+                    item.setForeground(QtGui.QBrush(Qt.blue))
+                else:
+                    item.setForeground(QtGui.QBrush(Qt.black))
+                self.tableWidget_6.setItem(i, count, item)
+
+        self.tableWidget_6.resizeRowsToContents()
+        self.tableWidget_6.resizeColumnsToContents()
+
+        cnt = len(self.kiwoom.up_near_stock_list)
+
+        self.tableWidget_7.setRowCount(cnt)
+
+        for i in range(cnt):
+            for count, stock in enumerate(self.kiwoom.up_near_stock_list[i]):
+                color, data = self.color_2(stock)
+                item = QTableWidgetItem(data)
+
+                if color == "red":
+                    item.setForeground(QtGui.QBrush(Qt.red))
+                elif color == "blue":
+                    item.setForeground(QtGui.QBrush(Qt.blue))
+                else:
+                    item.setForeground(QtGui.QBrush(Qt.black))
+                self.tableWidget_7.setItem(i, count, item)
+
+        self.tableWidget_7.resizeRowsToContents()
+        self.tableWidget_7.resizeColumnsToContents()
+
+    def market_change(self, num):
+        if num == 0:
+            market_gubun = "000"
+        elif num == 1:
+            market_gubun = "001"
+        elif num == 2:
+            market_gubun = "101"
+        self.market_gubun = market_gubun
+
+        self.up_down()
+
+    def up_down_change(self, num):
+        if num == 0:
+            up_down_gubun = "1"
+        elif num == 1:
+            up_down_gubun = "3"
+        self.up_down_gubun = up_down_gubun
+
+        self.up_down()
 
     def stacked_0_timeout(self):
         if self.checkBox.isChecked():
@@ -897,6 +1007,10 @@ class Trading(QMainWindow, form_class):
 
             self.tableWidget_5.resizeRowsToContents()
             self.tableWidget_5.resizeColumnsToContents()
+
+    def stacked_3_timeout(self):
+        if self.checkBox_4.isChecked():
+            self.up_down()
 
     def color(self, str):
         if str.startswith('+'):
