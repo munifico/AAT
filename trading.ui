@@ -2353,6 +2353,11 @@ QPushButton:hover
         <string>매수잔량</string>
        </property>
       </column>
+      <column>
+       <property name="text">
+        <string>매도잔량</string>
+       </property>
+      </column>
      </widget>
     </widget>
     <widget class="QGroupBox" name="groupBox_16">
@@ -2409,6 +2414,11 @@ QPushButton:hover
       <column>
        <property name="text">
         <string>매수잔량</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>매도잔량</string>
        </property>
       </column>
      </widget>

@@ -146,6 +146,7 @@ class Kiwoom(QAxWidget):
                 up_stock.append(up_down_per)
                 up_stock.append(volume)
                 up_stock.append(buy_quantity)
+                up_stock.append(sell_quantity)
 
                 self.up_stock_list.append(up_stock)
             else:
@@ -156,6 +157,7 @@ class Kiwoom(QAxWidget):
                 up_near_stock.append(up_down_per)
                 up_near_stock.append(volume)
                 up_near_stock.append(buy_quantity)
+                up_near_stock.append(sell_quantity)
 
                 self.up_near_stock_list.append(up_near_stock)
 

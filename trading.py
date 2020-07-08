@@ -358,6 +358,7 @@ class Trading(QMainWindow, form_class):
         self.checkBox.setChecked(False)
         self.checkBox_2.setChecked(False)
         self.checkBox_3.setChecked(False)
+        self.checkBox_4.setChecked(False)
         self.kiwoom.set_real_remove("ALL", "ALL")
 
         if num == 0:
