@@ -44,7 +44,8 @@ class Kiwoom(QAxWidget):
             self._optkwfid(rqname, trcode)
         elif rqname == "opt10027_req":
             self._opt10027(rqname, trcode)
-
+        # OPT10023 opt10030 OPT10031 거래량 상위
+        # opt10079 틱 차트 조회 KOA 돌려보기
         try:
             self.tr_event_loop.exit()
         except AttributeError:
