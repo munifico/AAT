@@ -9,6 +9,7 @@ import requests
 from bs4 import BeautifulSoup
 from trading import *
 from start_point import *
+from log import *
 
 form_class = uic.loadUiType("main.ui")[0]
 # form_class1 = uic.loadUiType("start.ui")[0]
@@ -20,13 +21,17 @@ class MainWindow(QMainWindow, form_class):
         self.setupUi(self)
 
         self.start = Start(self)
-
+        self.log = Log(self)
         # start.move(885, 520)
         # start.resize(650, 450)
 
         self.tabWidget.addTab(self.start, "start")
+        self.tabWidget.addTab(self.log, "log")
 
         self.start.pushButton_2.clicked.connect(self.button_clicked)
+
+        self.start.pushButton_4.clicked.connect(self.button2)
+        # self.menu_log.triggered.connect(self.log)
 
         if self.start.login_state == True:
             pass
@@ -35,9 +40,20 @@ class MainWindow(QMainWindow, form_class):
         # self.setCentralWidget(self.table_widget)
 
 
+    def button2(self):
+        try:
+            self.trading.lineEdit.setText("01")
+            print("button")
+        except:
+            pass
+
     def button_clicked(self):
-        trading = Trading(self, self.start.kiwoom)
-        self.tabWidget.addTab(trading, "수동 매매")
+        self.trading = Trading(self, self.start.kiwoom)
+        self.tabWidget.addTab(self.trading, "수동 매매")
+
+        # trading.checkBox_2.setEnabled(True)
+
+    # def log(self):
 
 # class Start(QWidget, form_class1):
 #     def __init__(self, parent):

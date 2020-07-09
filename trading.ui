@@ -375,7 +375,7 @@
     <enum>QFrame::Plain</enum>
    </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="page">
     <widget class="QGroupBox" name="groupBox_2">
@@ -616,6 +616,9 @@
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_9">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -700,6 +703,9 @@
      </property>
     </widget>
     <widget class="QCheckBox" name="checkBox_2">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>170</x>
@@ -710,6 +716,12 @@
      </property>
      <property name="text">
       <string>실시간</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
      </property>
     </widget>
     <widget class="QGroupBox" name="groupBox_5">

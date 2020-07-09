@@ -3,7 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="e9523432-406d-4b10-b2ac-7dfa98bbcc28" name="Default Changelist" comment="Learned the matplotlib">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kiwoom.py" beforeDir="false" afterPath="$PROJECT_DIR$/kiwoom.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log.ui" beforeDir="false" afterPath="$PROJECT_DIR$/log.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.ui" beforeDir="false" afterPath="$PROJECT_DIR$/main.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/start.ui" beforeDir="false" afterPath="$PROJECT_DIR$/start.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/start_point.py" beforeDir="false" afterPath="$PROJECT_DIR$/start_point.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trading.py" beforeDir="false" afterPath="$PROJECT_DIR$/trading.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trading.ui" beforeDir="false" afterPath="$PROJECT_DIR$/trading.ui" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +55,7 @@
     </key>
   </component>
   <component name="RunManager" selected="Python.main (1)">
-    <configuration name="kiwoom" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="log" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="AAT" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -61,7 +67,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/kiwoom.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/log.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -91,7 +97,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="start_point" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="start_point" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="AAT" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -157,10 +163,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.main (1)" />
+        <item itemvalue="Python.start_point" />
+        <item itemvalue="Python.log" />
         <item itemvalue="Python.testt" />
         <item itemvalue="Python.trading" />
-        <item itemvalue="Python.kiwoom" />
-        <item itemvalue="Python.start_point" />
       </list>
     </recent_temporary>
   </component>
@@ -238,22 +244,22 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="434" y="441" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1589294057526" />
-    <state width="1272" height="261" key="GridCell.Tab.0.bottom" timestamp="1593617203035">
+    <state width="1258" height="259" key="GridCell.Tab.0.bottom" timestamp="1594305048781">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1272" height="261" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1593617203035" />
-    <state width="1272" height="261" key="GridCell.Tab.0.center" timestamp="1593617203035">
+    <state width="1258" height="259" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1594305048781" />
+    <state width="1258" height="259" key="GridCell.Tab.0.center" timestamp="1594305048781">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1272" height="261" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1593617203035" />
-    <state width="1272" height="261" key="GridCell.Tab.0.left" timestamp="1593617203035">
+    <state width="1258" height="259" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1594305048781" />
+    <state width="1258" height="259" key="GridCell.Tab.0.left" timestamp="1594305048781">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1272" height="261" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1593617203035" />
-    <state width="1272" height="261" key="GridCell.Tab.0.right" timestamp="1593617203035">
+    <state width="1258" height="259" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1594305048781" />
+    <state width="1258" height="259" key="GridCell.Tab.0.right" timestamp="1594305048781">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1272" height="261" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1593617203035" />
+    <state width="1258" height="259" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1594305048781" />
     <state width="1257" height="408" key="GridCell.Tab.1.bottom" timestamp="1589100879932">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -270,10 +276,10 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="1257" height="408" key="GridCell.Tab.1.right/0.0.2560.1400@0.0.2560.1400" timestamp="1589100879932" />
-    <state x="732" y="355" key="SettingsEditor" timestamp="1587394320750">
+    <state x="732" y="355" key="SettingsEditor" timestamp="1594304844031">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="732" y="355" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1587394320750" />
+    <state x="732" y="355" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1594304844031" />
     <state x="444" y="617" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1587994871802">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -286,10 +292,10 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1325" y="1" width="1058" height="1092" key="dock-window-2/0.0.2560.1400@0.0.2560.1400" timestamp="1587968162391" />
-    <state x="303" y="320" width="672" height="160" key="search.everywhere.popup" timestamp="1589089623986">
+    <state x="303" y="320" width="672" height="160" key="search.everywhere.popup" timestamp="1594217664526">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="303" y="320" width="672" height="160" key="search.everywhere.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1589089623986" />
+    <state x="303" y="320" width="672" height="160" key="search.everywhere.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1594217664526" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -7,7 +7,7 @@ from kiwoom import *
 import requests
 from bs4 import BeautifulSoup
 import os
-from manual_trading import *
+# from trading import *
 
 
 form_class = uic.loadUiType("start.ui")[0]

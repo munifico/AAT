@@ -93,7 +93,7 @@
     <property name="title">
      <string>로그관리</string>
     </property>
-    <addaction name="action"/>
+    <addaction name="menu_log"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
@@ -157,9 +157,12 @@
     <string>거래내역</string>
    </property>
   </action>
-  <action name="action">
+  <action name="menu_log">
    <property name="text">
     <string>로그관리</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
    </property>
   </action>
  </widget>

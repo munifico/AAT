@@ -26,6 +26,9 @@
     <string>주식 거래 기록</string>
    </property>
    <widget class="QPlainTextEdit" name="plainTextEdit">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>60</x>
@@ -33,6 +36,9 @@
       <width>651</width>
       <height>601</height>
      </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>
@@ -49,6 +55,9 @@
     <string>시스템 기록</string>
    </property>
    <widget class="QPlainTextEdit" name="plainTextEdit_2">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -56,6 +65,9 @@
       <width>461</width>
       <height>411</height>
      </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>
@@ -72,6 +84,9 @@
     <string>사용자 행동 로그</string>
    </property>
    <widget class="QPlainTextEdit" name="plainTextEdit_3">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>150</x>
@@ -79,6 +94,9 @@
       <width>401</width>
       <height>321</height>
      </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>

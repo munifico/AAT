@@ -47,7 +47,7 @@ class Trading(QMainWindow, form_class):
             self.pushButton.setEnabled(True)
             self.pushButton_2.setEnabled(True)
             self.checkBox.setEnabled(True)
-            self.checkBox_2.setEnabled(False)
+            self.checkBox_2.setEnabled(True)
 
             self.interest_stock_list = []
 
