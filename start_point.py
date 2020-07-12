@@ -72,6 +72,7 @@ class Start(QWidget,form_class):
 
         self.label.setText(today_time)
 
+        month = int(datetime.datetime.today().strftime('%m'))
         week = int(datetime.datetime.today().strftime('%w'))
         day = datetime.datetime.today().strftime('%d')
         hour = datetime.datetime.today().strftime('%H')
@@ -79,12 +80,17 @@ class Start(QWidget,form_class):
 
         hour_P_min = hour + min
 
+        # print(self.holiday(month))
+
         if week == 6 or week == 0:
             self.label_2.setText("주말 입니다.")
             self._open_close(False)
         # elif day in self.holidays:
         #     self.label_2.setText("휴무일 입니다.")
         #     self._open_close(False)
+        elif day in self.holiday(month):
+            self.label_2.setText("공휴일 입니다")
+            self._open_close(False)
         elif int(hour) < 9 or (int(hour_P_min) > 1530):    # 9 - 15:30 # 일단 이렇게 보류 / 더 나은 방법 찾아보기
             self.label_2.setText("개장 시간이 아닙니다.")
             self._open_close(False)
@@ -97,6 +103,24 @@ class Start(QWidget,form_class):
         if int(hour) == 8 and int(min) == 50 and self.non_login_state:
             self.button_clicked()
             self.non_login_state = False
+
+    def holiday(self, M):
+        holiday_2020_tuple = ((1, 23, 24, 25, 26, 27),
+                         (),
+                         (1),
+                         (8),
+                         (5),
+                         (6),
+                         (),
+                         (15),
+                         (30),
+                         (1, 2, 3, 4, 9),
+                         (),
+                         (25))
+        D = holiday_2020_tuple[M-1]
+        print(D)
+        return holiday_2020_tuple[M-1]
+
 
     """
     공공 데이터로 공휴일 처리
