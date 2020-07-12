@@ -20,7 +20,12 @@ class Start(QWidget,form_class):
         self.login_state = False
         self.kiwoom = Kiwoom()
 
-        self.holidays = self.open_api_holiday()
+        """
+        공휴일 api의 속도가 너무 느려져서 사용 불가능한 상황에 옴.
+        따로 공휴일 리스트를 만들어서 사용해야 할듯
+        일단 아래 open_api_holiday()는 사용 중지
+        """
+        # self.holidays = self.open_api_holiday()
 
         self.timer = QTimer(self)
         self.timer.start(1000)
@@ -77,9 +82,9 @@ class Start(QWidget,form_class):
         if week == 6 or week == 0:
             self.label_2.setText("주말 입니다.")
             self._open_close(False)
-        elif day in self.holidays:
-            self.label_2.setText("휴무일 입니다.")
-            self._open_close(False)
+        # elif day in self.holidays:
+        #     self.label_2.setText("휴무일 입니다.")
+        #     self._open_close(False)
         elif int(hour) < 9 or (int(hour_P_min) > 1530):    # 9 - 15:30 # 일단 이렇게 보류 / 더 나은 방법 찾아보기
             self.label_2.setText("개장 시간이 아닙니다.")
             self._open_close(False)
@@ -98,32 +103,32 @@ class Start(QWidget,form_class):
     개장 폐장은 하루 한번만 확인해도 됨
     프로그램 실행 때 딱 한번만 확인
     """
-    def open_api_holiday(self):
-        holi_api = "http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/"
-        operation = "getHoliDeInfo"
-        year = "?solYear=" + datetime.datetime.today().strftime('%Y')
-        month = "&solMonth=" + datetime.datetime.today().strftime('%m')
-        # month = "&solMonth=04"
-        service_key = self.open_file()
-        service_key = "&ServiceKey="+service_key
-
-        url = holi_api+operation+year+month+service_key
-
-        holiday_req = requests.get(url=url)
-        holiday_xml = holiday_req.text
-        # print(holiday_xml)
-        soup = BeautifulSoup(holiday_xml, "xml")
-        holidays = soup.find_all("locdate")
-
-        holiday_day = []
-
-        for holiday in holidays:
-            holiday_slice = holiday.text
-            holiday_slice = holiday_slice[6:8]
-            holiday_day.append(holiday_slice)
-        print("open_api_hoilday")
-        print(holiday_day)
-        return holiday_day
+    # def open_api_holiday(self):
+    #     holi_api = "http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/"
+    #     operation = "getHoliDeInfo"
+    #     year = "?solYear=" + datetime.datetime.today().strftime('%Y')
+    #     month = "&solMonth=" + datetime.datetime.today().strftime('%m')
+    #     # month = "&solMonth=04"
+    #     service_key = self.open_file()
+    #     service_key = "&ServiceKey="+service_key
+    #
+    #     url = holi_api+operation+year+month+service_key
+    #
+    #     holiday_req = requests.get(url=url)
+    #     holiday_xml = holiday_req.text
+    #     # print(holiday_xml)
+    #     soup = BeautifulSoup(holiday_xml, "xml")
+    #     holidays = soup.find_all("locdate")
+    #
+    #     holiday_day = []
+    #
+    #     for holiday in holidays:
+    #         holiday_slice = holiday.text
+    #         holiday_slice = holiday_slice[6:8]
+    #         holiday_day.append(holiday_slice)
+    #     print("open_api_hoilday")
+    #     print(holiday_day)
+    #     return holiday_day
 
     def open_file(self):
         with open(os.path.join(SECU_BASE_DIR, "key.txt"),'r+', encoding='utf-8') as f_read:

@@ -5,7 +5,6 @@ from PyQt5 import uic
 import datetime
 from kiwoom import *
 import os
-from manual_trading import *
 
 
 form_class = uic.loadUiType("log.ui")[0]
