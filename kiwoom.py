@@ -44,12 +44,16 @@ class Kiwoom(QAxWidget):
             self._optkwfid(rqname, trcode)
         elif rqname == "opt10027_req":
             self._opt10027(rqname, trcode)
+        elif rqname == "OPT10023_req":
+            self._opt10023(rqname, trcode)
         # OPT10023 opt10030 OPT10031 거래량 상위
         # opt10079 틱 차트 조회 KOA 돌려보기
         try:
             self.tr_event_loop.exit()
         except AttributeError:
             pass
+
+
 
     def _opw00018(self, rqname, trcode):
         total_purchase_price = self._comm_get_data(trcode, "", rqname, 0, "총매입금액")
@@ -131,7 +135,7 @@ class Kiwoom(QAxWidget):
             code = self.get_comm_data(trcode, rqname, i, "종목코드")
             name = self.get_comm_data(trcode, rqname, i, "종목명")
             price = self.get_comm_data(trcode, rqname, i, "현재가")
-            previous_dat_price = self.get_comm_data(trcode, rqname, i, "전일대비")
+            previous_day_price = self.get_comm_data(trcode, rqname, i, "전일대비")
             up_down_per = self.get_comm_data(trcode, rqname, i, "등락률")
             volume = self.get_comm_data(trcode, rqname, i, "현재거래량")
             buy_quantity = self.get_comm_data(trcode, rqname, i, "매수잔량")
@@ -143,7 +147,7 @@ class Kiwoom(QAxWidget):
                 up_stock.append(code)
                 up_stock.append(name)
                 up_stock.append(price)
-                up_stock.append(previous_dat_price)
+                up_stock.append(previous_day_price)
                 up_stock.append(up_down_per)
                 up_stock.append(volume)
                 up_stock.append(buy_quantity)
@@ -154,7 +158,7 @@ class Kiwoom(QAxWidget):
                 up_near_stock.append(code)
                 up_near_stock.append(name)
                 up_near_stock.append(price)
-                up_near_stock.append(previous_dat_price)
+                up_near_stock.append(previous_day_price)
                 up_near_stock.append(up_down_per)
                 up_near_stock.append(volume)
                 up_near_stock.append(buy_quantity)
@@ -162,6 +166,34 @@ class Kiwoom(QAxWidget):
 
                 self.up_near_stock_list.append(up_near_stock)
 
+    def _opt10023(self, rqname, trcode):
+        print("opt_10023")
+        cnt = self._get_repeat_cnt(trcode = trcode, rqname = rqname)
+        print("opt10023 cnt = " + str(cnt))
+        self.surge_volume_list = []
+
+        for i in range(cnt):
+            surge_volume = []
+
+            code = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="종목코드")
+            name = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="종목명")
+            price = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="현재가")
+            previous_day_price = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="전일대비")
+            up_down_per = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="전일대비")
+            volume = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="현재거래량")
+            rapid_increase_quantity = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="급증량")
+            rapid_increase_per = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="급증률")
+
+            surge_volume.append(code)
+            surge_volume.append(name)
+            surge_volume.append(price)
+            surge_volume.append(previous_day_price)
+            surge_volume.append(up_down_per)
+            surge_volume.append(volume)
+            surge_volume.append(rapid_increase_quantity)
+            surge_volume.append(rapid_increase_per)
+
+            self.surge_volume_list.append(surge_volume)
 
     def _receive_chejan_data(self, gubun, item_cnt, fid_list):
         '''

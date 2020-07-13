@@ -1,6 +1,7 @@
 """
 화면 번호
 1000 - 상한가 / 하한가
+2000 - 거래량
 4000 - 관심 종목
 6000 - 실시간 데이터 처리
 """
@@ -51,8 +52,18 @@ class Trading(QMainWindow, form_class):
 
             self.interest_stock_list = []
 
+            """
+            시장 구분 (000:전체, 001:코스피, 101:코스닥)
+            정렬 구분 (1:상승률, 2:상승폭, 3:하락률, 4:하락폭)
+            정렬 구분 (1:급증량, 2:급증률)
+            거래량 구분 (5:5천주이상, 10:만주이상, 50:5만주이상, 100:10만주이상, 200:20만주이상, 300:30만주이상, 500:50만주이상, 1000:백만주이상)
+            시간 구분 (1:분, 2:전일)
+            """
             self.market_gubun = "000"
             self.up_down_gubun = "1"
+            self.array_gubun = "2"
+            self.volume_gubun = "5"
+            self.time_gubun = "2"
 
             account_num = int(self.kiwoom.get_login_info("ACCOUNT_CNT"))
             accounts = self.kiwoom.get_login_info("ACCNO")
@@ -96,16 +107,27 @@ class Trading(QMainWindow, form_class):
             self.pushButton_30.clicked.connect(self.add_interest_stock)
             self.pushButton_31.clicked.connect(self.del_interest_stock)
             self.pushButton_32.clicked.connect(self.remove_real_data)
+            self.pushButton_33.clicked.connect(self.surge_volume)
+            # self.pushButton_34.clicked.connect()
+            # self.pushButton_35.clicked.connect()
+            # self.pushButton_36.clicked.connect()
 
             self.radioButton.clicked.connect(lambda: self.market_change(num=0))
             self.radioButton_2.clicked.connect(lambda: self.market_change(num=1))
             self.radioButton_3.clicked.connect(lambda: self.market_change(num=2))
             self.radioButton_4.clicked.connect(lambda: self.up_down_change(num=0))
             self.radioButton_5.clicked.connect(lambda: self.up_down_change(num=1))
+            self.radioButton_6.clicked.connect(lambda: self.market_change(num=0))
+            self.radioButton_7.clicked.connect(lambda: self.market_change(num=1))
+            self.radioButton_8.clicked.connect(lambda: self.market_change(num=2))
+            self.radioButton_9.clicked.connect(lambda: self.array_change(num=0))
+            self.radioButton_10.clicked.connect(lambda: self.array_change(num=1))
             # self.tableWidget_4.cellChanged.connect(self.info_interest_stock)
 
             self.comboBox_3.activated.connect(self.type_changed)
             self.comboBox_2.activated.connect(self.type_order)
+            self.comboBox_4.activated.connect(self.volume)
+            self.comboBox_5.activated.connect(self.time)
 
             self.timer_0 = QTimer(self)
             self.timer_0.start(1000*10)
@@ -118,10 +140,14 @@ class Trading(QMainWindow, form_class):
             self.timer_2 = QTimer(self)
             self.timer_2.start(1000*1)
             self.timer_2.timeout.connect(self.stacked_2_timeout)
-
+            # 상한가 / 하한가 실시간
             self.timer_3 = QTimer(self)
             self.timer_3.start(1000*4)  ## 1시간 TR 조회 제한까지 커버 가능
             self.timer_3.timeout.connect(self.stacked_3_timeout)
+            # 거래량 실시간
+            self.timer_4 = QTimer(self)
+            self.timer_4.start(1000*4)
+            self.timer_4.timeout.connect(self.stacked_4_timeout)
         else:
             self.pushButton.setEnabled(False)
             self.pushButton_2.setEnabled(False)
@@ -359,6 +385,16 @@ class Trading(QMainWindow, form_class):
         self.checkBox_2.setChecked(False)
         self.checkBox_3.setChecked(False)
         self.checkBox_4.setChecked(False)
+        self.checkBox_5.setChecked(False)
+        self.radioButton.setChecked(True)
+        self.radioButton_4.setChecked(True)
+        self.radioButton_6.setChecked(True)
+        self.radioButton_9.setChecked(True)
+
+        self.market_change(num=0)
+        self.up_down_change(num=0)
+        self.array_change(num=0)
+
         self.kiwoom.set_real_remove("ALL", "ALL")
 
         if num == 0:
@@ -384,6 +420,36 @@ class Trading(QMainWindow, form_class):
     def type_order(self, index):
         if index == 0 or index == 1:
             self.lineEdit_3.setText('')
+
+    def time(self, index):
+        if index == 0:
+            time = 1
+        elif index == 1:
+            time = 2
+
+        self.time_gubun = time
+        print(self.time_gubun)
+
+    def volume(self, index):
+        if index == 0:
+            volume_gubun = "5"
+        elif index == 1:
+            volume_gubun = "10"
+        elif index == 2:
+            volume_gubun = "50"
+        elif index == 3:
+            volume_gubun = "100"
+        elif index == 4:
+            volume_gubun = "200"
+        elif index == 5:
+            volume_gubun = "300"
+        elif index == 6:
+            volume_gubun = "500"
+        elif index == 7:
+            volume_gubun = "1000"
+
+        self.volume_gubun = volume_gubun
+        print(volume_gubun)
 
     def code_changed(self):
         code = self.lineEdit.text()
@@ -672,6 +738,58 @@ class Trading(QMainWindow, form_class):
         self.tableWidget_7.resizeRowsToContents()
         self.tableWidget_7.resizeColumnsToContents()
 
+    def surge_volume(self):
+        """
+        시장구분 = 000:전체, 001:코스피, 101:코스닥
+        정렬구분 = 1:급증량, 2:급증률
+        시간구분 = 1:분, 2:전일
+        거래량구분 = 5:5천주이상, 10:만주이상, 50:5만주이상, 100:10만주이상, 200:20만주이상, 300:30만주이상, 500:50만주이상, 1000:백만주이상
+        시간 = 분 입력
+        종목조건 = 0:전체조회, 1:관리종목제외, 5:증100제외, 6:증100만보기, 7:증40만보기, 8:증30만보기, 9:증20만보기
+        가격구분 = 0:전체조회, 2:5만원이상, 5:1만원이상, 6:5천원이상, 8:1천원이상, 9:10만원이상
+        """
+        market_gubun = self.market_gubun
+        array_gubun = self.array_gubun
+        time_gubun = self.time_gubun
+        volume_gubun = self.volume_gubun
+
+        time = "0"
+        stock_condition = "0"
+        price_gubun = "0"
+
+        self.kiwoom.set_input_value(id="시장구분", value=market_gubun)
+        self.kiwoom.set_input_value(id="정렬구분", value=array_gubun)
+        self.kiwoom.set_input_value(id="시간구분", value=time_gubun)
+        self.kiwoom.set_input_value(id="거래량구분", value=volume_gubun)
+        self.kiwoom.set_input_value(id="시간", value=time)
+        self.kiwoom.set_input_value(id="종목조건", value=stock_condition)
+        self.kiwoom.set_input_value(id="가격구분", value=price_gubun)
+
+        self.kiwoom.comm_rq_data(rqname="OPT10023_req", trcode="OPT10023", next="0", screen_no="2000")
+
+        # 데이터 받기 전
+        ##############
+        # 데이터 받은 후
+
+        cnt = len(self.kiwoom.surge_volume_list)
+        self.tableWidget_9.setRowCount(cnt)
+
+        for i in range(cnt):
+            for count, stock in enumerate(self.kiwoom.surge_volume_list[i]):
+                color, data = self.color_2(stock)
+                item = QTableWidgetItem(data)
+
+                if color == "red":
+                    item.setForeground(QtGui.QBrush(Qt.red))
+                elif color == "blue":
+                    item.setForeground(QtGui.QBrush(Qt.blue))
+                else:
+                    item.setForeground(QtGui.QBrush(Qt.black))
+                self.tableWidget_9.setItem(i, count, item)
+        self.tableWidget_9.resizeRowsToContents()
+        self.tableWidget_9.resizeColumnsToContents()
+
+
     def market_change(self, num):
         if num == 0:
             market_gubun = "000"
@@ -681,7 +799,7 @@ class Trading(QMainWindow, form_class):
             market_gubun = "101"
         self.market_gubun = market_gubun
 
-        self.up_down()
+        # self.up_down()
 
     def up_down_change(self, num):
         if num == 0:
@@ -691,6 +809,14 @@ class Trading(QMainWindow, form_class):
         self.up_down_gubun = up_down_gubun
 
         self.up_down()
+
+    def array_change(self, num):
+        if num == 0:
+            array_gubun = "2"
+        elif num == 1:
+            array_gubun = "1"
+        self.array_gubun = array_gubun
+
 
     def stacked_0_timeout(self):
         if self.checkBox.isChecked():
@@ -1012,6 +1138,10 @@ class Trading(QMainWindow, form_class):
     def stacked_3_timeout(self):
         if self.checkBox_4.isChecked():
             self.up_down()
+
+    def stacked_4_timeout(self):
+        if self.checkBox_5.isChecked():
+            self.surge_volume()
 
     def color(self, str):
         if str.startswith('+'):
