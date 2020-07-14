@@ -507,23 +507,58 @@ class Trading(QMainWindow, form_class):
         self.tableWidget.setItem(0, 0, item)
 
         for i in range(1, 6):
-            item = QTableWidgetItem(self.kiwoom.opw00018_output['single'][i-1])
-            item.setTextAlignment(Qt.AlignVCenter | Qt.AlignRight)
+            color, data = self.color_2(self.kiwoom.opw00018_output['single'][i-1])
+            item = QTableWidgetItem(data)
+
+            if color == "red":
+                item.setForeground(QtGui.QBrush(Qt.red))
+            elif color == "blue":
+                item.setForeground(QtGui.QBrush(Qt.blue))
+            else:
+                item.setForeground(QtGui.QBrush(Qt.black))
             self.tableWidget.setItem(0, i, item)
 
         self.tableWidget.resizeRowsToContents()
 
+        # for i in range(1, 6):
+        #     item = QTableWidgetItem(self.kiwoom.opw00018_output['single'][i-1])
+        #     item.setTextAlignment(Qt.AlignVCenter | Qt.AlignRight)
+        #     self.tableWidget.setItem(0, i, item)
+        #
+        # self.tableWidget.resizeRowsToContents()
+
         item_count = len(self.kiwoom.opw00018_output['multi'])
         self.tableWidget_2.setRowCount(item_count)
 
-        for j in range(item_count):
-            row = self.kiwoom.opw00018_output['multi'][j]
-            for i in range(len(row)):
-                item = QTableWidgetItem(row[i])
-                item.setTextAlignment(Qt.AlignVCenter | Qt.AlignRight)
-                self.tableWidget_2.setItem(j, i, item)
+        for i in range(item_count):
+            for count, stock in enumerate(self.kiwoom.opw00018_output['multi'][i]):
+                color, data = self.color_2(stock)
+                item = QTableWidgetItem(data)
+
+                if count >= 4:
+                    if color == "red":
+                        item.setForeground(QtGui.QBrush(Qt.red))
+                    elif color == "blue":
+                        item.setForeground(QtGui.QBrush(Qt.blue))
+                    else:
+                        item.setForeground(QtGui.QBrush(Qt.red))
+                elif count < 4:
+                    item.setForeground(QtGui.QBrush(Qt.black))
+
+                self.tableWidget_2.setItem(i, count, item)
 
         self.tableWidget_2.resizeRowsToContents()
+        self.tableWidget_2.resizeRowsToContents()
+
+        # for j in range(item_count):
+        #     row = self.kiwoom.opw00018_output['multi'][j]
+        #     for i in range(len(row)):
+        #         item = QTableWidgetItem(row[i])
+        #         item.setTextAlignment(Qt.AlignVCenter | Qt.AlignRight)
+        #         self.tableWidget_2.setItem(j, i, item)
+        #
+        # self.tableWidget_2.resizeRowsToContents()
+
 
     def add_interest_stock(self):
         if self.lineEdit_8.text() != "":

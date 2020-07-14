@@ -239,7 +239,7 @@ class Kiwoom(QAxWidget):
         miss_quantity = self.get_chejan_data(902)
         sell_buy_gubun = self.get_chejan_data(907)
         origin_order_num = self.get_chejan_data(904)
-
+        print("receive_chejan_data")
         print(sell_buy_num[sell_buy_gubun])
         if order_num == '':
             pass
