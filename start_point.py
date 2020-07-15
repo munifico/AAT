@@ -40,6 +40,7 @@ class Start(QWidget,form_class):
 
         self.pushButton_2.clicked.connect(self.button_clicked)
 
+        # self.
         # self.open = False
 
         # parent.pushButton_2.clicked.connect(parent.button_clicked)
@@ -80,6 +81,14 @@ class Start(QWidget,form_class):
 
         hour_P_min = hour + min
 
+        close_market = (6*60) + 30
+        now_time = (int(hour) * 60) + int(min) - (9 * 60)
+        open_close_per = (int(now_time) / close_market) * 100
+        print(open_close_per)
+        if(0 <= open_close_per and open_close_per <= 100):
+            self.progressBar.setValue(open_close_per)
+        elif(0 > open_close_per or open_close_per > 100):
+            self.progressBar.reset()
         # print(self.holiday(month))
 
         if week == 6 or week == 0:
