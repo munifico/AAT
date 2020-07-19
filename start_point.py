@@ -78,8 +78,9 @@ class Start(QWidget,form_class):
         day = datetime.datetime.today().strftime('%d')
         hour = datetime.datetime.today().strftime('%H')
         min = datetime.datetime.today().strftime('%M')
+        sec = datetime.datetime.today().strftime('%S')
 
-        hour_P_min = hour + min
+        hour_P_min = hour + min + sec
 
         close_market = (6*60) + 30
         now_time = (int(hour) * 60) + int(min) - (9 * 60)
@@ -100,7 +101,7 @@ class Start(QWidget,form_class):
         elif day in self.holiday(month):
             self.label_2.setText("공휴일 입니다")
             self._open_close(False)
-        elif int(hour) < 9 or (int(hour_P_min) > 1530):    # 9 - 15:30 # 일단 이렇게 보류 / 더 나은 방법 찾아보기
+        elif int(hour) < 9 or (int(hour_P_min) > 153000):    # 9 - 15:30 # 일단 이렇게 보류 / 더 나은 방법 찾아보기
             self.label_2.setText("개장 시간이 아닙니다.")
             self._open_close(False)
         else:
