@@ -37,15 +37,19 @@ class Kiwoom(QAxWidget):
             self.remained_data = False
 
         if rqname == "opw00018_req":
-            self._opw00018(rqname, trcode)
+            self._opw00018(rqname=rqname, trcode=trcode)
         elif rqname == "opw00001_req":
-            self._opw00001(rqname, trcode)
+            self._opw00001(rqname=rqname, trcode=trcode)
         elif rqname == "OPTKWFID_req":
-            self._optkwfid(rqname, trcode)
+            self._optkwfid(rqname=rqname, trcode=trcode)
         elif rqname == "opt10027_req":
-            self._opt10027(rqname, trcode)
+            self._opt10027(rqname=rqname, trcode=trcode)
         elif rqname == "OPT10023_req":
-            self._opt10023(rqname, trcode)
+            self._opt10023(rqname=rqname, trcode=trcode)
+        elif rqname == "opt10030_req":
+            self._opt10030(rqname=rqname, trcode=trcode)
+        elif rqname == "OPT10031_req":
+            self._opt10031(rqname=rqname, trcode=trcode)
         # OPT10023 opt10030 OPT10031 거래량 상위
         # opt10079 틱 차트 조회 KOA 돌려보기
         try:
@@ -194,6 +198,59 @@ class Kiwoom(QAxWidget):
             surge_volume.append(rapid_increase_per)
 
             self.surge_volume_list.append(surge_volume)
+
+    def _opt10030(self, rqname, trcode):
+        print("opt10030")
+
+        cnt = self._get_repeat_cnt(trcode=trcode, rqname=rqname)
+
+        self.today_volume_top = []
+
+        for i in range(cnt):
+            today_volume = []
+
+            code = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="종목코드")
+            name = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="종목명")
+            price = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="현재가")
+            up_down_per = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="등락률")
+            volume = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="거래량")
+            previous_day_price = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="전일비")
+            transaction_spin = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="거래회전율")
+
+            today_volume.append(code)
+            today_volume.append(name)
+            today_volume.append(price)
+            today_volume.append(up_down_per)
+            today_volume.append(volume)
+            today_volume.append(previous_day_price)
+            today_volume.append(transaction_spin)
+
+            self.today_volume_top.append(today_volume)
+
+
+    def _opt10031(self, trcode, rqname):
+        print("opt10031")
+
+        cnt = self._get_repeat_cnt(trcode=trcode, rqname=rqname)
+
+        self.yesterday_volume_top = []
+
+        for i in range(cnt):
+            yesterday_volume = []
+
+            code = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="종목코드")
+            name = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="종목명")
+            price = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="현재가")
+            previous_day_price = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="전일대비")
+            volume = self.get_comm_data(trcode, rqname=rqname, index=i, name="거래량")
+
+            yesterday_volume.append(code)
+            yesterday_volume.append(name)
+            yesterday_volume.append(price)
+            yesterday_volume.append(previous_day_price)
+            yesterday_volume.append(volume)
+
+            self.yesterday_volume_top.append(yesterday_volume)
 
     def _receive_chejan_data(self, gubun, item_cnt, fid_list):
         '''

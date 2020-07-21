@@ -108,9 +108,9 @@ class Trading(QMainWindow, form_class):
             self.pushButton_31.clicked.connect(self.del_interest_stock)
             self.pushButton_32.clicked.connect(self.remove_real_data)
             self.pushButton_33.clicked.connect(self.surge_volume)
-            # self.pushButton_34.clicked.connect()
-            # self.pushButton_35.clicked.connect()
-            # self.pushButton_36.clicked.connect()
+            self.pushButton_34.clicked.connect(self.today_volume_top)
+            self.pushButton_35.clicked.connect(self.yesterday_volume_top)
+            self.pushButton_36.clicked.connect(self.volume_all_search)
 
             self.radioButton.clicked.connect(lambda: self.market_change(num=0))
             self.radioButton_2.clicked.connect(lambda: self.market_change(num=1))
@@ -824,6 +824,106 @@ class Trading(QMainWindow, form_class):
         self.tableWidget_9.resizeRowsToContents()
         self.tableWidget_9.resizeColumnsToContents()
 
+    def today_volume_top(self):
+        """
+        시장구분 = 000:전체, 001:코스피, 101:코스닥
+        정렬구분 = 1:거래량, 2:거래회전율, 3:거래대금
+        관리종목포함 = 0:관리종목 포함, 1:관리종목 미포함, 3:우선주제외, 11:정리매매종목제외, 4:관리종목, 우선주제외, 5:증100제외, 6:증100마나보기, 13:증60만보기, 12:증50만보기, 7:증40만보기, 8:증30만보기, 9:증20만보기, 14:ETF제외, 15:스팩제외, 16:ETF+ETN제외
+        신용구분 = 0:전체조회, 9:신용융자전체, 1:신용융자A군, 2:신용융자B군, 3:신용융자C군, 4:신용융자D군, 8:신용대주
+        거래량구분 = 0:전체조회, 5:5천주이상, 10:1만주이상, 50:5만주이상, 100:10만주이상, 200:20만주이상, 300:30만주이상, 500:500만주이상, 1000:백만주이상
+        가격구분 = 0:전체조회, 1:1천원미만, 2:1천원이상, 3:1천원~2천원, 4:2천원~5천원, 5:5천원이상, 6:5천원~1만원, 10:1만원미만, 7:1만원이상, 8:5만원이상, 9:10만원이상
+        거래대금구분 = 0:전체조회, 1:1천만원이상, 3:3천만원이상, 4:5천만원이상, 10:1억원이상, 30:3억원이상, 50:5억원이상, 100:10억원이상, 300:30억원이상, 500:50억원이상, 1000:100억원이상, 3000:300억원이상, 5000:500억원이상
+        장운영구분 = 0:전체조회, 1:장중, 999:시간외전체, 2:장전시간외, 3:장후시간외
+        """
+        market_gubun = self.market_gubun
+        array_gubun = "1"
+        volume_gubun = self.volume_gubun
+
+        management_item = "0"
+        credit_gubun = "0"
+        price_gubun = "0"
+        trade_payment = "0"
+        market_manage_gubun = "0"
+
+        self.kiwoom.set_input_value(id="시장구분", value=market_gubun)
+        self.kiwoom.set_input_value(id="정렬구분", value=array_gubun)
+        self.kiwoom.set_input_value(id="관리종목포함", value=management_item)
+        self.kiwoom.set_input_value(id="신용구분", value=credit_gubun)
+        self.kiwoom.set_input_value(id="거래량구분", value=volume_gubun)
+        self.kiwoom.set_input_value(id="가격구분", value=price_gubun)
+        self.kiwoom.set_input_value(id="거래대금구분", value=trade_payment)
+        self.kiwoom.set_input_value(id="장운영구분", value=market_manage_gubun)
+
+        self.kiwoom.comm_rq_data(rqname="opt10030_req", trcode="opt10030", next="0", screen_no="2100")
+
+        # 데이터 받기 전
+        ##############
+        # 데이터 받은 후
+
+        cnt = len(self.kiwoom.today_volume_top)
+        self.tableWidget_10.setRowCount(cnt)
+
+        for i in range(cnt):
+            for count, stock in enumerate(self.kiwoom.today_volume_top[i]):
+                color, data = self.color_2(stock)
+                item = QTableWidgetItem(data)
+
+                if color == "red":
+                    item.setForeground(QtGui.QBrush(Qt.red))
+                elif color == "blue":
+                    item.setForeground(QtGui.QBrush(Qt.blue))
+                else:
+                    item.setForeground(QtGui.QBrush(Qt.black))
+                self.tableWidget_10.setItem(i, count, item)
+        self.tableWidget_10.resizeRowsToContents()
+        self.tableWidget_10.resizeColumnsToContents()
+
+    def yesterday_volume_top(self):
+        """
+        시장구분 = 000:전체, 001:코스피, 101:코스닥
+        조회구분 = 1:전일거래량 상위100종목, 2:전일거래대금 상위100종목
+        순위시작 = 0 ~ 100 값 중에  조회를 원하는 순위 시작값
+        순위끝 = 0 ~ 100 값 중에  조회를 원하는 순위 끝값
+        """
+        market_gubun = self.market_gubun
+
+        search_gubun = "1"
+        rank_start = "0"
+        rank_end = "100"
+
+        self.kiwoom.set_input_value(id="시장구분", value=market_gubun)
+        self.kiwoom.set_input_value(id="조회구분", value=search_gubun)
+        self.kiwoom.set_input_value(id="순위시작", value=rank_start)
+        self.kiwoom.set_input_value(id="순위끝", value=rank_end)
+
+        self.kiwoom.comm_rq_data(rqname="OPT10031_req", trcode="OPT10031", next="0", screen_no="2200")
+
+        # 데이터 받기 전
+        ##############
+        # 데이터 받은 후
+
+        cnt = len(self.kiwoom.yesterday_volume_top)
+        self.tableWidget_11.setRowCount(cnt)
+
+        for i in range(cnt):
+            for count, stock in enumerate(self.kiwoom.yesterday_volume_top[i]):
+                color, data = self.color_2(stock)
+                item = QTableWidgetItem(data)
+
+                if color == "red":
+                    item.setForeground(QtGui.QBrush(Qt.red))
+                elif color == "blue":
+                    item.setForeground(QtGui.QBrush(Qt.blue))
+                else:
+                    item.setForeground(QtGui.QBrush(Qt.black))
+                self.tableWidget_11.setItem(i, count, item)
+        self.tableWidget_11.resizeRowsToContents()
+        self.tableWidget_11.resizeColumnsToContents()
+
+    def volume_all_search(self):
+        self.surge_volume()
+        self.today_volume_top()
+        self.yesterday_volume_top()
 
     def market_change(self, num):
         if num == 0:
@@ -1178,6 +1278,8 @@ class Trading(QMainWindow, form_class):
     def stacked_4_timeout(self):
         if self.checkBox_5.isChecked():
             self.surge_volume()
+            self.today_volume_top()
+            self.yesterday_volume_top()
 
     def color(self, str):
         if str.startswith('+'):
