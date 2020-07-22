@@ -2,53 +2,88 @@ import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QAxContainer import *
 from PyQt5.QtCore import *
+from config.error_code import *
 
 class Kiwoom(QAxWidget):
     def __init__(self):
+        # kiwoom 클래스 시작
         super().__init__()
+
+        #### 초기 설정 함수
         self._create_kiwoom_instance()
         self._set_signal_slots()
         self.chejan_lists = []
         self.un_chejan_lists = []
+        ###################
 
     def _create_kiwoom_instance(self):
+        """
+        키움 API 모듈 실행
+        """
+        print("kiwoom api start")
         self.setControl("KHOPENAPI.KHOpenAPICtrl.1")
-        print("create kiwoom")
+
 
     def _set_signal_slots(self):
+        """
+        이벤트 - 슬롯
+        이벤트와 슬롯을 연결하는 메소드
+        """
+        print("signal_slots setting")
         self.OnEventConnect.connect(self._event_connect)
         self.OnReceiveTrData.connect(self._receive_tr_data)
         self.OnReceiveChejanData.connect(self._receive_chejan_data)
         self.OnReceiveRealData.connect(self._receive_real_data)
-        print("signal_slots")
 
-    def _event_connect(self, err_code):
-        if err_code == 0:
-            print("connect")
-        else:
-            print("disconnect")
+    def _event_connect(self, error_code):
+        """
+        키움 api 메소드인 CommConnect의 실행 후 OnEventConnect 이벤트가 발생
+        err_code 인자값으로 로그인 성공 여부를 알 수 있다.
+
+        OnEventConnect(통신 연결 상태 변경시 이벤트)가  서버 접속 관련 이벤트
+
+        err_code가 0이면 로그인 성공, 음수면 실패
+
+        :param error_code:
+            config.error_code.py
+        """
+        error = errors(err_code=error_code)
+
+        print(error[0] + " : " + error[1])
 
         self.login_event_loop.exit()
 
     def _receive_tr_data(self, screen_no, rqname, trcode, record_name, next, unused1, unused2, unused3, unused4):
+        """
+        OnReceiveTrData(Tran 수신시 이벤트)가 서버통신 후 데이터를 받은 시점을 알려준다
+
+        :param screen_no:화면번호
+        :param rqname:사용자구분 명
+            rqname – CommRqData의 rqname과 매핑되는 이름이다.
+        :param trcode:Tran 명
+            trcode – CommRqData의 trcode과 매핑되는 이름이다
+        :param record_name:Record 명
+        :param next:연속조회 유무
+        :return:
+        """
         if next == '2':
             self.remained_data = True
         else:
             self.remained_data = False
 
-        if rqname == "opw00018_req":
+        if rqname == "계좌평가잔고내역요청":
             self._opw00018(rqname=rqname, trcode=trcode)
-        elif rqname == "opw00001_req":
+        elif rqname == "예수금상세현황요청":
             self._opw00001(rqname=rqname, trcode=trcode)
-        elif rqname == "OPTKWFID_req":
+        elif rqname == "관심종목정보요청":
             self._optkwfid(rqname=rqname, trcode=trcode)
-        elif rqname == "opt10027_req":
+        elif rqname == "전일대비등락률상위요청":
             self._opt10027(rqname=rqname, trcode=trcode)
-        elif rqname == "OPT10023_req":
+        elif rqname == "거래량급증요청":
             self._opt10023(rqname=rqname, trcode=trcode)
-        elif rqname == "opt10030_req":
+        elif rqname == "당일거래량상위요청":
             self._opt10030(rqname=rqname, trcode=trcode)
-        elif rqname == "OPT10031_req":
+        elif rqname == "전일거래량상위요청":
             self._opt10031(rqname=rqname, trcode=trcode)
         # OPT10023 opt10030 OPT10031 거래량 상위
         # opt10079 틱 차트 조회 KOA 돌려보기
