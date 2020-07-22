@@ -392,7 +392,7 @@ class Trading(QMainWindow, form_class):
         self.radioButton_9.setChecked(True)
 
         self.market_change(num=0)
-        self.up_down_change(num=0)
+        self.up_down_change(num=3)
         self.array_change(num=0)
 
         self.kiwoom.set_real_remove("ALL", "ALL")
@@ -492,15 +492,15 @@ class Trading(QMainWindow, form_class):
         account_number = self.comboBox.currentText()
 
         self.kiwoom.set_input_value("계좌번호", account_number)
-        self.kiwoom.comm_rq_data("opw00018_req", "opw00018", 0, "2000")
+        self.kiwoom.comm_rq_data("계좌평가잔고내역요청", "opw00018", 0, "2000")
 
         while self.kiwoom.remained_data:
             time.sleep(0.2)
             self.kiwoom.set_input_value("계좌번호", account_number)
-            self.kiwoom.comm_rq_data("opw00018_req", "opw00018", 2, "2000")
+            self.kiwoom.comm_rq_data("계좌평가잔고내역요청", "opw00018", 2, "2000")
 
         self.kiwoom.set_input_value("계좌번호", account_number)
-        self.kiwoom.comm_rq_data("opw00001_req", "opw00001", 0, "2000")
+        self.kiwoom.comm_rq_data("예수금상세현황요청", "opw00001", 0, "2000")
 
         item = QTableWidgetItem(self.kiwoom.d2_deposit)
         item.setTextAlignment(Qt.AlignVCenter | Qt.AlignRight)
@@ -727,7 +727,7 @@ class Trading(QMainWindow, form_class):
         self.kiwoom.set_input_value("가격조건", price_condition)
         self.kiwoom.set_input_value("거래대금조건", trading_price_condition)
 
-        self.kiwoom.comm_rq_data(rqname="opt10027_req", trcode="opt10027", next="0", screen_no="1000")
+        self.kiwoom.comm_rq_data(rqname="전일대비등락률상위요청", trcode="opt10027", next="0", screen_no="1000")
 
         ## 데이터 받고 가공 시작
 
@@ -800,7 +800,7 @@ class Trading(QMainWindow, form_class):
         self.kiwoom.set_input_value(id="종목조건", value=stock_condition)
         self.kiwoom.set_input_value(id="가격구분", value=price_gubun)
 
-        self.kiwoom.comm_rq_data(rqname="OPT10023_req", trcode="OPT10023", next="0", screen_no="2000")
+        self.kiwoom.comm_rq_data(rqname="거래량급증요청", trcode="OPT10023", next="0", screen_no="2000")
 
         # 데이터 받기 전
         ##############
@@ -854,7 +854,7 @@ class Trading(QMainWindow, form_class):
         self.kiwoom.set_input_value(id="거래대금구분", value=trade_payment)
         self.kiwoom.set_input_value(id="장운영구분", value=market_manage_gubun)
 
-        self.kiwoom.comm_rq_data(rqname="opt10030_req", trcode="opt10030", next="0", screen_no="2100")
+        self.kiwoom.comm_rq_data(rqname="당일거래량상위요청", trcode="opt10030", next="0", screen_no="2100")
 
         # 데이터 받기 전
         ##############
@@ -896,7 +896,7 @@ class Trading(QMainWindow, form_class):
         self.kiwoom.set_input_value(id="순위시작", value=rank_start)
         self.kiwoom.set_input_value(id="순위끝", value=rank_end)
 
-        self.kiwoom.comm_rq_data(rqname="OPT10031_req", trcode="OPT10031", next="0", screen_no="2200")
+        self.kiwoom.comm_rq_data(rqname="전일거래량상위요청", trcode="OPT10031", next="0", screen_no="2200")
 
         # 데이터 받기 전
         ##############
@@ -941,9 +941,15 @@ class Trading(QMainWindow, form_class):
             up_down_gubun = "1"
         elif num == 1:
             up_down_gubun = "3"
-        self.up_down_gubun = up_down_gubun
 
-        self.up_down()
+        if num == 3:
+            up_down_gubun = "1"
+            self.up_down_gubun = up_down_gubun
+        else:
+            self.up_down()
+            self.up_down_gubun = up_down_gubun
+
+        # self.up_down()
 
     def array_change(self, num):
         if num == 0:

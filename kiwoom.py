@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QAxContainer import *
 from PyQt5.QtCore import *
 from config.error_code import *
+from config.real_fid import *
 
 class Kiwoom(QAxWidget):
     def __init__(self):
@@ -64,8 +65,9 @@ class Kiwoom(QAxWidget):
             trcode – CommRqData의 trcode과 매핑되는 이름이다
         :param record_name:Record 명
         :param next:연속조회 유무
-        :return:
         """
+        print("OnReceiveTrData 이벤트와 연결된 슬롯 실행")
+
         if next == '2':
             self.remained_data = True
         else:
@@ -92,61 +94,77 @@ class Kiwoom(QAxWidget):
         except AttributeError:
             pass
 
-
-
     def _opw00018(self, rqname, trcode):
-        total_purchase_price = self._comm_get_data(trcode, "", rqname, 0, "총매입금액")
-        total_eval_price = self._comm_get_data(trcode, "", rqname, 0, "총평가금액")
-        total_eval_profit_loss_price = self._comm_get_data(trcode, "", rqname, 0, "총평가손익금액")
-        total_earning_rate = self._comm_get_data(trcode, "", rqname, 0, "총수익률(%)")
-        estimated_deposit = self._comm_get_data(trcode, "", rqname, 0, "추정예탁자산")
+        """
+        :param rqname:계좌평가잔고내역요청
+        :param trcode:opw00018
+        """
+        print("opw00018 TR Run")
+
+        total_purchase_price = self._comm_get_data(code=trcode, real_type="", rqname=rqname, index=0, item_name="총매입금액")
+        total_eval_price = self._comm_get_data(code=trcode, real_type="", rqname=rqname, index=0, item_name="총평가금액")
+        total_eval_profit_loss_price = self._comm_get_data(code=trcode, real_type="", rqname=rqname, index=0, item_name="총평가손익금액")
+        total_earning_rate = self._comm_get_data(code=trcode, real_type="", rqname=rqname, index=0, item_name="총수익률(%)")
+        estimated_deposit = self._comm_get_data(code=trcode, real_type="", rqname=rqname, index=0, item_name="추정예탁자산")
 
         # self.reset_opw00018_output()
 
-        self.opw00018_output['single'].append(Kiwoom.change_format(total_purchase_price))
-        self.opw00018_output['single'].append(Kiwoom.change_format(total_eval_price))
-        self.opw00018_output['single'].append(Kiwoom.change_format(total_eval_profit_loss_price))
-        self.opw00018_output['single'].append(Kiwoom.change_format2(total_earning_rate))
-        self.opw00018_output['single'].append(Kiwoom.change_format(estimated_deposit))
+        self.opw00018_output['single'].append(Kiwoom.change_format(data=total_purchase_price))
+        self.opw00018_output['single'].append(Kiwoom.change_format(data=total_eval_price))
+        self.opw00018_output['single'].append(Kiwoom.change_format(data=total_eval_profit_loss_price))
+        self.opw00018_output['single'].append(Kiwoom.change_format2(data=total_earning_rate))
+        self.opw00018_output['single'].append(Kiwoom.change_format(data=estimated_deposit))
 
-        rows = self._get_repeat_cnt(trcode, rqname)
+        rows = self._get_repeat_cnt(trcode=trcode, rqname=rqname)
 
         for i in range(rows):
-            name = self._comm_get_data(trcode, "", rqname, i, "종목명")
-            quantity = self._comm_get_data(trcode, "", rqname, i, "보유수량")
-            purchase_price = self._comm_get_data(trcode, "", rqname, i, "매입가")
-            current_price = self._comm_get_data(trcode, "", rqname, i, "현재가")
-            eval_profit_loss_price = self._comm_get_data(trcode, "", rqname, i, "평가손익")
-            earning_rate = self._comm_get_data(trcode, "", rqname, i, "수익률(%)")
+            name = self._comm_get_data(code=trcode, real_type="", rqname=rqname, index=i, item_name="종목명")
+            quantity = self._comm_get_data(code=trcode, real_type="", rqname=rqname, index=i, item_name="보유수량")
+            purchase_price = self._comm_get_data(code=trcode, real_type="", rqname=rqname, index=i, item_name="매입가")
+            current_price = self._comm_get_data(code=trcode, real_type="", rqname=rqname, index=i, item_name="현재가")
+            eval_profit_loss_price = self._comm_get_data(code=trcode, real_type="", rqname=rqname, index=i, item_name="평가손익")
+            earning_rate = self._comm_get_data(code=trcode, real_type="", rqname=rqname, index=i, item_name="수익률(%)")
 
-            quantity = Kiwoom.change_format(quantity)
-            purchase_price = Kiwoom.change_format(purchase_price)
-            current_price = Kiwoom.change_format(current_price)
-            eval_profit_loss_price = Kiwoom.change_format(eval_profit_loss_price)
-            earning_rate = Kiwoom.change_format2(earning_rate)
+            quantity = Kiwoom.change_format(data=quantity)
+            purchase_price = Kiwoom.change_format(data=purchase_price)
+            current_price = Kiwoom.change_format(data=current_price)
+            eval_profit_loss_price = Kiwoom.change_format(data=eval_profit_loss_price)
+            earning_rate = Kiwoom.change_format2(data=earning_rate)
 
             self.opw00018_output['multi'].append([name, quantity, purchase_price, current_price, eval_profit_loss_price, earning_rate])
-            print(self.opw00018_output['multi'])
+
+            # print(self.opw00018_output['multi'])
 
     def _opw00001(self, rqname, trcode):
-        d2_deposit = self._comm_get_data(trcode, "", rqname, 0, "d+2추정예수금")
-        self.d2_deposit = Kiwoom.change_format(d2_deposit)
+        """
+        :param rqname:"예수금상세현황요청"
+        :param trcode:"opw00001"
+        """
+        print("opw00001 TR Run")
+
+        d2_deposit = self._comm_get_data(code=trcode, real_type="", rqname=rqname, index=0, item_name="d+2추정예수금")
+        self.d2_deposit = Kiwoom.change_format(data=d2_deposit)
 
     def _optkwfid(self, rqname, trcode):
-        print("opt_kw_fid")
-        cnt = self._get_repeat_cnt(trcode, rqname)
+        """
+        :param rqname:"관심종목정보요청"
+        :param trcode:'OPTKWFID'
+        """
+        print("OPTKWFID TR Run")
+
+        cnt = self._get_repeat_cnt(trcode=trcode, rqname=rqname)
         self.info_list = []
-        print(cnt)
+
         for i in range(cnt):
             info = []
 
-            code = self.get_comm_data(trcode, rqname, i, "종목코드")
-            name = self.get_comm_data(trcode, rqname, i, "종목명")
-            price = self.get_comm_data(trcode, rqname, i, "현재가")
-            previous_day_price = self.get_comm_data(trcode, rqname, i, "전일대비")
-            up_down_per = self.get_comm_data(trcode, rqname, i, "등락율")
-            volume = self.get_comm_data(trcode, rqname, i, "거래량")
-            yesterday_volume_per = self.get_comm_data(trcode, rqname, i, "전일거래량대비")
+            code = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="종목코드")
+            name = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="종목명")
+            price = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="현재가")
+            previous_day_price = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="전일대비")
+            up_down_per = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="등락율")
+            volume = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="거래량")
+            yesterday_volume_per = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="전일거래량대비")
 
             info.append(code)
             info.append(name)
@@ -156,12 +174,17 @@ class Kiwoom(QAxWidget):
             info.append(volume)
             info.append(yesterday_volume_per)
 
-            print("info = ", info)
+            # print("info = ", info)
 
             self.info_list.append(info)
 
     def _opt10027(self, rqname, trcode):
-        print("opt_10027")
+        """
+        :param rqname:"전일대비등락률상위요청"
+        :param trcode:"opt10027"
+        """
+        print("opt10027 TR Run")
+
         cnt = 100
 
         self.up_stock_list = []
@@ -171,14 +194,14 @@ class Kiwoom(QAxWidget):
             up_stock = []
             up_near_stock = []
 
-            code = self.get_comm_data(trcode, rqname, i, "종목코드")
-            name = self.get_comm_data(trcode, rqname, i, "종목명")
-            price = self.get_comm_data(trcode, rqname, i, "현재가")
-            previous_day_price = self.get_comm_data(trcode, rqname, i, "전일대비")
-            up_down_per = self.get_comm_data(trcode, rqname, i, "등락률")
-            volume = self.get_comm_data(trcode, rqname, i, "현재거래량")
-            buy_quantity = self.get_comm_data(trcode, rqname, i, "매수잔량")
-            sell_quantity = self.get_comm_data(trcode, rqname, i, "매도잔량")
+            code = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="종목코드")
+            name = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="종목명")
+            price = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="현재가")
+            previous_day_price = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="전일대비")
+            up_down_per = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="등락률")
+            volume = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="현재거래량")
+            buy_quantity = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="매수잔량")
+            sell_quantity = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="매도잔량")
 
             up_down = up_down_per[1:]
 
@@ -206,9 +229,14 @@ class Kiwoom(QAxWidget):
                 self.up_near_stock_list.append(up_near_stock)
 
     def _opt10023(self, rqname, trcode):
-        print("opt_10023")
-        cnt = self._get_repeat_cnt(trcode = trcode, rqname = rqname)
-        print("opt10023 cnt = " + str(cnt))
+        """
+        :param rqname:"거래량급증요청"
+        :param trcode:"OPT10023"
+        """
+        print("OPT10023 TR Run")
+
+        cnt = self._get_repeat_cnt(trcode=trcode, rqname=rqname)
+
         self.surge_volume_list = []
 
         for i in range(cnt):
@@ -235,7 +263,11 @@ class Kiwoom(QAxWidget):
             self.surge_volume_list.append(surge_volume)
 
     def _opt10030(self, rqname, trcode):
-        print("opt10030")
+        """
+        :param rqname:"당일거래량상위요청"
+        :param trcode:"opt10030"
+        """
+        print("opt10030 TR Run")
 
         cnt = self._get_repeat_cnt(trcode=trcode, rqname=rqname)
 
@@ -263,8 +295,12 @@ class Kiwoom(QAxWidget):
             self.today_volume_top.append(today_volume)
 
 
-    def _opt10031(self, trcode, rqname):
-        print("opt10031")
+    def _opt10031(self, rqname, trcode):
+        """
+        :param rqname:"전일거래량상위요청"
+        :param trcode:"OPT10031"
+        """
+        print("OPT10031 TR Run")
 
         cnt = self._get_repeat_cnt(trcode=trcode, rqname=rqname)
 
@@ -288,38 +324,17 @@ class Kiwoom(QAxWidget):
             self.yesterday_volume_top.append(yesterday_volume)
 
     def _receive_chejan_data(self, gubun, item_cnt, fid_list):
-        '''
-        FID        설명
-        9201        계좌번호
-        9203        주문번호
-        9205        관리자사번
-        9001        종목코드, 업종코드
-        912        주문업무분류(JJ: 주식주문, FJ: 선물옵션, JG: 주식잔고, FG: 선물옵션잔고)
-        913        주문상태(접수, 확인, 체결)
-        302        종목명
-        900        주문수량
-        901        주문가격
-        902        미체결수량
-        903        체결누계금액
-        904        원주문번호
-        905        주문구분(+현금내수, -현금매도…)
-        906        매매구분(보통, 시장가…)
-        907        매도수구분(1: 매도, 2: 매수)
-        908        주문 / 체결시간(HHMMSSMS)
-        909        체결번호
-        910        체결가
-        911        체결량
-        10        현재가, 체결가, 실시간종가
-        27(최우선)        매도호가
-        28(최우선)        매수호가
-        914        단위체결가
-        915        단위체결량
-        938        당일매매 수수료
-        939        당일매매세금
-        '''
+        """
+        OnReceiveChejanData(주문 접수/확인 수신시 이벤트)가 체결데이터를 받은 시점을 알려준다.
+        :param gubun:체결구분
+        :param item_cnt:아이템갯수
+        :param fid_list:데이터리스트
+        """
+        print("OnReceiveChejanData와 연결된 슬롯 실행")
+
         sell_buy_num = {'1': "매도",
                         '2': "매수",
-                        "" : ""}
+                        "": ""}
 
         order_num = self.get_chejan_data(9203)
         item_code = self.get_chejan_data(9001)
@@ -514,7 +529,7 @@ class Kiwoom(QAxWidget):
 
     def comm_kw_rq_data(self, code_list, code_count, screen):
         print("comm_kw_rq_data")
-        self.dynamicCall("CommKwRqData(QString, int, int, int, QString, QString)", code_list, 0, code_count, 0, "OPTKWFID_req", screen)
+        self.dynamicCall("CommKwRqData(QString, int, int, int, QString, QString)", code_list, 0, code_count, 0, "관심종목정보요청", screen)
         self.tr_event_loop = QEventLoop()
         self.tr_event_loop.exec_()
 
