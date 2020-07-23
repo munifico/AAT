@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QAxContainer import *
 from PyQt5.QtCore import *
 from config.error_code import *
-from config.real_fid import *
+from config.kiwoom_type import *
 
 class Kiwoom(QAxWidget):
     def __init__(self):
@@ -15,6 +15,8 @@ class Kiwoom(QAxWidget):
         self._set_signal_slots()
         self.chejan_lists = []
         self.un_chejan_lists = []
+
+        self.fid = RealType().REALTYPE
         ###################
 
     def _create_kiwoom_instance(self):
@@ -326,6 +328,7 @@ class Kiwoom(QAxWidget):
     def _receive_chejan_data(self, gubun, item_cnt, fid_list):
         """
         OnReceiveChejanData(주문 접수/확인 수신시 이벤트)가 체결데이터를 받은 시점을 알려준다.
+
         :param gubun:체결구분
         :param item_cnt:아이템갯수
         :param fid_list:데이터리스트
@@ -336,26 +339,52 @@ class Kiwoom(QAxWidget):
                         '2': "매수",
                         "": ""}
 
-        order_num = self.get_chejan_data(9203)
-        item_code = self.get_chejan_data(9001)
-        state = self.get_chejan_data(913)
-        name = self.get_chejan_data(302)
+        order_num = self.get_chejan_data(fid=self.fid['주문체결']['주문번호'])
+        item_code = self.get_chejan_data(fid=self.fid['주문체결']['종목코드'])
+        state = self.get_chejan_data(fid=self.fid['주문체결']['주문상태'])
+        name = self.get_chejan_data(fid=self.fid['주문체결']['종목명'])
         name = name.strip()
-        order_quantity = self.get_chejan_data(900)
-        order_price = self.get_chejan_data(901)
-        miss_quantity = self.get_chejan_data(902)
-        sell_buy_gubun = self.get_chejan_data(907)
-        origin_order_num = self.get_chejan_data(904)
-        print("receive_chejan_data")
-        print(sell_buy_num[sell_buy_gubun])
+        order_quantity = self.get_chejan_data(fid=self.fid['주문체결']['주문수량'])
+        order_price = self.get_chejan_data(fid=self.fid['주문체결']['주문가격'])
+        miss_quantity = self.get_chejan_data(fid=self.fid['주문체결']['미체결수량'])
+        sell_buy_gubun = self.get_chejan_data(fid=self.fid['주문체결']['매도수구분'])
+        origin_order_num = self.get_chejan_data(fid=self.fid['주문체결']['원주문번호'])
+        # print("receive_chejan_data")
+        # print(sell_buy_num[sell_buy_gubun])
         if order_num == '':
             pass
         else:
-            self.chejan_lists.append([order_num,origin_order_num, state, name, sell_buy_num[sell_buy_gubun], order_quantity, miss_quantity])
-        # 미 체결 리스트는 나중에 추가
-        # self.un_chejan_lists.append([order_num, item_code, order_quantity, miss_quantity, sell_buy_num[sell_buy_gubun]])
+            self.chejan_lists.append(
+                [order_num, origin_order_num, state, name, sell_buy_num[sell_buy_gubun], order_quantity, miss_quantity])
+
+        # order_num = self.get_chejan_data(9203)
+        # item_code = self.get_chejan_data(9001)
+        # state = self.get_chejan_data(913)
+        # name = self.get_chejan_data(302)
+        # name = name.strip()
+        # order_quantity = self.get_chejan_data(900)
+        # order_price = self.get_chejan_data(901)
+        # miss_quantity = self.get_chejan_data(902)
+        # sell_buy_gubun = self.get_chejan_data(907)
+        # origin_order_num = self.get_chejan_data(904)
+        # print("receive_chejan_data")
+        # print(sell_buy_num[sell_buy_gubun])
+        # if order_num == '':
+        #     pass
+        # else:
+        #     self.chejan_lists.append([order_num,origin_order_num, state, name, sell_buy_num[sell_buy_gubun], order_quantity, miss_quantity])
+        # # 미 체결 리스트는 나중에 추가
+        # # self.un_chejan_lists.append([order_num, item_code, order_quantity, miss_quantity, sell_buy_num[sell_buy_gubun]])
 
     def _receive_real_data(self, code, fid_type, data):
+        """
+        OnReceiveRealData(실시간 시세 이벤트)가 실시간데이터를 받은 시점을 알려준다.
+
+        :param code:종목코드
+        :param fid_type:리얼타입
+        :param data:실시간 데이터전문
+        """
+        print("OnReceiveRealData와 연결된 슬롯 실행")
         print("real_data 이벤트 : ", fid_type)
         # print("real_data data : ", data)
         # print(type(data))
@@ -364,17 +393,29 @@ class Kiwoom(QAxWidget):
             self.real_data = []
             self.interest_data = []
 
-            now_price = self.get_comm_real_data(code, 10)
-            previous_day_price = self.get_comm_real_data(code, 11)
-            up_down_per = self.get_comm_real_data(code, 12)
-            first_sell_hoga = self.get_comm_real_data(code, 27)
-            first_buy_hoga = self.get_comm_real_data(code, 28)
-            trading_volume = self.get_comm_real_data(code, 13)
-            trading_price = self.get_comm_real_data(code, 14)
-            open = self.get_comm_real_data(code, 16)
-            high = self.get_comm_real_data(code, 17)
-            low = self.get_comm_real_data(code, 18)
-            yester_trading_quantity_per = self.get_comm_real_data(code, 30)
+            now_price = self.get_comm_real_data(code=code, fid=self.fid[fid_type]['현재가'])
+            previous_day_price = self.get_comm_real_data(code=code, fid=self.fid[fid_type]['전일대비'])
+            up_down_per = self.get_comm_real_data(code=code, fid=self.fid[fid_type]['등락율'])
+            first_sell_hoga = self.get_comm_real_data(code=code, fid=self.fid[fid_type]['(최우선)매도호가'])
+            first_buy_hoga = self.get_comm_real_data(code=code, fid=self.fid[fid_type]['(최우선)매수호가'])
+            trading_volume = self.get_comm_real_data(code=code, fid=self.fid[fid_type]['누적거래량'])
+            trading_price = self.get_comm_real_data(code=code, fid=self.fid[fid_type]['누적거래대금'])
+            open = self.get_comm_real_data(code=code, fid=self.fid[fid_type]['시가'])
+            high = self.get_comm_real_data(code=code, fid=self.fid[fid_type]['고가'])
+            low = self.get_comm_real_data(code=code, fid=self.fid[fid_type]['저가'])
+            yester_trading_quantity_per = self.get_comm_real_data(code=code, fid=self.fid[fid_type]['전일거래량대비'])
+
+            # now_price = self.get_comm_real_data(code, 10)
+            # previous_day_price = self.get_comm_real_data(code, 11)
+            # up_down_per = self.get_comm_real_data(code, 12)
+            # first_sell_hoga = self.get_comm_real_data(code, 27)
+            # first_buy_hoga = self.get_comm_real_data(code, 28)
+            # trading_volume = self.get_comm_real_data(code, 13)
+            # trading_price = self.get_comm_real_data(code, 14)
+            # open = self.get_comm_real_data(code, 16)
+            # high = self.get_comm_real_data(code, 17)
+            # low = self.get_comm_real_data(code, 18)
+            # yester_trading_quantity_per = self.get_comm_real_data(code, 30)
 
             self.real_data.append(now_price)
             self.real_data.append(previous_day_price)
@@ -387,17 +428,24 @@ class Kiwoom(QAxWidget):
             self.real_data.append(high)
             self.real_data.append(low)
             self.real_data.append(yester_trading_quantity_per)
-
-            print(self.real_data)
+            #
+            # print(self.real_data)
 ################################################################################################
+            #
+            # print(code)
+            name = self.get_master_code_name(code=code)
+            price = self.get_comm_real_data(code=code, fid=self.fid[fid_type]['현재가'])
+            previous_day_price = self.get_comm_real_data(code=code, fid=self.fid[fid_type]['전일대비'])
+            up_down_per = self.get_comm_real_data(code=code, fid=self.fid[fid_type]['등락율'])
+            volume = self.get_comm_real_data(code=code, fid=self.fid[fid_type]['누적거래량'])
+            yester_volume_per = self.get_comm_real_data(code=code, fid=self.fid[fid_type]['전일거래량대비'])
 
-            print(code)
-            name = self.get_master_code_name(code)
-            price = self.get_comm_real_data(code, 10)
-            previous_day_price = self.get_comm_real_data(code, 11)
-            up_down_per = self.get_comm_real_data(code, 12)
-            volume = self.get_comm_real_data(code, 13)
-            yester_volume_per = self.get_comm_real_data(code, 30)
+            # name = self.get_master_code_name(code=code)
+            # price = self.get_comm_real_data(code=code, 10)
+            # previous_day_price = self.get_comm_real_data(code=code, 11)
+            # up_down_per = self.get_comm_real_data(code=code, 12)
+            # volume = self.get_comm_real_data(code=code, 13)
+            # yester_volume_per = self.get_comm_real_data(code=code, 30)
 
             self.interest_data.append(code)
             self.interest_data.append(name)
@@ -407,7 +455,7 @@ class Kiwoom(QAxWidget):
             self.interest_data.append(volume)
             self.interest_data.append(yester_volume_per)
 
-            print(self.interest_data)
+            # print(self.interest_data)
 
         elif fid_type == "주식호가잔량":
             self.real_hoga = []
@@ -417,17 +465,29 @@ class Kiwoom(QAxWidget):
             buy_ho_list = []
             buy_ho_quantity_list = []
 
-            ho_time = self.get_comm_real_data(code, 21)
-            sell_total_quantity = self.get_comm_real_data(code, 121)
-            buy_total_quantity = self.get_comm_real_data(code, 125)
-            expect_che = self.get_comm_real_data(code, 23)
-            expect_che_quantity = self.get_comm_real_data(code, 24)
-            yester_close_expect_che = self.get_comm_real_data(code, 200)
-            yester_close_expect_che_per = self.get_comm_real_data(code, 201)
+            ho_time = self.get_comm_real_data(code=code, fid=self.fid[fid_type]['호가시간'])
+            sell_total_quantity = self.get_comm_real_data(code=code, fid=self.fid[fid_type]['매도호가총잔량'])
+            buy_total_quantity = self.get_comm_real_data(code=code, fid=self.fid[fid_type]['매수호가총잔량'])
+            expect_che = self.get_comm_real_data(code=code, fid=self.fid[fid_type]['예상체결가1'])
+            expect_che_quantity = self.get_comm_real_data(code=code, fid=self.fid[fid_type]['예상체결수량'])
+            yester_close_expect_che = self.get_comm_real_data(code=code, fid=self.fid[fid_type]['예상체결가전일종가대비'])
+            yester_close_expect_che_per = self.get_comm_real_data(code=code, fid=self.fid[fid_type]['예상체결가전일종가대비등락율'])
             yester_close = int(expect_che) - int(yester_close_expect_che)
-            up_max = yester_close + int(yester_close * 0.3)
-            down_min = yester_close - int(yester_close * 0.3)
-            total_trading_quantity = self.get_comm_real_data(code, 13)
+            up_max = int(yester_close) + int(yester_close * 0.3)
+            down_min = int(yester_close) - int(yester_close * 0.3)
+            total_trading_quantity = self.get_comm_real_data(code=code, fid=self.fid[fid_type]['누적거래량'])
+
+            # ho_time = self.get_comm_real_data(code, 21)
+            # sell_total_quantity = self.get_comm_real_data(code, 121)
+            # buy_total_quantity = self.get_comm_real_data(code, 125)
+            # expect_che = self.get_comm_real_data(code, 23)
+            # expect_che_quantity = self.get_comm_real_data(code, 24)
+            # yester_close_expect_che = self.get_comm_real_data(code, 200)
+            # yester_close_expect_che_per = self.get_comm_real_data(code, 201)
+            # yester_close = int(expect_che) - int(yester_close_expect_che)
+            # up_max = yester_close + int(yester_close * 0.3)
+            # down_min = yester_close - int(yester_close * 0.3)
+            # total_trading_quantity = self.get_comm_real_data(code, 13)
 
             sub_ho.append(ho_time)
             sub_ho.append(sell_total_quantity)
@@ -441,24 +501,24 @@ class Kiwoom(QAxWidget):
             sub_ho.append(total_trading_quantity)
 
             for i in range(41, 51):
-                sell_ho_list.append(self.get_comm_real_data(code, i))
+                sell_ho_list.append(self.get_comm_real_data(code=code, fid=i))
 
             for i in range(61, 71):
-                sell_ho_quantity_list.append(self.get_comm_real_data(code, i))
+                sell_ho_quantity_list.append(self.get_comm_real_data(code=code, fid=i))
 
             for i in range(51, 61):
-                buy_ho_list.append(self.get_comm_real_data(code, i))
+                buy_ho_list.append(self.get_comm_real_data(code=code, fid=i))
 
             for i in range(71, 81):
-                buy_ho_quantity_list.append(self.get_comm_real_data(code, i))
+                buy_ho_quantity_list.append(self.get_comm_real_data(code=code, fid=i))
 
             self.real_hoga.append(sub_ho)
             self.real_hoga.append(sell_ho_list)
             self.real_hoga.append(sell_ho_quantity_list)
             self.real_hoga.append(buy_ho_list)
             self.real_hoga.append(buy_ho_quantity_list)
-
-            print(self.real_hoga)
+            #
+            # print(self.real_hoga)
             # sell_ho_1 = self.get_comm_real_data(code, 41)
             # sell_ho_2 = self.get_comm_real_data(code, 42)
             # sell_ho_3 = self.get_comm_real_data(code, 43)
@@ -506,70 +566,201 @@ class Kiwoom(QAxWidget):
             # buy_ho_quantity_9 = self.get_comm_real_data(code, 79)
             # buy_ho_quantity_10 = self.get_comm_real_data(code, 80)
 
-
-
     def _comm_get_data(self, code, real_type, rqname, index, item_name):
+        """
+        print("삭제 예정인 조회 메소드")
+        """
         ret = self.dynamicCall("CommGetData(QString, QString, QString, int, QString)", code, real_type, rqname, index, item_name)
         return ret.strip()
 
     def _get_repeat_cnt(self, trcode, rqname):
+        """
+        GetRepeatCnt 메소드 호출 (수신 받은 데이터의 반복 개수를 반환한다)
+        """
+
         ret = self.dynamicCall("GetRepeatCnt(QString, QString)", trcode, rqname)
         return ret
 
     def comm_connect(self):
-        print("comm_connect")
+        """
+        CommConnect 메소드 호출 (로그인 윈도우를 실행한다)
+        0 - 성공, 음수값은 실패
+        """
+        print("CommConnect 메소드 실행")
+
         self.dynamicCall("CommConnect()")
         self.login_event_loop = QEventLoop()
         self.login_event_loop.exec_()
 
     def comm_rq_data(self, rqname, trcode, next, screen_no):
+        """
+        CommRqData 메소드 호출 (통신 데이터를 송신한다) / TR을 서버로 송신한다.
+
+        :param rqname:사용자구분 명
+        :param trcode:Tran명 입력
+        :param next:0:조회, 2:연속
+        :param screen_no:4자리의 화면번호
+
+        반환값
+            OP_ERR_SISE_OVERFLOW – 과도한 시세조회로 인한 통신불가
+            OP_ERR_RQ_STRUCT_FAIL – 입력 구조체 생성 실패
+            OP_ERR_RQ_STRING_FAIL – 요청전문 작성 실패
+            OP_ERR_NONE – 정상처리
+        """
+        print("CommRqData 메소드 실행")
+
         self.dynamicCall("commRqData(QString, QString, int, QString)", rqname, trcode, next, screen_no)
         self.tr_event_loop = QEventLoop()
         self.tr_event_loop.exec_()
 
-    def comm_kw_rq_data(self, code_list, code_count, screen):
-        print("comm_kw_rq_data")
-        self.dynamicCall("CommKwRqData(QString, int, int, int, QString, QString)", code_list, 0, code_count, 0, "관심종목정보요청", screen)
+    def comm_kw_rq_data(self, code_list, code_count, screen, next=0, type=0, rqname="관심종목정보요청"):
+        """
+        CommKwRqData 메소드 호출 (관심종목을 조회 한다.) / 복수종목조회 Tran을 서버로 송신한다.
+
+        :param code_list:종목리스트
+        :param code_count:종목개수
+        :param screen:화면번호[4]
+        :param next:연속조회요청
+        :param type:조회구분
+        :param rqname:사용자구분 명
+
+        반환값
+            OP_ERR_RQ_STRING – 요청 전문 작성 실패
+            OP_ERR_NONE - 정상처리
+
+        비고
+            sArrCode – 종목간 구분은 ‘;’이다.
+        """
+        print("CommKwRqData 메소드 실행")
+
+        self.dynamicCall("CommKwRqData(QString, int, int, int, QString, QString)", code_list, next, code_count, type, rqname, screen)
         self.tr_event_loop = QEventLoop()
         self.tr_event_loop.exec_()
 
     def get_connect_state(self):
+        """
+        GetConnectState 메소드 호출 (통신 접속 상태를 반환한다.) / 현재접속상태를 반환한다.
+
+        반환값
+            접속상태
+
+        비고
+            0:미연결, 1:연결완료
+        """
+        print("GetConnectState 메소드 실행")
+
         result = self.dynamicCall("GetConnectState()")
         return result
 
     def get_comm_data(self, trcode, rqname, index, name):
+        """
+        GetCommData 메소드 호출 (수신 데이터를 반환한다.)
+
+        :param trcode:Tran 코드
+        :param rqname:레코드명
+        :param index:복수데이터 인덱스
+        :param name:아이템명
+
+        반환값
+            수신 데이터
+        """
+        print("GetCommData 메소드 실행")
+
         ret = self.dynamicCall("GetCommData(QString, QString, int, QString", trcode, rqname, index, name)
         return ret.strip()
 
     def get_comm_real_data(self, code, fid):
+        """
+        GetCommRealData 메소드 호출 (실시간 데이터를 반환한다.) / 실시간 시세 데이터를 반환한다
+
+        :param code:종목코드
+        :param fid:실시간 아이템
+
+        반환값
+            수신 데이터
+        """
+        print("GetCommRealData 메소드 실행")
+
         ret = self.dynamicCall("GetCommRealData(QString, int)", code, fid)
-        print("get_comm_real_data", ret)
         return ret
 
     def get_login_info(self, s_Tag):
         """
-        BSTR sTag에 들어 갈 수 있는 값은 아래와 같음
-        “ACCOUNT_CNT” – 전체 계좌 개수를 반환한다.
-        "ACCNO" – 전체 계좌를 반환한다. 계좌별 구분은 ‘;’이다.
-        “USER_ID” - 사용자 ID를 반환한다.
-        “USER_NAME” – 사용자명을 반환한다.
-        “KEY_BSECGB” – 키보드보안 해지여부. 0:정상, 1:해지
-        “FIREW_SECGB” – 방화벽 설정 여부. 0:미설정, 1:설정, 2:해지
-        Ex) openApi.GetLoginInfo(“ACCOUNT_CNT”);
+        GetLoginInfo 메소드 호출 (로그인 정보를 반환한다.) / 로그인한 사용자 정보를 반환한다.
+
+        :param s_Tag:사용자 정보 구분 TAG값
+
+        반환값
+            TAG값에 따른 데이터 변환
+
+        비고
+            BSTR sTag에 들어 갈 수 있는 값은 아래와 같음
+            “ACCOUNT_CNT” – 전체 계좌 개수를 반환한다.
+            "ACCNO" – 전체 계좌를 반환한다. 계좌별 구분은 ‘;’이다.
+            “USER_ID” - 사용자 ID를 반환한다.
+            “USER_NAME” – 사용자명을 반환한다.
+            “KEY_BSECGB” – 키보드보안 해지여부. 0:정상, 1:해지
+            “FIREW_SECGB” – 방화벽 설정 여부. 0:미설정, 1:설정, 2:해지
+            Ex) openApi.GetLoginInfo(“ACCOUNT_CNT”);
         """
+        print("GetLoginInfo 메소드 실행")
+
         ret = self.dynamicCall("GetLoginInfo(QString)", s_Tag)
         return ret
 
     def get_master_code_name(self, code):
+        """
+        GetMasterCodeName 메소드 호출 (종목코드의 종목명을 반환한다.) / 종목코드의 한글명을 반환한다.
+
+        :param code:종목코드
+
+        반환값
+            종목한글명
+        """
+        print("GetMasterCodeName 메소드 실행")
+
         code_name = self.dynamicCall("GetMasterCodeName(QString)", code)
         return code_name
 
     def get_chejan_data(self, fid):
+        """
+        GetChejanData 메소드 호출 (체결잔고 데이터를 반환한다)
+
+        :param fid: 체결잔고 아이템
+
+        반환값
+            수신 데이터
+        """
+        print("GetChejanData 메소드 실행")
+
         ret = self.dynamicCall("GetChejanData(int)", fid)
         return ret
 
     def send_order(self, rqname, screen_no, acc_no, order_type, code, quantity, price, hoga, order_no):
-        print(price)
+        """
+        SendOrder 메소드 호출 (주식주문 Tran을 송신한다.) / 주식 주문을 서버로 전송한다
+
+        :param rqname:사용자 구분 요청 명
+        :param screen_no:화면번호[4]
+        :param acc_no:계좌번호[10]
+        :param order_type:주문유형 (1:신규매수, 2:신규매도, 3:매수취소, 4:매도취소, 5:매수정정, 6:매도정정)
+        :param code:주식종목코드
+        :param quantity:주문수량
+        :param price:주문단가
+        :param hoga:거래구분
+        :param order_no:원주문번호
+
+        반환값
+            에러코드 (/config/error_code.py)
+
+        비고
+            sHogaGb – 00:지정가, 03:시장가, 05:조건부지정가, 06:최유리지정가, 07:최우선지정가, 10:지정가IOC, 13:시장가IOC,
+                    16:최유리IOC, 20:지정가FOK, 23:시장가FOK, 26:최유리FOK, 61:장전시간외종가, 62:시간외단일가, 81:장후시간외종가
+                    ※ 시장가, 최유리지정가, 최우선지정가, 시장가IOC, 최유리IOC, 시장가FOK, 최유리FOK, 장전시간외, 장후시간외 주문시 주문가격을 입력하지 않습니다.
+        """
+        print("SendOrder 메소드 실행")
+
+        # print(price)
         self.dynamicCall("SendOrder(QString, QString, QString, int, QString, int, int, QString, QString",
                          [rqname, screen_no, acc_no, order_type, code, quantity, price, hoga, order_no])
 
@@ -582,15 +773,50 @@ class Kiwoom(QAxWidget):
         self.real_hoga = [['0'] * 10 for i in range(5)]
 
     def set_input_value(self, id, value):
+        """
+        SetInputValue 메소드 호출 / Tran 입력 값을 서버통신 전에 입력한다.
+
+        :param id:아이템명
+        :param value:입력 값
+        """
+        print("SetInputValue 메소드 실행")
+
         self.dynamicCall("SetInputValue(QString, QString)", id, value)
 
     def set_real_reg(self, screen_no, code_list, fid_list, opt_type):
+        """
+        SetRealReg 메소드 호출 (실시간 등록을 한다.)
+
+        :param screen_no:실시간 등록할 화면 번호
+        :param code_list:실시간 등록할 종목코드(복수종목가능 – “종목1;종목2;종목3;….”)
+        :param fid_list:실시간 등록할 FID(“FID1;FID2;FID3;…..”)
+        :param opt_type:“0”, “1” 타입
+
+        반환값
+            통신결과
+
+        비고
+            strRealType이 “0” 으로 하면 같은화면에서 다른종목 코드로 실시간 등록을 하게 되면
+                마지막에 사용한 종목코드만 실시간 등록이 되고 기존에 있던 종목은 실시간이 자동 해지됨.
+            “1”로 하면 같은화면에서 다른 종목들을 추가하게 되면 기존에 등록한 종목도 함께 실시간 시세를 받을 수 있음.
+        """
+        print("SetRealReg 메소드 실행")
+
         # ret = self.dynamicCall("SetRealReg(QString, QString, QString, QString)", screen_no, code_list, fid_list, opt_type)
         # print("set_real_reg", ret)
         # return ret
         self.dynamicCall("SetRealReg(QString, QString, QString, QString)", screen_no, code_list, fid_list, opt_type)
 
     def set_real_remove(self, screen_no, code):
+        """
+        SetRealRemove 메소드 호출 (종목별 실시간 해제 (SetRealReg로 등록한 종목만 해제 가능)) /
+
+        :param screen_no: 실시간 해제할 화면 번호
+        :param code:실시간 해제할 종목.
+
+        반환값
+            통신결과
+        """
         print("set_real_remove")
         self.dynamicCall("SetRealRemove(QString, QString)", screen_no, code)
 
