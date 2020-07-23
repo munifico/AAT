@@ -506,19 +506,20 @@ class Trading(QMainWindow, form_class):
         item.setTextAlignment(Qt.AlignVCenter | Qt.AlignRight)
         self.tableWidget.setItem(0, 0, item)
 
-        for i in range(1, 6):
-            color, data = self.color_2(self.kiwoom.opw00018_output['single'][i-1])
-            item = QTableWidgetItem(data)
+        if len(self.kiwoom.opw00018_output['single']) != 0:
+            for i in range(1, 6):
+                color, data = self.color_2(self.kiwoom.opw00018_output['single'][i-1])
+                item = QTableWidgetItem(data)
 
-            if color == "red":
-                item.setForeground(QtGui.QBrush(Qt.red))
-            elif color == "blue":
-                item.setForeground(QtGui.QBrush(Qt.blue))
-            else:
-                item.setForeground(QtGui.QBrush(Qt.black))
-            self.tableWidget.setItem(0, i, item)
+                if color == "red":
+                    item.setForeground(QtGui.QBrush(Qt.red))
+                elif color == "blue":
+                    item.setForeground(QtGui.QBrush(Qt.blue))
+                else:
+                    item.setForeground(QtGui.QBrush(Qt.black))
+                self.tableWidget.setItem(0, i, item)
 
-        self.tableWidget.resizeRowsToContents()
+            self.tableWidget.resizeRowsToContents()
 
         # for i in range(1, 6):
         #     item = QTableWidgetItem(self.kiwoom.opw00018_output['single'][i-1])
@@ -960,7 +961,9 @@ class Trading(QMainWindow, form_class):
 
 
     def stacked_0_timeout(self):
+        print("뭐냐")
         if self.checkBox.isChecked():
+            print("상여")
             self.check_balance()
 
             if len(self.kiwoom.chejan_lists) != 0:
