@@ -343,32 +343,23 @@ class Trading(QMainWindow, form_class):
         # fid_list = "41;51;42;52;27;28;10;11;12;15;13;14;16;17;18"
         che_fid = "10;11;12;27;28;13;14;16;17;18"
         ho_fid = "41;61;51;71;42;62;52;72;43;63;53;73;44;64;54;74;45;65;55;75;46;66;56;76;47;67;57;77;48;68;58;78;49;69;59;79;50;70;60;80;121;125;23;24"
-        fid_lista = che_fid + ";" + ho_fid
+        fid_list = che_fid + ";" + ho_fid
         real_type = 0
-        # 10 현재가, 체결가, 실시간종가
-        #     11 전일 대비
-        #     12 등락율
-        #     27 (최우선)매도호가
-        #     28 (최우선)매수호가
-        #     13 누적거래량, 누적첵ㄹ량
-        #     14 누적거래대금
-        #     16 시가
-        #     17 고가
-        #     18 저가
-        #     26 전일거래량 대비(계약,주)
-        #     30 전일거래량 대비(비율)
-        #     31 거래회전율
-        #     32 거래비용
-        #     311 시가총액(억)
+
+        construction = self.kiwoom.get_master_construction(code=code)
+        self.lineEdit_10.setText(construction)
+
+        stock_state = self.kiwoom.get_master_stock_state(code=code)
+        self.lineEdit_9.setText(stock_state)
 
         # default_info = self.kiwoom.set_real_reg(6000, code, fid_list, type)
         # print("default_info :", default_info)
         if self.label_41.text() == '0':
             self.kiwoom.reset_real_fid()
 
-        self.kiwoom.set_real_reg(screen_no=self.screen_real_data, code_list=code, fid_list=fid_lista, opt_type=real_type)
+        self.kiwoom.set_real_reg(screen_no=self.screen_real_data, code_list=code, fid_list=fid_list, opt_type=real_type)
 
-        # self.checkBox_2.setChecked(True)
+        self.checkBox_2.setChecked(True)
         self.pushButton_32.setEnabled(True)
 
         # self.lineEdit_6.setText(self.kiwoom.real_data[0])
@@ -552,14 +543,14 @@ class Trading(QMainWindow, form_class):
                 color, data = self.color_2(str=stock)
                 item = QTableWidgetItem(data)
 
-                if count >= 4:
+                if count >= 5:
                     if color == "red":
                         item.setForeground(QtGui.QBrush(Qt.red))
                     elif color == "blue":
                         item.setForeground(QtGui.QBrush(Qt.blue))
                     else:
                         item.setForeground(QtGui.QBrush(Qt.red))
-                elif count < 4:
+                elif count < 5:
                     item.setForeground(QtGui.QBrush(Qt.black))
 
                 self.tableWidget_2.setItem(i, count, item)

@@ -247,7 +247,7 @@
      </font>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <property name="modelColumn">
      <number>0</number>
@@ -278,7 +278,7 @@
      </font>
     </property>
     <property name="maximum">
-     <number>9999</number>
+     <number>999999</number>
     </property>
    </widget>
    <widget class="QSpinBox" name="spinBox_2">
@@ -466,6 +466,11 @@
       </property>
       <column>
        <property name="text">
+        <string>종목코드</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
         <string>종목명</string>
        </property>
       </column>
@@ -600,12 +605,132 @@
       </column>
      </widget>
     </widget>
+    <widget class="QGroupBox" name="groupBox_26">
+     <property name="geometry">
+      <rect>
+       <x>1570</x>
+       <y>690</y>
+       <width>431</width>
+       <height>321</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>미체결 내역</string>
+     </property>
+     <widget class="QTableWidget" name="tableWidget_13">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>60</y>
+        <width>256</width>
+        <height>192</height>
+       </rect>
+      </property>
+      <column>
+       <property name="text">
+        <string>주문번호</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>원주문번호</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>주문상태</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>종목명</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>주문구분</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>주문수량</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>미체결수량</string>
+       </property>
+      </column>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_27">
+     <property name="geometry">
+      <rect>
+       <x>1110</x>
+       <y>670</y>
+       <width>431</width>
+       <height>251</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>체결 내역</string>
+     </property>
+     <widget class="QTableWidget" name="tableWidget_12">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>20</y>
+        <width>256</width>
+        <height>192</height>
+       </rect>
+      </property>
+      <column>
+       <property name="text">
+        <string>주문번호</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>원주문번호</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>주문상태</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>종목명</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>주문구분</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>주문수량</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>체결수량</string>
+       </property>
+      </column>
+     </widget>
+    </widget>
+    <zorder>groupBox_3</zorder>
+    <zorder>groupBox_2</zorder>
+    <zorder>groupBox_26</zorder>
+    <zorder>groupBox_27</zorder>
    </widget>
    <widget class="QWidget" name="page_1">
     <widget class="QLineEdit" name="lineEdit_4">
      <property name="geometry">
       <rect>
-       <x>30</x>
+       <x>330</x>
        <y>90</y>
        <width>113</width>
        <height>25</height>
@@ -621,7 +746,7 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>30</x>
+       <x>330</x>
        <y>130</y>
        <width>112</width>
        <height>34</height>
@@ -637,7 +762,7 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>170</x>
+       <x>470</x>
        <y>90</y>
        <width>113</width>
        <height>25</height>
@@ -653,7 +778,7 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>310</x>
+       <x>610</x>
        <y>90</y>
        <width>113</width>
        <height>25</height>
@@ -666,7 +791,7 @@
     <widget class="QLabel" name="label_8">
      <property name="geometry">
       <rect>
-       <x>30</x>
+       <x>330</x>
        <y>50</y>
        <width>77</width>
        <height>31</height>
@@ -679,7 +804,7 @@
     <widget class="QLabel" name="label_9">
      <property name="geometry">
       <rect>
-       <x>170</x>
+       <x>470</x>
        <y>50</y>
        <width>77</width>
        <height>31</height>
@@ -692,7 +817,7 @@
     <widget class="QLabel" name="label_10">
      <property name="geometry">
       <rect>
-       <x>310</x>
+       <x>610</x>
        <y>50</y>
        <width>77</width>
        <height>31</height>
@@ -708,7 +833,7 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>170</x>
+       <x>470</x>
        <y>140</y>
        <width>116</width>
        <height>22</height>
@@ -1997,7 +2122,7 @@ QPushButton:hover
      </property>
      <property name="geometry">
       <rect>
-       <x>290</x>
+       <x>590</x>
        <y>160</y>
        <width>221</width>
        <height>34</height>
@@ -2080,6 +2205,64 @@ QPushButton:hover
      </property>
      <property name="text">
       <string>PER</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_30">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>50</y>
+       <width>77</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>종목상태</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_9">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>90</y>
+       <width>113</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="maxLength">
+      <number>6</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_31">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>50</y>
+       <width>77</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>감리구분</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_10">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>90</y>
+       <width>113</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="maxLength">
+      <number>6</number>
      </property>
     </widget>
    </widget>

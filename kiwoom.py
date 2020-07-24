@@ -120,6 +120,7 @@ class Kiwoom(QAxWidget):
         rows = self._get_repeat_cnt(trcode=trcode, rqname=rqname)
 
         for i in range(rows):
+            code = self._comm_get_data(code=trcode, real_type="", rqname=rqname, index=i, item_name="종목번호")
             name = self._comm_get_data(code=trcode, real_type="", rqname=rqname, index=i, item_name="종목명")
             quantity = self._comm_get_data(code=trcode, real_type="", rqname=rqname, index=i, item_name="보유수량")
             purchase_price = self._comm_get_data(code=trcode, real_type="", rqname=rqname, index=i, item_name="매입가")
@@ -127,13 +128,14 @@ class Kiwoom(QAxWidget):
             eval_profit_loss_price = self._comm_get_data(code=trcode, real_type="", rqname=rqname, index=i, item_name="평가손익")
             earning_rate = self._comm_get_data(code=trcode, real_type="", rqname=rqname, index=i, item_name="수익률(%)")
 
+            code = code[1:]
             quantity = Kiwoom.change_format(data=quantity)
             purchase_price = Kiwoom.change_format(data=purchase_price)
             current_price = Kiwoom.change_format(data=current_price)
             eval_profit_loss_price = Kiwoom.change_format(data=eval_profit_loss_price)
             earning_rate = Kiwoom.change_format2(data=earning_rate)
 
-            self.opw00018_output['multi'].append([name, quantity, purchase_price, current_price, eval_profit_loss_price, earning_rate])
+            self.opw00018_output['multi'].append([code, name, quantity, purchase_price, current_price, eval_profit_loss_price, earning_rate])
 
             # print(self.opw00018_output['multi'])
 
@@ -722,6 +724,40 @@ class Kiwoom(QAxWidget):
         code_name = self.dynamicCall("GetMasterCodeName(QString)", code)
         return code_name
 
+    def get_master_construction(self, code):
+        """
+        GetMasterConstruction 메소드 호출 (종목코드의 감리구분을 반환한다.)
+
+        :param code:종목코드
+
+        반환값
+            감리구분
+
+        비고
+            감리구분 – 정상, 투자주의, 투자경고, 투자위험, 투자주의환기종목
+        """
+        print("GetMasterConstruction 메소드 실행")
+
+        construction = self.dynamicCall("GetMasterConstruction(QString)", code)
+        return construction
+
+    def get_master_stock_state(self, code):
+        """
+        GetMasterStockState 메소드 호출 (종목코드의 종목상태를 반환한다.)
+
+        :param code:종목코드
+
+        반환값
+            종목상태
+
+        비고
+            종목상태 – 정상, 증거금100%, 거래정지, 관리종목, 감리종목, 투자유의종목, 담보대출, 액면분할, 신용가능
+        """
+        print("GetMasterStockState 메소드 실행")
+
+        stock_state = self.dynamicCall("GetMasterStockState(QString)", code)
+        return stock_state
+
     def get_chejan_data(self, fid):
         """
         GetChejanData 메소드 호출 (체결잔고 데이터를 반환한다)
@@ -851,6 +887,7 @@ class Kiwoom(QAxWidget):
             strip_data = '-' + strip_data
 
         return strip_data
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
