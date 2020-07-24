@@ -55,12 +55,14 @@ class Trading(QMainWindow, form_class):
             6000 - 실시간 데이터 처리
             9000 - 주문
             """
-            self.screen_up_down_price = 1000
-            self.screen_volume = 2000
-            self.screen_balance = 3000
-            self.screen_interest_stock = 4000
-            self.screen_real_data = 6000
-            self.screen_order = 9000
+            self.screen_up_down_price = "1000"
+            self.screen_volume = "2000"
+            self.screen_balance = "3000"
+            self.screen_not_execution = str(int(self.screen_balance) + 100)
+            self.screen_execution = str(int(self.screen_balance) + 200)
+            self.screen_interest_stock = "4000"
+            self.screen_real_data = "6000"
+            self.screen_order = "9000"
 
             """
             시장 구분 (000:전체, 001:코스피, 101:코스닥)
@@ -87,6 +89,7 @@ class Trading(QMainWindow, form_class):
 
             self.pushButton.clicked.connect(self.order)
             self.pushButton_2.clicked.connect(self.check_balance)
+            self.pushButton_37.clicked.connect(self.execution_listup)
             self.pushButton_3.clicked.connect(lambda:self.set_stacked_widget(num=0))
             self.pushButton_4.clicked.connect(lambda:self.set_stacked_widget(num=1))
             self.pushButton_5.clicked.connect(lambda:self.set_stacked_widget(num=2))
@@ -566,6 +569,81 @@ class Trading(QMainWindow, form_class):
         #         self.tableWidget_2.setItem(j, i, item)
         #
         # self.tableWidget_2.resizeRowsToContents()
+
+    def execution_listup(self):
+        account_number = self.comboBox.currentText()
+        total_stock_type = "0"
+        trading_type = "0"
+        execution_type = "0"
+
+        self.kiwoom.set_input_value(id='계좌번호', value=account_number)
+        self.kiwoom.set_input_value(id='전체종목구분', value=total_stock_type)
+        self.kiwoom.set_input_value(id='매매구분', value=trading_type)
+        self.kiwoom.set_input_value(id='체결구분', value=execution_type)
+
+        self.kiwoom.comm_rq_data(rqname="실시간미체결요청", trcode="opt10075", next=0, screen_no=self.screen_not_execution)
+
+        ## 데이터 받고 가공
+
+        cnt = len(self.kiwoom.not_execution_list)
+
+        self.tableWidget_13.setRowCount(cnt)
+
+        for i in range(cnt):
+            for count, info in enumerate(self.kiwoom.not_execution_list[i]):
+                color, data = self.color_2(str=info)
+                item = QTableWidgetItem(data)
+
+                if color == "red":
+                    item.setForeground(QtGui.QBrush(Qt.red))
+                elif color == "blue":
+                    item.setForeground(QtGui.QBrush(Qt.blue))
+                else:
+                    item.setForeground(QtGui.QBrush(Qt.black))
+
+                self.tableWidget_13.setItem(i, count, item)
+
+        self.tableWidget_13.resizeRowsToContents()
+        self.tableWidget_13.resizeColumnsToContents()
+
+    ##############
+
+        search_type = "0"
+        trading_type = "0"
+        account_number = self.comboBox.currentText()
+        password = "0000"
+        execution_type = "0"
+
+        self.kiwoom.set_input_value(id="조회구분", value=search_type)
+        self.kiwoom.set_input_value(id="매도수구분", value=trading_type)
+        self.kiwoom.set_input_value(id="계좌번호", value=account_number)
+        self.kiwoom.set_input_value(id="비밀번호", value=password)
+        self.kiwoom.set_input_value(id="체결구분", value=execution_type)
+
+        self.kiwoom.comm_rq_data(rqname="실시간체결요청", trcode="opt10076", next=0, screen_no=self.screen_execution)
+
+        ## 데이터 받고 정제
+
+        cnt = len(self.kiwoom.execution_list)
+
+        self.tableWidget_12.setRowCount(cnt)
+
+        for i in range(cnt):
+            for count, info in enumerate(self.kiwoom.execution_list[i]):
+                color, data = self.color_2(str=info)
+                item = QTableWidgetItem(data)
+
+                if color == "red":
+                    item.setForeground(QtGui.QBrush(Qt.red))
+                elif color == "blue":
+                    item.setForeground(QtGui.QBrush(Qt.blue))
+                else:
+                    item.setForeground(QtGui.QBrush(Qt.black))
+
+                self.tableWidget_12.setItem(i, count, item)
+
+        self.tableWidget_12.resizeRowsToContents()
+        self.tableWidget_12.resizeColumnsToContents()
 
 
     def add_interest_stock(self):
@@ -1326,6 +1404,7 @@ class Trading(QMainWindow, form_class):
             color = "black"
             data = str
         return color, data
+
 
     # def chejan_data(self):
     #     self.order_num = self.kiwoom.get_chejan_data(9203)

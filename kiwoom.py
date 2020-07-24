@@ -13,8 +13,13 @@ class Kiwoom(QAxWidget):
         #### 초기 설정 함수
         self._create_kiwoom_instance()
         self._set_signal_slots()
+
         self.chejan_lists = []
         self.un_chejan_lists = []
+
+        # 체결 / 미체결 딕셔너리
+        self.execution_list = []
+        self.not_execution_list = []
 
         self.fid = RealType().REALTYPE
         ###################
@@ -89,6 +94,10 @@ class Kiwoom(QAxWidget):
             self._opt10030(rqname=rqname, trcode=trcode)
         elif rqname == "전일거래량상위요청":
             self._opt10031(rqname=rqname, trcode=trcode)
+        elif rqname == "실시간미체결요청":
+            self._opt10075(rqname=rqname, trcode=trcode)
+        elif rqname == "실시간체결요청":
+            self._opt10076(rqname=rqname, trcode=trcode)
         # OPT10023 opt10030 OPT10031 거래량 상위
         # opt10079 틱 차트 조회 KOA 돌려보기
         try:
@@ -141,8 +150,8 @@ class Kiwoom(QAxWidget):
 
     def _opw00001(self, rqname, trcode):
         """
-        :param rqname:"예수금상세현황요청"
-        :param trcode:"opw00001"
+        :param rqname:예수금상세현황요청
+        :param trcode:opw00001
         """
         print("opw00001 TR Run")
 
@@ -151,8 +160,8 @@ class Kiwoom(QAxWidget):
 
     def _optkwfid(self, rqname, trcode):
         """
-        :param rqname:"관심종목정보요청"
-        :param trcode:'OPTKWFID'
+        :param rqname:관심종목정보요청
+        :param trcode:OPTKWFID
         """
         print("OPTKWFID TR Run")
 
@@ -184,8 +193,8 @@ class Kiwoom(QAxWidget):
 
     def _opt10027(self, rqname, trcode):
         """
-        :param rqname:"전일대비등락률상위요청"
-        :param trcode:"opt10027"
+        :param rqname:전일대비등락률상위요청
+        :param trcode:opt10027
         """
         print("opt10027 TR Run")
 
@@ -234,8 +243,8 @@ class Kiwoom(QAxWidget):
 
     def _opt10023(self, rqname, trcode):
         """
-        :param rqname:"거래량급증요청"
-        :param trcode:"OPT10023"
+        :param rqname:거래량급증요청
+        :param trcode:OPT10023
         """
         print("OPT10023 TR Run")
 
@@ -268,8 +277,8 @@ class Kiwoom(QAxWidget):
 
     def _opt10030(self, rqname, trcode):
         """
-        :param rqname:"당일거래량상위요청"
-        :param trcode:"opt10030"
+        :param rqname:당일거래량상위요청
+        :param trcode:opt10030
         """
         print("opt10030 TR Run")
 
@@ -301,8 +310,8 @@ class Kiwoom(QAxWidget):
 
     def _opt10031(self, rqname, trcode):
         """
-        :param rqname:"전일거래량상위요청"
-        :param trcode:"OPT10031"
+        :param rqname:전일거래량상위요청
+        :param trcode:OPT10031
         """
         print("OPT10031 TR Run")
 
@@ -327,6 +336,99 @@ class Kiwoom(QAxWidget):
 
             self.yesterday_volume_top.append(yesterday_volume)
 
+    def _opt10075(self, rqname, trcode):
+        """
+        :param rqname:실시간미체결요청
+        :param trcode:opt10075
+        """
+        print("opt10075 TR Run")
+
+        cnt = self._get_repeat_cnt(trcode=trcode, rqname=rqname)
+
+        for i in range(cnt):
+            order_num = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="주문번호")
+            origin_order_num = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="원주문번호")
+            order_status = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="주문상태")
+            stock_name = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="종목명")
+            order_type = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="주문구분")
+            order_quantity = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="주문수량")
+            not_execution_quantity = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="미체결수량")
+            execution_quantity = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="체결수량")
+
+            # order_num = int(order_num)
+            # origin_order_num = int(origin_order_num)
+            # order_type = order_type.lstrip('+').lstrip('-')
+            # order_quantity = int(order_quantity)
+            # not_execution_quantity = int(not_execution_quantity)
+
+            not_execution = [order_num, origin_order_num, order_status, stock_name,
+                             order_type, order_quantity, not_execution_quantity, execution_quantity]
+
+            list_len = len(self.not_execution_list)
+
+            if list_len == 0:
+                self.not_execution_list.append(not_execution)
+            else:
+                for i in range(list_len):
+                    if order_num in self.not_execution_list[i][0]:
+                        del self.not_execution_list[i]
+                        self.not_execution_list.insert(i, not_execution)
+                    else:
+                        self.not_execution_list.append(not_execution)
+
+    def _opt10076(self, rqname, trcode):
+        """
+        :param rqname:실시간체결요청
+        :param trcode:opt10076
+        """
+        print("opt10076 TR Run")
+
+        cnt = self._get_repeat_cnt(trcode=trcode, rqname=rqname)
+
+        for i in range(cnt):
+            order_num = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="주문번호")
+            origin_order_num = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="원주문번호")
+            order_status = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="주문상태")
+            stock_name = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="종목명")
+            order_type = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="주문구분")
+            order_quantity = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="주문수량")
+            execution_quantity = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="체결수량")
+            not_execution_quantity = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="미체결수량")
+
+            # order_num = int(order_num)
+            # origin_order_num = int(origin_order_num)
+            # order_type = order_type.lstrip('+').lstrip('-')
+            # order_quantity = int(order_quantity)
+            # execution_quantity = int(execution_quantity)
+
+            execution_list = [order_num, origin_order_num, order_status, stock_name,
+                              order_type, order_quantity, execution_quantity, not_execution_quantity]
+
+            list_len = len(self.execution_list)
+
+            if list_len == 0:
+                self.execution_list.append(execution_list)
+            elif list_len != 0:
+                for i in range(list_len):
+                    if order_num in self.execution_list[i][0]:
+                        del self.execution_list[i]
+                        self.execution_list.insert(i, execution_list)
+                    else:
+                        self.execution_list.append(execution_list)
+
+            # if order_num in self.execution_dict:
+            #     pass
+            # else:
+            #     self.execution_dict[order_num] = {}
+            #
+            # self.execution_list[order_num].update({'주문번호': order_num})
+            # self.execution_list[order_num].update({'원주문번호': origin_order_num})
+            # self.execution_list[order_num].update({'주문상태': order_status})
+            # self.execution_list[order_num].update({'종목명': stock_name})
+            # self.execution_list[order_num].update({'주문구분': order_type})
+            # self.execution_list[order_num].update({'주문수량': order_quantity})
+            # self.execution_list[order_num].update({'체결수량': execution_quantity})
+
     def _receive_chejan_data(self, gubun, item_cnt, fid_list):
         """
         OnReceiveChejanData(주문 접수/확인 수신시 이벤트)가 체결데이터를 받은 시점을 알려준다.
@@ -343,7 +445,7 @@ class Kiwoom(QAxWidget):
 
         order_num = self.get_chejan_data(fid=self.fid['주문체결']['주문번호'])
         item_code = self.get_chejan_data(fid=self.fid['주문체결']['종목코드'])
-        state = self.get_chejan_data(fid=self.fid['주문체결']['주문상태'])
+        status = self.get_chejan_data(fid=self.fid['주문체결']['주문상태'])
         name = self.get_chejan_data(fid=self.fid['주문체결']['종목명'])
         name = name.strip()
         order_quantity = self.get_chejan_data(fid=self.fid['주문체결']['주문수량'])
@@ -357,7 +459,7 @@ class Kiwoom(QAxWidget):
             pass
         else:
             self.chejan_lists.append(
-                [order_num, origin_order_num, state, name, sell_buy_num[sell_buy_gubun], order_quantity, miss_quantity])
+                [order_num, origin_order_num, status, name, sell_buy_num[sell_buy_gubun], order_quantity, miss_quantity])
 
         # order_num = self.get_chejan_data(9203)
         # item_code = self.get_chejan_data(9001)

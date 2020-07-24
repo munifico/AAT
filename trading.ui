@@ -375,7 +375,7 @@
     <enum>QFrame::Plain</enum>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="page">
     <widget class="QGroupBox" name="groupBox_2">
@@ -608,10 +608,10 @@
     <widget class="QGroupBox" name="groupBox_26">
      <property name="geometry">
       <rect>
-       <x>1570</x>
+       <x>1090</x>
        <y>690</y>
-       <width>431</width>
-       <height>321</height>
+       <width>1021</width>
+       <height>621</height>
       </rect>
      </property>
      <property name="title">
@@ -622,8 +622,8 @@
        <rect>
         <x>40</x>
         <y>60</y>
-        <width>256</width>
-        <height>192</height>
+        <width>961</width>
+        <height>521</height>
        </rect>
       </property>
       <column>
@@ -666,10 +666,10 @@
     <widget class="QGroupBox" name="groupBox_27">
      <property name="geometry">
       <rect>
-       <x>1110</x>
-       <y>670</y>
-       <width>431</width>
-       <height>251</height>
+       <x>50</x>
+       <y>1010</y>
+       <width>991</width>
+       <height>441</height>
       </rect>
      </property>
      <property name="title">
@@ -680,8 +680,8 @@
        <rect>
         <x>40</x>
         <y>20</y>
-        <width>256</width>
-        <height>192</height>
+        <width>911</width>
+        <height>391</height>
        </rect>
       </property>
       <column>
@@ -721,10 +721,24 @@
       </column>
      </widget>
     </widget>
+    <widget class="QPushButton" name="pushButton_37">
+     <property name="geometry">
+      <rect>
+       <x>1220</x>
+       <y>1390</y>
+       <width>112</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>PushButton</string>
+     </property>
+    </widget>
     <zorder>groupBox_3</zorder>
     <zorder>groupBox_2</zorder>
     <zorder>groupBox_26</zorder>
     <zorder>groupBox_27</zorder>
+    <zorder>pushButton_37</zorder>
    </widget>
    <widget class="QWidget" name="page_1">
     <widget class="QLineEdit" name="lineEdit_4">
