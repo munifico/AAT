@@ -1,14 +1,9 @@
-"""
-화면 번호
-1000 - 상한가 / 하한가
-2000 - 거래량
-4000 - 관심 종목
-6000 - 실시간 데이터 처리
-"""
+
 from PyQt5 import uic
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5 import QtGui
+from PyQt5.QtTest import *
 import sys
 from kiwoom import *
 import time
@@ -44,13 +39,28 @@ class Trading(QMainWindow, form_class):
         #     # QCoreApplication.instance().quit()
         #     # QApplication(sys.argv).quit()
         #     self.close()
-        if self.kiwoom.get_login_info("ACCOUNT_CNT") != '':
+        if self.kiwoom.get_login_info(s_Tag="ACCOUNT_CNT") != '':
             self.pushButton.setEnabled(True)
             self.pushButton_2.setEnabled(True)
             self.checkBox.setEnabled(True)
             self.checkBox_2.setEnabled(True)
 
             self.interest_stock_list = []
+
+            """
+            화면 번호
+            1000 - 상한가 / 하한가
+            2000 - 거래량
+            4000 - 관심 종목
+            6000 - 실시간 데이터 처리
+            9000 - 주문
+            """
+            self.screen_up_down_price = 1000
+            self.screen_volume = 2000
+            self.screen_balance = 3000
+            self.screen_interest_stock = 4000
+            self.screen_real_data = 6000
+            self.screen_order = 9000
 
             """
             시장 구분 (000:전체, 001:코스피, 101:코스닥)
@@ -65,8 +75,8 @@ class Trading(QMainWindow, form_class):
             self.volume_gubun = "5"
             self.time_gubun = "2"
 
-            account_num = int(self.kiwoom.get_login_info("ACCOUNT_CNT"))
-            accounts = self.kiwoom.get_login_info("ACCNO")
+            account_num = int(self.kiwoom.get_login_info(s_Tag="ACCOUNT_CNT"))
+            accounts = self.kiwoom.get_login_info(s_Tag="ACCNO")
             accounts_list = accounts.split(';')[0:account_num]
             self.comboBox.addItems(accounts_list)
 
@@ -75,7 +85,7 @@ class Trading(QMainWindow, form_class):
             self.lineEdit_7.textChanged.connect(self.code_changed_interest)
             self.lineEdit_7.returnPressed.connect(self.add_interest_stock)
 
-            self.pushButton.clicked.connect(self.send_order)
+            self.pushButton.clicked.connect(self.order)
             self.pushButton_2.clicked.connect(self.check_balance)
             self.pushButton_3.clicked.connect(lambda:self.set_stacked_widget(num=0))
             self.pushButton_4.clicked.connect(lambda:self.set_stacked_widget(num=1))
@@ -333,8 +343,8 @@ class Trading(QMainWindow, form_class):
         # fid_list = "41;51;42;52;27;28;10;11;12;15;13;14;16;17;18"
         che_fid = "10;11;12;27;28;13;14;16;17;18"
         ho_fid = "41;61;51;71;42;62;52;72;43;63;53;73;44;64;54;74;45;65;55;75;46;66;56;76;47;67;57;77;48;68;58;78;49;69;59;79;50;70;60;80;121;125;23;24"
-        fid_list = che_fid + ";" + ho_fid
-        type = 0
+        fid_lista = che_fid + ";" + ho_fid
+        real_type = 0
         # 10 현재가, 체결가, 실시간종가
         #     11 전일 대비
         #     12 등락율
@@ -353,12 +363,14 @@ class Trading(QMainWindow, form_class):
 
         # default_info = self.kiwoom.set_real_reg(6000, code, fid_list, type)
         # print("default_info :", default_info)
-        self.kiwoom.reset_real_fid()
+        if self.label_41.text() == '0':
+            self.kiwoom.reset_real_fid()
 
-        self.kiwoom.set_real_reg(6000, code, fid_list, type)
+        self.kiwoom.set_real_reg(screen_no=self.screen_real_data, code_list=code, fid_list=fid_lista, opt_type=real_type)
 
-        self.checkBox_2.setChecked(True)
+        # self.checkBox_2.setChecked(True)
         self.pushButton_32.setEnabled(True)
+
         # self.lineEdit_6.setText(self.kiwoom.real_data[0])
         # self.label_41.setText(self.kiwoom.real_data[0])
         # self.label_42.setText(self.kiwoom.real_data[1])
@@ -377,8 +389,8 @@ class Trading(QMainWindow, form_class):
     def remove_real_data(self):
         print("remove_real_data")
         code = self.code
-        self.kiwoom.set_real_remove(screen_no= 6000, code= code)
-        print(code)
+        self.kiwoom.set_real_remove(screen_no= self.screen_real_data, code= code)
+        # print(code)
 
     def set_stacked_widget(self, num):
         self.checkBox.setChecked(False)
@@ -395,7 +407,7 @@ class Trading(QMainWindow, form_class):
         self.up_down_change(num=3)
         self.array_change(num=0)
 
-        self.kiwoom.set_real_remove("ALL", "ALL")
+        self.kiwoom.set_real_remove(screen_no="ALL", code="ALL")
 
         if num == 0:
             self.stackedWidget.setCurrentIndex(0)
@@ -413,7 +425,7 @@ class Trading(QMainWindow, form_class):
         self.lcdNumber.display(num)
 
     def type_changed(self, index):
-        print(index)
+        # print(index)
         if index == 1:
             self.spinBox_2.setValue(0)
 
@@ -428,7 +440,7 @@ class Trading(QMainWindow, form_class):
             time = 2
 
         self.time_gubun = time
-        print(self.time_gubun)
+        # print(self.time_gubun)
 
     def volume(self, index):
         if index == 0:
@@ -449,7 +461,7 @@ class Trading(QMainWindow, form_class):
             volume_gubun = "1000"
 
         self.volume_gubun = volume_gubun
-        print(volume_gubun)
+        # print(volume_gubun)
 
     def code_changed(self):
         code = self.lineEdit.text()
@@ -467,7 +479,7 @@ class Trading(QMainWindow, form_class):
         name = self.kiwoom.get_master_code_name(code=code)
         self.lineEdit_8.setText(name)
 
-    def send_order(self):
+    def order(self):
         """
         매수 정정, 매도 정정은 거래 내역 만들고 추가
         """
@@ -483,24 +495,28 @@ class Trading(QMainWindow, form_class):
         order_num = self.lineEdit_3.text()
 
         if code != '' and num != 0:
-             self.kiwoom.send_order("send_order_req", "0101", account, order_type_lookup[order_type], code, num, price,
-                                    hoga_lookup[hoga], order_num)
+             # self.kiwoom.send_order("send_order_req", "0101", account, order_type_lookup[order_type], code, num, price,
+             #                        hoga_lookup[hoga], order_num)
+             self.kiwoom.send_order(rqname="send_order_req", screen_no=self.screen_order, acc_no=account, order_type=order_type_lookup[order_type],
+                                    code=code, quantity=num, price=price, hoga=hoga_lookup[hoga], order_no=order_num)
              QMessageBox.about(self, "주문", "주문이 요청되었습니다.\n실시간 체결 현황을 확인해주세요")
 
     def check_balance(self):
         self.kiwoom.reset_opw00018_output()
         account_number = self.comboBox.currentText()
 
-        self.kiwoom.set_input_value("계좌번호", account_number)
-        self.kiwoom.comm_rq_data("계좌평가잔고내역요청", "opw00018", 0, "2000")
+        self.kiwoom.set_input_value(id="계좌번호", value=account_number)
+        # self.kiwoom.comm_rq_data(rqname="계좌평가잔고내역요청", trcode="opw00018", next=0, screen_no="2000")
+        self.kiwoom.comm_rq_data(rqname="계좌평가잔고내역요청", trcode="opw00018", next=0, screen_no=self.screen_balance)
 
         while self.kiwoom.remained_data:
-            time.sleep(0.2)
-            self.kiwoom.set_input_value("계좌번호", account_number)
-            self.kiwoom.comm_rq_data("계좌평가잔고내역요청", "opw00018", 2, "2000")
+            # time.sleep(0.2)
+            QTest.qWait(200)
+            self.kiwoom.set_input_value(id="계좌번호", value=account_number)
+            self.kiwoom.comm_rq_data(rqname="계좌평가잔고내역요청", trcode="opw00018", next=2, screen_no=self.screen_balance)
 
-        self.kiwoom.set_input_value("계좌번호", account_number)
-        self.kiwoom.comm_rq_data("예수금상세현황요청", "opw00001", 0, "2000")
+        self.kiwoom.set_input_value(id="계좌번호", value=account_number)
+        self.kiwoom.comm_rq_data(rqname="예수금상세현황요청", trcode="opw00001", next=0, screen_no=self.screen_balance)
 
         item = QTableWidgetItem(self.kiwoom.d2_deposit)
         item.setTextAlignment(Qt.AlignVCenter | Qt.AlignRight)
@@ -508,7 +524,7 @@ class Trading(QMainWindow, form_class):
 
         if len(self.kiwoom.opw00018_output['single']) != 0:
             for i in range(1, 6):
-                color, data = self.color_2(self.kiwoom.opw00018_output['single'][i-1])
+                color, data = self.color_2(str=self.kiwoom.opw00018_output['single'][i-1])
                 item = QTableWidgetItem(data)
 
                 if color == "red":
@@ -533,7 +549,7 @@ class Trading(QMainWindow, form_class):
 
         for i in range(item_count):
             for count, stock in enumerate(self.kiwoom.opw00018_output['multi'][i]):
-                color, data = self.color_2(stock)
+                color, data = self.color_2(str=stock)
                 item = QTableWidgetItem(data)
 
                 if count >= 4:
@@ -579,7 +595,7 @@ class Trading(QMainWindow, form_class):
                     for count, item in enumerate(self.interest_stock_list[i]):
                         item = QTableWidgetItem(item)
                         self.tableWidget_4.setItem(i, count, item)
-                        print(i,count)
+                        # print(i,count)
 
                 # self.tableWidget_4.setItem(0, 0, code)
                 # self.tableWidget_4.setItem(0, 1, name)
@@ -666,19 +682,19 @@ class Trading(QMainWindow, form_class):
             pass
         else:
             code = self.interest_stock_list[0][0]
-            print("cnt = " + str(cnt))
+            # print("cnt = " + str(cnt))
             for i in range(1, cnt):
                 code = code + ';' + self.interest_stock_list[i][0]
 
-            self.kiwoom.comm_kw_rq_data(code, cnt, 4000)
+            self.kiwoom.comm_kw_rq_data(code_list=code, code_count=cnt, screen=self.screen_interest_stock)
 
             # self.kiwoom.info_list
-            print(self.kiwoom.info_list)
+            # print(self.kiwoom.info_list)
             self.tableWidget_5.setRowCount(cnt)
 
             for i in range(cnt):
                 for count, info in enumerate(self.kiwoom.info_list[i]):
-                    color, data = self.color_2(info)
+                    color, data = self.color_2(str=info)
                     item = QTableWidgetItem(data)
                     if color == "red":
                         item.setForeground(QtGui.QBrush(Qt.red))
@@ -688,7 +704,7 @@ class Trading(QMainWindow, form_class):
                         item.setForeground(QtGui.QBrush(Qt.black))
                     # item.setBackground(QtGui.QColor(255, 0, 0))
                     # item.setForeground(QtGui.QBrush(Qt.blue))
-                    print("Trading info", info)
+                    # print("Trading info", info)
                     self.tableWidget_5.setItem(i, count, item)
 
             # self.tableWidget_4.setItem(0, 0, code)
@@ -719,16 +735,16 @@ class Trading(QMainWindow, form_class):
         price_condition = "0"
         trading_price_condition = "0"
 
-        self.kiwoom.set_input_value("시장구분", market_gubun)
-        self.kiwoom.set_input_value("정렬구분", up_down_gubun)
-        self.kiwoom.set_input_value("거래량조건", volume_condition)
-        self.kiwoom.set_input_value("종목조건", stock_condition)
-        self.kiwoom.set_input_value("신용조건", credit_condition)
-        self.kiwoom.set_input_value("상한가포함", in_up_down)
-        self.kiwoom.set_input_value("가격조건", price_condition)
-        self.kiwoom.set_input_value("거래대금조건", trading_price_condition)
+        self.kiwoom.set_input_value(id="시장구분", value=market_gubun)
+        self.kiwoom.set_input_value(id="정렬구분", value=up_down_gubun)
+        self.kiwoom.set_input_value(id="거래량조건", value=volume_condition)
+        self.kiwoom.set_input_value(id="종목조건", value=stock_condition)
+        self.kiwoom.set_input_value(id="신용조건", value=credit_condition)
+        self.kiwoom.set_input_value(id="상한가포함", value=in_up_down)
+        self.kiwoom.set_input_value(id="가격조건", value=price_condition)
+        self.kiwoom.set_input_value(id="거래대금조건", value=trading_price_condition)
 
-        self.kiwoom.comm_rq_data(rqname="전일대비등락률상위요청", trcode="opt10027", next="0", screen_no="1000")
+        self.kiwoom.comm_rq_data(rqname="전일대비등락률상위요청", trcode="opt10027", next=0, screen_no=self.screen_up_down_price)
 
         ## 데이터 받고 가공 시작
 
@@ -740,7 +756,7 @@ class Trading(QMainWindow, form_class):
 
         for i in range(cnt):
             for count, stock in enumerate(self.kiwoom.up_stock_list[i]):
-                color, data = self.color_2(stock)
+                color, data = self.color_2(str=stock)
                 item = QTableWidgetItem(data)
 
                 if color == "red":
@@ -760,7 +776,7 @@ class Trading(QMainWindow, form_class):
 
         for i in range(cnt):
             for count, stock in enumerate(self.kiwoom.up_near_stock_list[i]):
-                color, data = self.color_2(stock)
+                color, data = self.color_2(str=stock)
                 item = QTableWidgetItem(data)
 
                 if color == "red":
@@ -801,7 +817,7 @@ class Trading(QMainWindow, form_class):
         self.kiwoom.set_input_value(id="종목조건", value=stock_condition)
         self.kiwoom.set_input_value(id="가격구분", value=price_gubun)
 
-        self.kiwoom.comm_rq_data(rqname="거래량급증요청", trcode="OPT10023", next="0", screen_no="2000")
+        self.kiwoom.comm_rq_data(rqname="거래량급증요청", trcode="OPT10023", next=0, screen_no=self.screen_volume)
 
         # 데이터 받기 전
         ##############
@@ -812,7 +828,7 @@ class Trading(QMainWindow, form_class):
 
         for i in range(cnt):
             for count, stock in enumerate(self.kiwoom.surge_volume_list[i]):
-                color, data = self.color_2(stock)
+                color, data = self.color_2(str=stock)
                 item = QTableWidgetItem(data)
 
                 if color == "red":
@@ -855,7 +871,7 @@ class Trading(QMainWindow, form_class):
         self.kiwoom.set_input_value(id="거래대금구분", value=trade_payment)
         self.kiwoom.set_input_value(id="장운영구분", value=market_manage_gubun)
 
-        self.kiwoom.comm_rq_data(rqname="당일거래량상위요청", trcode="opt10030", next="0", screen_no="2100")
+        self.kiwoom.comm_rq_data(rqname="당일거래량상위요청", trcode="opt10030", next=0, screen_no="2100")
 
         # 데이터 받기 전
         ##############
@@ -866,7 +882,7 @@ class Trading(QMainWindow, form_class):
 
         for i in range(cnt):
             for count, stock in enumerate(self.kiwoom.today_volume_top[i]):
-                color, data = self.color_2(stock)
+                color, data = self.color_2(str=stock)
                 item = QTableWidgetItem(data)
 
                 if color == "red":
@@ -897,7 +913,7 @@ class Trading(QMainWindow, form_class):
         self.kiwoom.set_input_value(id="순위시작", value=rank_start)
         self.kiwoom.set_input_value(id="순위끝", value=rank_end)
 
-        self.kiwoom.comm_rq_data(rqname="전일거래량상위요청", trcode="OPT10031", next="0", screen_no="2200")
+        self.kiwoom.comm_rq_data(rqname="전일거래량상위요청", trcode="OPT10031", next=0, screen_no="2200")
 
         # 데이터 받기 전
         ##############
@@ -908,7 +924,7 @@ class Trading(QMainWindow, form_class):
 
         for i in range(cnt):
             for count, stock in enumerate(self.kiwoom.yesterday_volume_top[i]):
-                color, data = self.color_2(stock)
+                color, data = self.color_2(str=stock)
                 item = QTableWidgetItem(data)
 
                 if color == "red":
@@ -963,14 +979,14 @@ class Trading(QMainWindow, form_class):
     def stacked_0_timeout(self):
         print("뭐냐")
         if self.checkBox.isChecked():
-            print("상여")
+            print('체결 분리 해야함')
             self.check_balance()
 
             if len(self.kiwoom.chejan_lists) != 0:
                 item_count = len(self.kiwoom.chejan_lists)
                 self.tableWidget_3.setRowCount(item_count)
 
-                print(self.kiwoom.chejan_lists)
+                # print(self.kiwoom.chejan_lists)
 
                 for i in range(item_count):
                     row = self.kiwoom.chejan_lists[i]
@@ -987,186 +1003,188 @@ class Trading(QMainWindow, form_class):
     def stacked_1_timeout(self):
         if self.checkBox_2.isChecked():
             if self.lineEdit_5.text() != "":
-                color, str = self.color(self.kiwoom.real_data[0])
+                self.hoga()
+
+                color, str = self.color(str=self.kiwoom.real_data[0])
                 self.lineEdit_6.setStyleSheet(color)
                 self.lineEdit_6.setText(str)
                 self.label_41.setStyleSheet(color)
                 self.label_41.setText(str)
-                color, str = self.color(self.kiwoom.real_data[1])
+                color, str = self.color(str=self.kiwoom.real_data[1])
                 self.label_42.setStyleSheet(color)
                 self.label_42.setText(str)
-                color, str = self.color(self.kiwoom.real_data[2])
+                color, str = self.color(str=self.kiwoom.real_data[2])
                 self.label_43.setStyleSheet(color)
                 self.label_43.setText(str)
-                color, str = self.color(self.kiwoom.real_data[5])
+                color, str = self.color(str=self.kiwoom.real_data[5])
                 self.label_44.setStyleSheet(color)
                 self.label_44.setText(self.kiwoom.real_data[5])
-                color, str = self.color(self.kiwoom.real_data[6])
+                color, str = self.color(str=self.kiwoom.real_data[6])
                 self.label_45.setStyleSheet(color)
                 self.label_45.setText(str)
-                color, str = self.color(self.kiwoom.real_data[7])
+                color, str = self.color(str=self.kiwoom.real_data[7])
                 self.label_51.setStyleSheet(color)
                 self.label_51.setText(str)
-                color, str = self.color(self.kiwoom.real_data[8])
+                color, str = self.color(str=self.kiwoom.real_data[8])
                 self.label_52.setStyleSheet(color)
                 self.label_52.setText(str)
-                color, str = self.color(self.kiwoom.real_data[9])
+                color, str = self.color(str=self.kiwoom.real_data[9])
                 self.label_53.setStyleSheet(color)
                 self.label_53.setText(str)
-                color, str = self.color(self.kiwoom.real_data[3])
+                color, str = self.color(str=self.kiwoom.real_data[3])
                 self.label_54.setStyleSheet(color)
                 self.label_54.setText(str)
-                color, str = self.color(self.kiwoom.real_data[4])
+                color, str = self.color(str=self.kiwoom.real_data[4])
                 self.label_55.setStyleSheet(color)
                 self.label_55.setText(str)
-                color, str = self.color(self.kiwoom.real_data[10])
+                color, str = self.color(str=self.kiwoom.real_data[10])
                 self.label_23.setStyleSheet(color)
                 self.label_23.setText(self.kiwoom.real_data[10])
 
-                color, str = self.color(self.kiwoom.real_hoga[1][9])
+                color, str = self.color(str=self.kiwoom.real_hoga[1][9])
                 self.pushButton_10.setStyleSheet(color)
                 self.pushButton_10.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[1][8])
+                color, str = self.color(str=self.kiwoom.real_hoga[1][8])
                 self.pushButton_11.setStyleSheet(color)
                 self.pushButton_11.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[1][7])
+                color, str = self.color(str=self.kiwoom.real_hoga[1][7])
                 self.pushButton_12.setStyleSheet(color)
                 self.pushButton_12.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[1][6])
+                color, str = self.color(str=self.kiwoom.real_hoga[1][6])
                 self.pushButton_13.setStyleSheet(color)
                 self.pushButton_13.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[1][5])
+                color, str = self.color(str=self.kiwoom.real_hoga[1][5])
                 self.pushButton_14.setStyleSheet(color)
                 self.pushButton_14.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[1][4])
+                color, str = self.color(str=self.kiwoom.real_hoga[1][4])
                 self.pushButton_15.setStyleSheet(color)
                 self.pushButton_15.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[1][3])
+                color, str = self.color(str=self.kiwoom.real_hoga[1][3])
                 self.pushButton_16.setStyleSheet(color)
                 self.pushButton_16.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[1][2])
+                color, str = self.color(str=self.kiwoom.real_hoga[1][2])
                 self.pushButton_17.setStyleSheet(color)
                 self.pushButton_17.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[1][1])
+                color, str = self.color(str=self.kiwoom.real_hoga[1][1])
                 self.pushButton_18.setStyleSheet(color)
                 self.pushButton_18.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[1][0])
+                color, str = self.color(str=self.kiwoom.real_hoga[1][0])
                 self.pushButton_19.setStyleSheet(color)
                 self.pushButton_19.setText(str)
 
-                color, str = self.color(self.kiwoom.real_hoga[3][0])
+                color, str = self.color(str=self.kiwoom.real_hoga[3][0])
                 self.pushButton_20.setStyleSheet(color)
                 self.pushButton_20.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[3][1])
+                color, str = self.color(str=self.kiwoom.real_hoga[3][1])
                 self.pushButton_21.setStyleSheet(color)
                 self.pushButton_21.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[3][2])
+                color, str = self.color(str=self.kiwoom.real_hoga[3][2])
                 self.pushButton_22.setStyleSheet(color)
                 self.pushButton_22.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[3][3])
+                color, str = self.color(str=self.kiwoom.real_hoga[3][3])
                 self.pushButton_23.setStyleSheet(color)
                 self.pushButton_23.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[3][4])
+                color, str = self.color(str=self.kiwoom.real_hoga[3][4])
                 self.pushButton_24.setStyleSheet(color)
                 self.pushButton_24.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[3][5])
+                color, str = self.color(str=self.kiwoom.real_hoga[3][5])
                 self.pushButton_25.setStyleSheet(color)
                 self.pushButton_25.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[3][6])
+                color, str = self.color(str=self.kiwoom.real_hoga[3][6])
                 self.pushButton_26.setStyleSheet(color)
                 self.pushButton_26.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[3][7])
+                color, str = self.color(str=self.kiwoom.real_hoga[3][7])
                 self.pushButton_27.setStyleSheet(color)
                 self.pushButton_27.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[3][8])
+                color, str = self.color(str=self.kiwoom.real_hoga[3][8])
                 self.pushButton_28.setStyleSheet(color)
                 self.pushButton_28.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[3][9])
+                color, str = self.color(str=self.kiwoom.real_hoga[3][9])
                 self.pushButton_29.setStyleSheet(color)
                 self.pushButton_29.setText(str)
 
-                color, str = self.color(self.kiwoom.real_hoga[2][9])
+                color, str = self.color(str=self.kiwoom.real_hoga[2][9])
                 self.label_70.setStyleSheet(color)
                 self.label_70.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[2][8])
+                color, str = self.color(str=self.kiwoom.real_hoga[2][8])
                 self.label_71.setStyleSheet(color)
                 self.label_71.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[2][7])
+                color, str = self.color(str=self.kiwoom.real_hoga[2][7])
                 self.label_72.setStyleSheet(color)
                 self.label_72.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[2][6])
+                color, str = self.color(str=self.kiwoom.real_hoga[2][6])
                 self.label_73.setStyleSheet(color)
                 self.label_73.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[2][5])
+                color, str = self.color(str=self.kiwoom.real_hoga[2][5])
                 self.label_74.setStyleSheet(color)
                 self.label_74.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[2][4])
+                color, str = self.color(str=self.kiwoom.real_hoga[2][4])
                 self.label_75.setStyleSheet(color)
                 self.label_75.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[2][3])
+                color, str = self.color(str=self.kiwoom.real_hoga[2][3])
                 self.label_76.setStyleSheet(color)
                 self.label_76.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[2][2])
+                color, str = self.color(str=self.kiwoom.real_hoga[2][2])
                 self.label_77.setStyleSheet(color)
                 self.label_77.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[2][1])
+                color, str = self.color(str=self.kiwoom.real_hoga[2][1])
                 self.label_78.setStyleSheet(color)
                 self.label_78.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[2][0])
+                color, str = self.color(str=self.kiwoom.real_hoga[2][0])
                 self.label_79.setStyleSheet(color)
                 self.label_79.setText(str)
 
-                color, str = self.color(self.kiwoom.real_hoga[4][0])
+                color, str = self.color(str=self.kiwoom.real_hoga[4][0])
                 self.label_80.setStyleSheet(color)
                 self.label_80.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[4][1])
+                color, str = self.color(str=self.kiwoom.real_hoga[4][1])
                 self.label_81.setStyleSheet(color)
                 self.label_81.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[4][2])
+                color, str = self.color(str=self.kiwoom.real_hoga[4][2])
                 self.label_82.setStyleSheet(color)
                 self.label_82.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[4][3])
+                color, str = self.color(str=self.kiwoom.real_hoga[4][3])
                 self.label_83.setStyleSheet(color)
                 self.label_83.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[4][4])
+                color, str = self.color(str=self.kiwoom.real_hoga[4][4])
                 self.label_84.setStyleSheet(color)
                 self.label_84.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[4][5])
+                color, str = self.color(str=self.kiwoom.real_hoga[4][5])
                 self.label_85.setStyleSheet(color)
                 self.label_85.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[4][6])
+                color, str = self.color(str=self.kiwoom.real_hoga[4][6])
                 self.label_86.setStyleSheet(color)
                 self.label_86.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[4][7])
+                color, str = self.color(str=self.kiwoom.real_hoga[4][7])
                 self.label_87.setStyleSheet(color)
                 self.label_87.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[4][8])
+                color, str = self.color(str=self.kiwoom.real_hoga[4][8])
                 self.label_88.setStyleSheet(color)
                 self.label_88.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[4][9])
+                color, str = self.color(str=self.kiwoom.real_hoga[4][9])
                 self.label_89.setStyleSheet(color)
                 self.label_89.setText(str)
 
-                color, str = self.color(self.kiwoom.real_hoga[0][0])
+                color, str = self.color(str=self.kiwoom.real_hoga[0][0])
                 self.label_62.setStyleSheet(color)
                 self.label_62.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[0][1])
+                color, str = self.color(str=self.kiwoom.real_hoga[0][1])
                 self.label_64.setStyleSheet(color)
                 self.label_64.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[0][2])
+                color, str = self.color(str=self.kiwoom.real_hoga[0][2])
                 self.label_59.setStyleSheet(color)
                 self.label_59.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[0][3])
+                color, str = self.color(str=self.kiwoom.real_hoga[0][3])
                 self.label_61.setStyleSheet(color)
                 self.label_61.setText(str)
                 self.label_63.setText(self.kiwoom.real_hoga[0][4])
                 # color, str = self.color(self.kiwoom.real_hoga[0][4])
                 # self.label_63.setStyleSheet(color)
                 # self.label_63.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[0][5])
+                color, str = self.color(str=self.kiwoom.real_hoga[0][5])
                 self.label_60.setStyleSheet(color)
                 self.label_60.setText(self.kiwoom.real_hoga[0][5])
-                color, str = self.color(self.kiwoom.real_hoga[0][6])
+                color, str = self.color(str=self.kiwoom.real_hoga[0][6])
                 self.label_58.setStyleSheet(color)
                 self.label_58.setText(self.kiwoom.real_hoga[0][6])
                 self.label_18.setText(self.kiwoom.real_hoga[0][7])
@@ -1175,7 +1193,7 @@ class Trading(QMainWindow, form_class):
                 # self.label_18.setText(str)
                 # color, str = self.color(self.kiwoom.real_hoga[0][8])
                 # self.label_19.setText(str)
-                color, str = self.color(self.kiwoom.real_hoga[0][9])
+                color, str = self.color(str=self.kiwoom.real_hoga[0][9])
                 self.label_21.setStyleSheet(color)
                 self.label_21.setText(str)
 
@@ -1254,15 +1272,15 @@ class Trading(QMainWindow, form_class):
     def stacked_2_timeout(self):
         if self.checkBox_3.isChecked():
             # self.kiwoom.interest_data
-            print(self.interest_stock_list)
+            # print(self.interest_stock_list)
             cnt = len(self.interest_stock_list)
-            print(cnt)
+            # print(cnt)
             self.tableWidget_5.setRowCount(cnt)
             try:
                 for i in range(cnt):
                     if self.kiwoom.interest_data[0] == self.interest_stock_list[i][0]:
                         for count, info in enumerate(self.kiwoom.interest_data):
-                            color, data = self.color_2(info)
+                            color, data = self.color_2(str=info)
                             item = QTableWidgetItem(data)
                             if color == "red":
                                 item.setForeground(QtGui.QBrush(Qt.red))
@@ -1272,7 +1290,7 @@ class Trading(QMainWindow, form_class):
                                 item.setForeground(QtGui.QBrush(Qt.black))
                             self.tableWidget_5.setItem(i, count, item)
             except AttributeError as e:
-                print("장마감")
+                # print("장마감")
                 QMessageBox.about(self, "장 마감", "개장시에만 동작합니다.")
                 self.checkBox_3.setChecked(False)
 
