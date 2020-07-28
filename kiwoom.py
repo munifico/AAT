@@ -343,6 +343,8 @@ class Kiwoom(QAxWidget):
         """
         print("opt10075 TR Run")
 
+        self.not_execution_list = []
+
         cnt = self._get_repeat_cnt(trcode=trcode, rqname=rqname)
 
         for i in range(cnt):
@@ -366,15 +368,18 @@ class Kiwoom(QAxWidget):
 
             list_len = len(self.not_execution_list)
 
-            if list_len == 0:
-                self.not_execution_list.append(not_execution)
-            else:
-                for i in range(list_len):
-                    if order_num in self.not_execution_list[i][0]:
-                        del self.not_execution_list[i]
-                        self.not_execution_list.insert(i, not_execution)
-                    else:
-                        self.not_execution_list.append(not_execution)
+            self.not_execution_list.append(not_execution)
+            # print(not_execution)
+
+            # if list_len == 0:
+            #     self.not_execution_list.append(not_execution)
+            # else:
+            #     for i in range(list_len):
+            #         if order_num in self.not_execution_list[i][0]:
+            #             del self.not_execution_list[i]
+            #             self.not_execution_list.insert(i, not_execution)
+            #         else:
+            #             self.not_execution_list.append(not_execution)
 
     def _opt10076(self, rqname, trcode):
         """
@@ -382,6 +387,8 @@ class Kiwoom(QAxWidget):
         :param trcode:opt10076
         """
         print("opt10076 TR Run")
+
+        self.execution_list = []
 
         cnt = self._get_repeat_cnt(trcode=trcode, rqname=rqname)
 
@@ -401,20 +408,22 @@ class Kiwoom(QAxWidget):
             # order_quantity = int(order_quantity)
             # execution_quantity = int(execution_quantity)
 
-            execution_list = [order_num, origin_order_num, order_status, stock_name,
+            execution = [order_num, origin_order_num, order_status, stock_name,
                               order_type, order_quantity, execution_quantity, not_execution_quantity]
 
             list_len = len(self.execution_list)
 
-            if list_len == 0:
-                self.execution_list.append(execution_list)
-            elif list_len != 0:
-                for i in range(list_len):
-                    if order_num in self.execution_list[i][0]:
-                        del self.execution_list[i]
-                        self.execution_list.insert(i, execution_list)
-                    else:
-                        self.execution_list.append(execution_list)
+            self.execution_list.append(execution)
+            # print(execution)
+            # if list_len == 0:
+            #     self.execution_list.append(execution)
+            # elif list_len != 0:
+            #     for i in range(list_len):
+            #         if order_num in self.execution_list[i][0]:
+            #             del self.execution_list[i]
+            #             self.execution_list.insert(i, execution_list)
+            #         else:
+            #             self.execution_list.append(execution_list)
 
             # if order_num in self.execution_dict:
             #     pass

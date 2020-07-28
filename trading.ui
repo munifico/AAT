@@ -734,11 +734,30 @@
       <string>PushButton</string>
      </property>
     </widget>
+    <widget class="QCheckBox" name="checkBox_6">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>820</y>
+       <width>141</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>실시간 조회</string>
+     </property>
+    </widget>
     <zorder>groupBox_3</zorder>
     <zorder>groupBox_2</zorder>
     <zorder>groupBox_26</zorder>
     <zorder>groupBox_27</zorder>
     <zorder>pushButton_37</zorder>
+    <zorder>checkBox_6</zorder>
    </widget>
    <widget class="QWidget" name="page_1">
     <widget class="QLineEdit" name="lineEdit_4">

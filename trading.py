@@ -142,14 +142,23 @@ class Trading(QMainWindow, form_class):
             self.comboBox_4.activated.connect(self.volume)
             self.comboBox_5.activated.connect(self.time)
 
+            # 보유 잔고 및 체결
             self.timer_0 = QTimer(self)
-            self.timer_0.start(1000*10)
+            self.timer_0.start(1000*4)
             self.timer_0.timeout.connect(self.stacked_0_timeout)
 
+            self.timer_5 = QTimer(self)
+            self.timer_5.start(1000*1)
+            self.timer_5.timeout.connect(self.stacked_0_real_chejan_timeout)
+
+            self.timer_6 = QTimer(self)
+            self.timer_6.start(1000*4.2)
+            self.timer_6.timeout.connect(self.stacked_0_execution_timeout)
+            # 호가
             self.timer_1 = QTimer(self)
             self.timer_1.start(1000*1)
             self.timer_1.timeout.connect(self.stacked_1_timeout)
-
+            # 관심 종목
             self.timer_2 = QTimer(self)
             self.timer_2.start(1000*1)
             self.timer_2.timeout.connect(self.stacked_2_timeout)
@@ -161,6 +170,7 @@ class Trading(QMainWindow, form_class):
             self.timer_4 = QTimer(self)
             self.timer_4.start(1000*4)
             self.timer_4.timeout.connect(self.stacked_4_timeout)
+
         else:
             self.pushButton.setEnabled(False)
             self.pushButton_2.setEnabled(False)
@@ -392,10 +402,20 @@ class Trading(QMainWindow, form_class):
         self.checkBox_3.setChecked(False)
         self.checkBox_4.setChecked(False)
         self.checkBox_5.setChecked(False)
+        self.checkBox_6.setChecked(False)
+
         self.radioButton.setChecked(True)
         self.radioButton_4.setChecked(True)
         self.radioButton_6.setChecked(True)
         self.radioButton_9.setChecked(True)
+
+        self.timer_0.stop()
+        self.timer_1.stop()
+        self.timer_2.stop()
+        self.timer_3.stop()
+        self.timer_4.stop()
+        self.timer_5.stop()
+        self.timer_6.stop()
 
         self.market_change(num=0)
         self.up_down_change(num=3)
@@ -405,15 +425,22 @@ class Trading(QMainWindow, form_class):
 
         if num == 0:
             self.stackedWidget.setCurrentIndex(0)
+            self.timer_0.start(1000*3)
+            self.timer_5.start(1000*1)
+            self.timer_6.start(1000*4.2)
         elif num == 1:
             self.stackedWidget.setCurrentIndex(1)
+            self.timer_1.start(1000*1)
         elif num == 2:
             self.stackedWidget.setCurrentIndex(2)
+            self.timer_2.start(1000*1)
         elif num == 3:
             self.stackedWidget.setCurrentIndex(3)
+            self.timer_3.start(1000*4)  ## 1시간 TR 조회 제한까지 커버 가능
             self.up_down()
         elif num == 4:
             self.stackedWidget.setCurrentIndex(4)
+            self.timer_4.start(1000*4)
         elif num == 5:
             self.stackedWidget.setCurrentIndex(5)
         self.lcdNumber.display(num)
@@ -583,6 +610,7 @@ class Trading(QMainWindow, form_class):
 
         self.kiwoom.comm_rq_data(rqname="실시간미체결요청", trcode="opt10075", next=0, screen_no=self.screen_not_execution)
 
+        QTest.qWait(200)
         ## 데이터 받고 가공
 
         cnt = len(self.kiwoom.not_execution_list)
@@ -622,6 +650,7 @@ class Trading(QMainWindow, form_class):
 
         self.kiwoom.comm_rq_data(rqname="실시간체결요청", trcode="opt10076", next=0, screen_no=self.screen_execution)
 
+        QTest.qWait(200)
         ## 데이터 받고 정제
 
         cnt = len(self.kiwoom.execution_list)
@@ -1046,30 +1075,41 @@ class Trading(QMainWindow, form_class):
 
 
     def stacked_0_timeout(self):
-        print("뭐냐")
+        print("timeout0")
+
         if self.checkBox.isChecked():
-            print('체결 분리 해야함')
             self.check_balance()
 
-            if len(self.kiwoom.chejan_lists) != 0:
-                item_count = len(self.kiwoom.chejan_lists)
-                self.tableWidget_3.setRowCount(item_count)
+    def stacked_0_real_chejan_timeout(self):
+        print("timeout5")
 
-                # print(self.kiwoom.chejan_lists)
+        if len(self.kiwoom.chejan_lists) != 0:
+            item_count = len(self.kiwoom.chejan_lists)
+            self.tableWidget_3.setRowCount(item_count)
 
-                for i in range(item_count):
-                    row = self.kiwoom.chejan_lists[i]
-                    for j in range(len(row)):
-                        item = QTableWidgetItem(row[j])
-                        item.setTextAlignment(Qt.AlignVCenter | Qt.AlignRight)
-                        self.tableWidget_3.setItem(i, j, item)
-                self.tableWidget_3.resizeRowsToContents()
-                self.tableWidget_3.resizeColumnToContents(0)
-                self.tableWidget_3.resizeColumnToContents(1)
-                self.tableWidget_3.resizeColumnToContents(2)
-                self.tableWidget_3.resizeColumnToContents(4)
+            # print(self.kiwoom.chejan_lists)
+
+            for i in range(item_count):
+                row = self.kiwoom.chejan_lists[i]
+                for j in range(len(row)):
+                    item = QTableWidgetItem(row[j])
+                    item.setTextAlignment(Qt.AlignVCenter | Qt.AlignRight)
+                    self.tableWidget_3.setItem(i, j, item)
+            self.tableWidget_3.resizeRowsToContents()
+            self.tableWidget_3.resizeColumnToContents(0)
+            self.tableWidget_3.resizeColumnToContents(1)
+            self.tableWidget_3.resizeColumnToContents(2)
+            self.tableWidget_3.resizeColumnToContents(4)
+
+    def stacked_0_execution_timeout(self):
+        print("timeout6")
+
+        if self.checkBox_6.isChecked():
+            self.execution_listup()
 
     def stacked_1_timeout(self):
+        print("timeout1")
+
         if self.checkBox_2.isChecked():
             if self.lineEdit_5.text() != "":
                 self.hoga()
@@ -1339,6 +1379,8 @@ class Trading(QMainWindow, form_class):
                 # self.label_21.setText(self.kiwoom.real_hoga[0][9])
 
     def stacked_2_timeout(self):
+        print("timeout2")
+
         if self.checkBox_3.isChecked():
             # self.kiwoom.interest_data
             # print(self.interest_stock_list)
@@ -1371,10 +1413,14 @@ class Trading(QMainWindow, form_class):
             self.tableWidget_5.resizeColumnsToContents()
 
     def stacked_3_timeout(self):
+        print("timeout3")
+
         if self.checkBox_4.isChecked():
             self.up_down()
 
     def stacked_4_timeout(self):
+        print("timeout4")
+
         if self.checkBox_5.isChecked():
             self.surge_volume()
             self.today_volume_top()
