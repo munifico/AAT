@@ -586,7 +586,10 @@ class Trading(QMainWindow, form_class):
                 self.tableWidget_2.setItem(i, count, item)
 
         self.tableWidget_2.resizeRowsToContents()
-        self.tableWidget_2.resizeRowsToContents()
+        self.tableWidget_2.resizeColumnToContents(0)
+        self.tableWidget_2.resizeColumnToContents(2)
+        self.tableWidget_2.resizeColumnToContents(3)
+        self.tableWidget_2.resizeColumnToContents(4)
 
         # for j in range(item_count):
         #     row = self.kiwoom.opw00018_output['multi'][j]

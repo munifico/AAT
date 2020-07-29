@@ -381,10 +381,10 @@
     <widget class="QGroupBox" name="groupBox_2">
      <property name="geometry">
       <rect>
-       <x>50</x>
-       <y>30</y>
-       <width>991</width>
-       <height>951</height>
+       <x>30</x>
+       <y>140</y>
+       <width>1011</width>
+       <height>781</height>
       </rect>
      </property>
      <property name="font">
@@ -399,8 +399,8 @@
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>50</y>
-        <width>931</width>
+        <y>40</y>
+        <width>951</width>
         <height>81</height>
        </rect>
       </property>
@@ -451,9 +451,9 @@
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>150</y>
-        <width>941</width>
-        <height>711</height>
+        <y>140</y>
+        <width>951</width>
+        <height>611</height>
        </rect>
       </property>
       <property name="font">
@@ -500,50 +500,14 @@
        </property>
       </column>
      </widget>
-     <widget class="QPushButton" name="pushButton_2">
-      <property name="geometry">
-       <rect>
-        <x>850</x>
-        <y>880</y>
-        <width>112</width>
-        <height>34</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>조회</string>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="checkBox">
-      <property name="geometry">
-       <rect>
-        <x>680</x>
-        <y>880</y>
-        <width>141</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>실시간 조회</string>
-      </property>
-     </widget>
     </widget>
     <widget class="QGroupBox" name="groupBox_3">
      <property name="geometry">
       <rect>
        <x>1070</x>
-       <y>30</y>
-       <width>911</width>
-       <height>581</height>
+       <y>40</y>
+       <width>1061</width>
+       <height>691</height>
       </rect>
      </property>
      <property name="font">
@@ -559,8 +523,8 @@
        <rect>
         <x>20</x>
         <y>40</y>
-        <width>871</width>
-        <height>511</height>
+        <width>1011</width>
+        <height>611</height>
        </rect>
       </property>
       <property name="font">
@@ -608,10 +572,10 @@
     <widget class="QGroupBox" name="groupBox_26">
      <property name="geometry">
       <rect>
-       <x>1090</x>
-       <y>690</y>
-       <width>1021</width>
-       <height>621</height>
+       <x>30</x>
+       <y>940</y>
+       <width>1011</width>
+       <height>541</height>
       </rect>
      </property>
      <property name="title">
@@ -620,10 +584,10 @@
      <widget class="QTableWidget" name="tableWidget_13">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>60</y>
-        <width>961</width>
-        <height>521</height>
+        <x>30</x>
+        <y>40</y>
+        <width>951</width>
+        <height>471</height>
        </rect>
       </property>
       <column>
@@ -661,15 +625,20 @@
         <string>미체결수량</string>
        </property>
       </column>
+      <column>
+       <property name="text">
+        <string>체결수량</string>
+       </property>
+      </column>
      </widget>
     </widget>
     <widget class="QGroupBox" name="groupBox_27">
      <property name="geometry">
       <rect>
-       <x>50</x>
-       <y>1010</y>
-       <width>991</width>
-       <height>441</height>
+       <x>1070</x>
+       <y>750</y>
+       <width>1061</width>
+       <height>731</height>
       </rect>
      </property>
      <property name="title">
@@ -678,10 +647,10 @@
      <widget class="QTableWidget" name="tableWidget_12">
       <property name="geometry">
        <rect>
-        <x>40</x>
-        <y>20</y>
-        <width>911</width>
-        <height>391</height>
+        <x>30</x>
+        <y>40</y>
+        <width>1001</width>
+        <height>661</height>
        </rect>
       </property>
       <column>
@@ -719,45 +688,112 @@
         <string>체결수량</string>
        </property>
       </column>
+      <column>
+       <property name="text">
+        <string>미체결수량</string>
+       </property>
+      </column>
      </widget>
     </widget>
-    <widget class="QPushButton" name="pushButton_37">
+    <widget class="QGroupBox" name="groupBox_28">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>850</y>
-       <width>112</width>
-       <height>34</height>
+       <x>30</x>
+       <y>40</y>
+       <width>311</width>
+       <height>81</height>
       </rect>
      </property>
-     <property name="text">
-      <string>PushButton</string>
+     <property name="title">
+      <string>잔고 및 보유 종목</string>
      </property>
+     <widget class="QCheckBox" name="checkBox">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>30</y>
+        <width>141</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>실시간 조회</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>30</y>
+        <width>112</width>
+        <height>34</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>조회</string>
+      </property>
+     </widget>
     </widget>
-    <widget class="QCheckBox" name="checkBox_6">
+    <widget class="QGroupBox" name="groupBox_29">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>820</y>
-       <width>141</width>
-       <height>31</height>
+       <x>370</x>
+       <y>40</y>
+       <width>311</width>
+       <height>80</height>
       </rect>
      </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-      </font>
+     <property name="title">
+      <string>체결 내역</string>
      </property>
-     <property name="text">
-      <string>실시간 조회</string>
-     </property>
+     <widget class="QPushButton" name="pushButton_37">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>30</y>
+        <width>112</width>
+        <height>34</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>PushButton</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="checkBox_6">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>30</y>
+        <width>141</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>실시간 조회</string>
+      </property>
+     </widget>
     </widget>
     <zorder>groupBox_3</zorder>
     <zorder>groupBox_2</zorder>
     <zorder>groupBox_26</zorder>
     <zorder>groupBox_27</zorder>
-    <zorder>pushButton_37</zorder>
-    <zorder>checkBox_6</zorder>
+    <zorder>groupBox_28</zorder>
+    <zorder>groupBox_29</zorder>
    </widget>
    <widget class="QWidget" name="page_1">
     <widget class="QLineEdit" name="lineEdit_4">

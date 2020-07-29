@@ -348,14 +348,16 @@ class Kiwoom(QAxWidget):
         cnt = self._get_repeat_cnt(trcode=trcode, rqname=rqname)
 
         for i in range(cnt):
-            order_num = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="주문번호")
-            origin_order_num = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="원주문번호")
-            order_status = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="주문상태")
-            stock_name = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="종목명")
-            order_type = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="주문구분")
-            order_quantity = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="주문수량")
             not_execution_quantity = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="미체결수량")
-            execution_quantity = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="체결수량")
+
+            if not_execution_quantity != "0":
+                order_num = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="주문번호")
+                origin_order_num = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="원주문번호")
+                order_status = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="주문상태")
+                stock_name = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="종목명")
+                order_type = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="주문구분")
+                order_quantity = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="주문수량")
+                execution_quantity = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="체결수량")
 
             # order_num = int(order_num)
             # origin_order_num = int(origin_order_num)
@@ -363,12 +365,12 @@ class Kiwoom(QAxWidget):
             # order_quantity = int(order_quantity)
             # not_execution_quantity = int(not_execution_quantity)
 
-            not_execution = [order_num, origin_order_num, order_status, stock_name,
-                             order_type, order_quantity, not_execution_quantity, execution_quantity]
+                not_execution = [order_num, origin_order_num, order_status, stock_name,
+                                order_type, order_quantity, not_execution_quantity, execution_quantity]
 
-            list_len = len(self.not_execution_list)
+            # list_len = len(self.not_execution_list)
 
-            self.not_execution_list.append(not_execution)
+                self.not_execution_list.append(not_execution)
             # print(not_execution)
 
             # if list_len == 0:
@@ -393,14 +395,16 @@ class Kiwoom(QAxWidget):
         cnt = self._get_repeat_cnt(trcode=trcode, rqname=rqname)
 
         for i in range(cnt):
-            order_num = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="주문번호")
-            origin_order_num = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="원주문번호")
-            order_status = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="주문상태")
-            stock_name = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="종목명")
-            order_type = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="주문구분")
-            order_quantity = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="주문수량")
-            execution_quantity = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="체결수량")
             not_execution_quantity = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="미체결수량")
+
+            if not_execution_quantity == "0":
+                order_num = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="주문번호")
+                origin_order_num = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="원주문번호")
+                order_status = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="주문상태")
+                stock_name = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="종목명")
+                order_type = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="주문구분")
+                order_quantity = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="주문수량")
+                execution_quantity = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="체결수량")
 
             # order_num = int(order_num)
             # origin_order_num = int(origin_order_num)
@@ -408,12 +412,12 @@ class Kiwoom(QAxWidget):
             # order_quantity = int(order_quantity)
             # execution_quantity = int(execution_quantity)
 
-            execution = [order_num, origin_order_num, order_status, stock_name,
-                              order_type, order_quantity, execution_quantity, not_execution_quantity]
+                execution = [order_num, origin_order_num, order_status, stock_name,
+                                  order_type, order_quantity, execution_quantity, not_execution_quantity]
 
-            list_len = len(self.execution_list)
+            # list_len = len(self.execution_list)
 
-            self.execution_list.append(execution)
+                self.execution_list.append(execution)
             # print(execution)
             # if list_len == 0:
             #     self.execution_list.append(execution)
