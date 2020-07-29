@@ -7,6 +7,7 @@ from PyQt5.QtTest import *
 import sys
 from kiwoom import *
 import time
+from config.log_class import *
 
 form_class = uic.loadUiType("trading.ui")[0]
 
@@ -14,6 +15,10 @@ class Trading(QMainWindow, form_class):
     def __init__(self, parent, kiwoom):
         super(QWidget, self).__init__(parent)
         self.setupUi(self)
+
+        self.logging = Logging()
+
+        self.logging.logger.debug("Kiwoom() class start")
 
         """
         중복 로그인 문제가 발생할 수도 있음.

@@ -2,7 +2,7 @@ import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5 import uic
-import datetime
+from datetime import datetime
 from kiwoom import *
 import requests
 from bs4 import BeautifulSoup
@@ -69,16 +69,16 @@ class Start(QWidget,form_class):
     #     # print(self.action_2.isEnabled())
 
     def display_time(self):
-        today_time = datetime.datetime.today().strftime('%Y-%m-%d / %p.%H:%M:%S')
+        today_time = datetime.today().strftime('%Y-%m-%d / %p.%H:%M:%S')
 
         self.label.setText(today_time)
 
-        month = int(datetime.datetime.today().strftime('%m'))
-        week = int(datetime.datetime.today().strftime('%w'))
-        day = datetime.datetime.today().strftime('%d')
-        hour = datetime.datetime.today().strftime('%H')
-        min = datetime.datetime.today().strftime('%M')
-        sec = datetime.datetime.today().strftime('%S')
+        month = int(datetime.today().strftime('%m'))
+        week = int(datetime.today().strftime('%w'))
+        day = datetime.today().strftime('%d')
+        hour = datetime.today().strftime('%H')
+        min = datetime.today().strftime('%M')
+        sec = datetime.today().strftime('%S')
 
         hour_P_min = hour + min + sec
 

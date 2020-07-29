@@ -1,0 +1,13 @@
+[2020-07-29 13:57:08,286] I kiwoom.py | Kiwoom-__init__-0016 I DEBUG    > Kiwoom() class start
+[2020-07-29 13:57:35,502] I log.py | Kiwoom-__init__-0019 I DEBUG    > log() class start
+[2020-07-29 14:02:59,674] I kiwoom.py | Kiwoom-__init__-0016 I DEBUG    > Kiwoom() class start
+[2020-07-29 14:02:59,727] I log.py | Kiwoom-__init__-0019 I DEBUG    > log() class start
+[2020-07-29 14:03:36,023] I kiwoom.py | Kiwoom-__init__-0016 I DEBUG    > Kiwoom() class start
+[2020-07-29 14:03:36,076] I log.py | Kiwoom-__init__-0019 I DEBUG    > log() class start
+[2020-07-29 14:05:35,655] I kiwoom.py | Kiwoom-__init__-0016 I DEBUG    > Kiwoom() class start
+[2020-07-29 14:05:35,711] I log.py | Kiwoom-__init__-0019 I DEBUG    > log() class start
+[2020-07-29 14:05:43,820] I kiwoom.py | Kiwoom-__init__-0016 I DEBUG    > Kiwoom() class start
+[2020-07-29 14:05:43,870] I log.py | Kiwoom-__init__-0019 I DEBUG    > log() class start
+[2020-07-29 14:06:02,390] I kiwoom.py | Kiwoom-__init__-0016 I DEBUG    > Kiwoom() class start
+[2020-07-29 14:06:02,444] I log.py | Kiwoom-__init__-0019 I DEBUG    > log() class start
+[2020-07-29 14:06:09,563] I trading.py | Kiwoom-__init__-0021 I DEBUG    > Kiwoom() class start

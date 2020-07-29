@@ -4,11 +4,16 @@ from PyQt5.QAxContainer import *
 from PyQt5.QtCore import *
 from config.error_code import *
 from config.kiwoom_type import *
+from config.log_class import *
 
 class Kiwoom(QAxWidget):
     def __init__(self):
         # kiwoom 클래스 시작
         super().__init__()
+
+        self.logging = Logging()
+
+        self.logging.logger.debug("Kiwoom() class start")
 
         #### 초기 설정 함수
         self._create_kiwoom_instance()
