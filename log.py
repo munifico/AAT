@@ -51,7 +51,8 @@ class Log(QWidget,form_class):
         self.plainTextEdit_2.clear()
 
         for i in range(self.last_start_point, len(system_log_list)):
-            self.plainTextEdit_2.appendPlainText(system_log_list[i])
+            system_log = system_log_list[i][:-1]
+            self.plainTextEdit_2.appendPlainText(system_log)
 
         print(system_log_list[self.last_start_point:])
 
