@@ -12,7 +12,7 @@ from start_point import *
 from log import *
 
 form_class = uic.loadUiType("main.ui")[0]
-# form_class1 = uic.loadUiType("start.ui")[0]
+# form_c.loadUiType("start.ui")[0]
 SECU_BASE_DIR = os.path.join(os.path.abspath(os.path.dirname(__file__)),"security_file")
 
 class MainWindow(QMainWindow, form_class):

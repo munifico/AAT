@@ -11,9 +11,9 @@ class Kiwoom(QAxWidget):
         # kiwoom 클래스 시작
         super().__init__()
 
-        self.logging = Logging()
+        self.logging = Logging(name="kiwoom")
 
-        self.logging.logger.debug("Kiwoom() class start")
+        self.logging.logger.info("Kiwoom() class start")
 
         #### 초기 설정 함수
         self._create_kiwoom_instance()

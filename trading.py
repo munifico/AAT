@@ -16,9 +16,9 @@ class Trading(QMainWindow, form_class):
         super(QWidget, self).__init__(parent)
         self.setupUi(self)
 
-        self.logging = Logging()
+        self.logging = Logging(name='trading')
 
-        self.logging.logger.debug("Kiwoom() class start")
+        self.logging.logger.info("Trading() class start")
 
         """
         중복 로그인 문제가 발생할 수도 있음.
