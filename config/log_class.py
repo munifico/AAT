@@ -1,22 +1,31 @@
 import logging.config
 from datetime import datetime
+from PyQt5.QtCore import *
 
 class Logging():
     def __init__(self, name):
         self.config_path = 'config/logging.conf'
-        self.log_path = 'log'
+        # self.log_path = 'log'
+        self.name = name
+        kiwoom_log_file_name = "log/kiwoom.log"
+        trading_log_file_name = "log/trading.log"
 
-        logging.config.fileConfig(self.config_path)
-        self.logger = logging.getLogger(name)
-        self.handler_file()
+        logging.config.fileConfig(self.config_path, disable_existing_loggers=False, defaults={"kiwoom_log_file_name" : kiwoom_log_file_name,
+                                                                                            "trading_log_file_name" : trading_log_file_name})
 
-    #로그설정
-    def handler_file(self):
-        file = logging.FileHandler(self.log_path+'/{:%Y-%m-%d}.log'.format(datetime.now()), encoding='utf-8')
-        formatter = logging.Formatter('[%(asctime)s] %(filename)s | %(name)s | %(funcName)s | %(lineno)04d | %(levelname)-8s > %(message)s')
+        # logging.config.fileConfig(self.config_path)
+        self.logger = logging.getLogger(self.name)
+        # self.handler_file()
 
-        file.setFormatter(formatter)
-        self.logger.addHandler(file)
+
+    # #로그설정
+    # def handler_file(self):
+    #     now = datetime.now().strftime("%Y-%m-%d")
+    #     file = logging.FileHandler(self.log_path+'/{0:s}_{1:s}.log'.format(now, self.name), encoding='utf-8')
+    #     formatter = logging.Formatter('[%(asctime)s] %(filename)s | %(name)s | %(funcName)s | %(lineno)04d | %(levelname)-8s > %(message)s')
+    #
+    #     file.setFormatter(formatter)
+    #     self.logger.addHandler(file)
 
     # def emit(self, record):
     #     """

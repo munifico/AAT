@@ -16,9 +16,9 @@ class Trading(QMainWindow, form_class):
         super(QWidget, self).__init__(parent)
         self.setupUi(self)
 
-        self.logging = Logging(name='trading')
+        self.trading_logging = Logging(name='trading')
 
-        self.logging.logger.info("Trading() class start")
+        self.trading_logging.logger.info("Trading() class start")
 
         """
         중복 로그인 문제가 발생할 수도 있음.
@@ -396,7 +396,8 @@ class Trading(QMainWindow, form_class):
         ###
 
     def remove_real_data(self):
-        print("remove_real_data")
+        self.trading_logging.logger.info("remove_real_data")
+
         code = self.code
         self.kiwoom.set_real_remove(screen_no= self.screen_real_data, code= code)
         # print(code)
@@ -1083,13 +1084,13 @@ class Trading(QMainWindow, form_class):
 
 
     def stacked_0_timeout(self):
-        print("timeout0")
+        self.trading_logging.logger.info("timeout0")
 
         if self.checkBox.isChecked():
             self.check_balance()
 
     def stacked_0_real_chejan_timeout(self):
-        print("timeout5")
+        self.trading_logging.logger.info("timeout5")
 
         if len(self.kiwoom.chejan_lists) != 0:
             item_count = len(self.kiwoom.chejan_lists)
@@ -1110,13 +1111,13 @@ class Trading(QMainWindow, form_class):
             self.tableWidget_3.resizeColumnToContents(4)
 
     def stacked_0_execution_timeout(self):
-        print("timeout6")
+        self.trading_logging.logger.info("timeout6")
 
         if self.checkBox_6.isChecked():
             self.execution_listup()
 
     def stacked_1_timeout(self):
-        print("timeout1")
+        self.trading_logging.logger.info("timeout1")
 
         if self.checkBox_2.isChecked():
             if self.lineEdit_5.text() != "":
@@ -1387,7 +1388,7 @@ class Trading(QMainWindow, form_class):
                 # self.label_21.setText(self.kiwoom.real_hoga[0][9])
 
     def stacked_2_timeout(self):
-        print("timeout2")
+        self.trading_logging.logger.info("timeout2")
 
         if self.checkBox_3.isChecked():
             # self.kiwoom.interest_data
@@ -1421,13 +1422,13 @@ class Trading(QMainWindow, form_class):
             self.tableWidget_5.resizeColumnsToContents()
 
     def stacked_3_timeout(self):
-        print("timeout3")
+        self.trading_logging.logger.info("timeout3")
 
         if self.checkBox_4.isChecked():
             self.up_down()
 
     def stacked_4_timeout(self):
-        print("timeout4")
+        self.trading_logging.logger.info("timeout4")
 
         if self.checkBox_5.isChecked():
             self.surge_volume()

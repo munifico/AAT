@@ -115,18 +115,18 @@ class Start(QWidget,form_class):
             self.non_login_state = False
 
     def holiday(self, M):
-        holiday_2020_tuple = ((1, 23, 24, 25, 26, 27),
+        holiday_2020_tuple = (("01", "23", "24", "25", "26", "27"),
                          (),
-                         (1),
-                         (8),
-                         (5),
-                         (6),
+                         ("01"),
+                         ("08"),
+                         ("05"),
+                         ("06"),
                          (),
-                         (15),
-                         (30),
-                         (1, 2, 3, 4, 9),
+                         ("15"),
+                         ("30"),
+                         ("01", "02", "03", "04", "09"),
                          (),
-                         (25))
+                         ("25"))
         D = holiday_2020_tuple[M-1]
         print(D)
         return holiday_2020_tuple[M-1]
