@@ -1,5 +1,6 @@
 import logging.config
 from datetime import datetime
+# import datetime
 from PyQt5.QtCore import *
 
 class Logging():
@@ -9,6 +10,7 @@ class Logging():
         self.name = name
         kiwoom_log_file_name = "log/kiwoom.log"
         trading_log_file_name = "log/trading.log"
+
 
         logging.config.fileConfig(self.config_path, disable_existing_loggers=False, defaults={"kiwoom_log_file_name" : kiwoom_log_file_name,
                                                                                             "trading_log_file_name" : trading_log_file_name})

@@ -30,7 +30,7 @@ class Log(QWidget,form_class):
         data = []
 
         for i, name in enumerate(name_list):
-            LOG_BASE_FILE.append("log/{0:s}_{1:s}.log".format(now, name))
+            LOG_BASE_FILE.append("log/{:s}.log".format(name))
 
             try:
                 with open(LOG_BASE_FILE[i], 'r+', encoding='utf-8') as f_read:
