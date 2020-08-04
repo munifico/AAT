@@ -64,7 +64,7 @@ class Kiwoom(QAxWidget):
         """
         error = errors(err_code=error_code)
 
-        self.logging.logger.info(error[0] + " : " + error[1])
+        self.logging.logger.info("로그인 성공 여부 확인 | " + error[0] + " : " + error[1])
 
         self.login_event_loop.exit()
 
@@ -80,12 +80,14 @@ class Kiwoom(QAxWidget):
         :param record_name:Record 명
         :param next:연속조회 유무
         """
-        self.logging.logger.info("OnReceiveTrData 이벤트와 연결된 슬롯 실행")
+        # self.logging.logger.info("OnReceiveTrData 이벤트와 연결된 슬롯 실행")
 
         if next == '2':
             self.remained_data = True
+            self.logging.logger.info("TR Data 요청 | Rqname : " + rqname + ", TR Code : " + trcode + ", 연속조회 O")
         else:
             self.remained_data = False
+            self.logging.logger.info("TR Data 요청 | Rqname : " + rqname + ", TR Code : " + trcode + ", 연속조회 X")
 
         if rqname == "계좌평가잔고내역요청":
             self._opw00018(rqname=rqname, trcode=trcode)
@@ -117,7 +119,7 @@ class Kiwoom(QAxWidget):
         :param rqname:계좌평가잔고내역요청
         :param trcode:opw00018
         """
-        self.logging.logger.info("opw00018 TR Run")
+        # self.logging.logger.info("opw00018 TR Run")
 
         total_purchase_price = self._comm_get_data(code=trcode, real_type="", rqname=rqname, index=0, item_name="총매입금액")
         total_eval_price = self._comm_get_data(code=trcode, real_type="", rqname=rqname, index=0, item_name="총평가금액")
@@ -132,6 +134,8 @@ class Kiwoom(QAxWidget):
         self.opw00018_output['single'].append(Kiwoom.change_format(data=total_eval_profit_loss_price))
         self.opw00018_output['single'].append(Kiwoom.change_format2(data=total_earning_rate))
         self.opw00018_output['single'].append(Kiwoom.change_format(data=estimated_deposit))
+
+        # self.logging.logger.info("계좌 평가 잔고 내역 요청 | Single Data : " + self.opw00018_output['single'])
 
         rows = self._get_repeat_cnt(trcode=trcode, rqname=rqname)
 
@@ -154,23 +158,26 @@ class Kiwoom(QAxWidget):
             self.opw00018_output['multi'].append([code, name, quantity, purchase_price, current_price, eval_profit_loss_price, earning_rate])
 
             # print(self.opw00018_output['multi'])
+        # self.logging.logger.info("계좌 평가 잔고 내역 요청 | Multi Data : " + self.opw00018_output['multi'])
 
     def _opw00001(self, rqname, trcode):
         """
         :param rqname:예수금상세현황요청
         :param trcode:opw00001
         """
-        self.logging.logger.info("opw00001 TR Run")
+        # self.logging.logger.info("opw00001 TR Run")
 
         d2_deposit = self._comm_get_data(code=trcode, real_type="", rqname=rqname, index=0, item_name="d+2추정예수금")
         self.d2_deposit = Kiwoom.change_format(data=d2_deposit)
+
+        self.logging.logger.info("예수금 상세 현황 요청 | d+2 추정예수금 : " + self.d2_deposit)
 
     def _optkwfid(self, rqname, trcode):
         """
         :param rqname:관심종목정보요청
         :param trcode:OPTKWFID
         """
-        self.logging.logger.info("OPTKWFID TR Run")
+        # self.logging.logger.info("OPTKWFID TR Run")
 
         cnt = self._get_repeat_cnt(trcode=trcode, rqname=rqname)
         self.info_list = []
@@ -198,12 +205,14 @@ class Kiwoom(QAxWidget):
 
             self.info_list.append(info)
 
+        # self.logging.logger.info("관심 종목 정보 요청 | " + self.info_list)
+
     def _opt10027(self, rqname, trcode):
         """
         :param rqname:전일대비등락률상위요청
         :param trcode:opt10027
         """
-        self.logging.logger.info("opt10027 TR Run")
+        # self.logging.logger.info("opt10027 TR Run")
 
         cnt = 100
 
@@ -248,12 +257,14 @@ class Kiwoom(QAxWidget):
 
                 self.up_near_stock_list.append(up_near_stock)
 
+        # self.logging.logger.info("전일대비 등락률 상위 요청 | " + self.up_stock_list)
+
     def _opt10023(self, rqname, trcode):
         """
         :param rqname:거래량급증요청
         :param trcode:OPT10023
         """
-        self.logging.logger.info("OPT10023 TR Run")
+        # self.logging.logger.info("OPT10023 TR Run")
 
         cnt = self._get_repeat_cnt(trcode=trcode, rqname=rqname)
 
@@ -282,12 +293,14 @@ class Kiwoom(QAxWidget):
 
             self.surge_volume_list.append(surge_volume)
 
+        # self.logging.logger.info("거래량 급증 요청 | " + self.surge_volume_list)
+
     def _opt10030(self, rqname, trcode):
         """
         :param rqname:당일거래량상위요청
         :param trcode:opt10030
         """
-        self.logging.logger.info("opt10030 TR Run")
+        # self.logging.logger.info("opt10030 TR Run")
 
         cnt = self._get_repeat_cnt(trcode=trcode, rqname=rqname)
 
@@ -314,13 +327,14 @@ class Kiwoom(QAxWidget):
 
             self.today_volume_top.append(today_volume)
 
+        # self.logging.logger.info("당일 거래량 상위 요청 | " + self.today_volume_top)
 
     def _opt10031(self, rqname, trcode):
         """
         :param rqname:전일거래량상위요청
         :param trcode:OPT10031
         """
-        self.logging.logger.info("OPT10031 TR Run")
+        # self.logging.logger.info("OPT10031 TR Run")
 
         cnt = self._get_repeat_cnt(trcode=trcode, rqname=rqname)
 
@@ -343,12 +357,14 @@ class Kiwoom(QAxWidget):
 
             self.yesterday_volume_top.append(yesterday_volume)
 
+        # self.logging.logger.info("전일 거래량 상위 요청 | " + self.yesterday_volume_top)
+
     def _opt10075(self, rqname, trcode):
         """
         :param rqname:실시간미체결요청
         :param trcode:opt10075
         """
-        self.logging.logger.info("opt10075 TR Run")
+        # self.logging.logger.info("opt10075 TR Run")
 
         self.not_execution_list = []
 
@@ -389,13 +405,14 @@ class Kiwoom(QAxWidget):
             #             self.not_execution_list.insert(i, not_execution)
             #         else:
             #             self.not_execution_list.append(not_execution)
+        # self.logging.logger.info("실시간 미체결 요청 | " + self.not_execution_list)
 
     def _opt10076(self, rqname, trcode):
         """
         :param rqname:실시간체결요청
         :param trcode:opt10076
         """
-        self.logging.logger.info("opt10076 TR Run")
+        # self.logging.logger.info("opt10076 TR Run")
 
         self.execution_list = []
 
@@ -448,6 +465,7 @@ class Kiwoom(QAxWidget):
             # self.execution_list[order_num].update({'주문구분': order_type})
             # self.execution_list[order_num].update({'주문수량': order_quantity})
             # self.execution_list[order_num].update({'체결수량': execution_quantity})
+        # self.logging.logger.info("실시간 체결 요청 | " + self.execution_list)
 
     def _receive_chejan_data(self, gubun, item_cnt, fid_list):
         """
@@ -457,7 +475,7 @@ class Kiwoom(QAxWidget):
         :param item_cnt:아이템갯수
         :param fid_list:데이터리스트
         """
-        self.logging.logger.info("OnReceiveChejanData와 연결된 슬롯 실행")
+        # self.logging.logger.info("OnReceiveChejanData와 연결된 슬롯 실행")
 
         sell_buy_num = {'1': "매도",
                         '2': "매수",
@@ -500,6 +518,9 @@ class Kiwoom(QAxWidget):
         # # 미 체결 리스트는 나중에 추가
         # # self.un_chejan_lists.append([order_num, item_code, order_quantity, miss_quantity, sell_buy_num[sell_buy_gubun]])
 
+        self.logging.logger.info("실시간 체결 내역 | 체결 구분 : " + gubun + ", 아이템 갯수 : " + item_cnt + ", 데이터 리스트 : " + fid_list)
+        # self.logging.logger.info("실시간 체결 내역 | " + self.chejan_lists)
+
     def _receive_real_data(self, code, fid_type, data):
         """
         OnReceiveRealData(실시간 시세 이벤트)가 실시간데이터를 받은 시점을 알려준다.
@@ -508,8 +529,8 @@ class Kiwoom(QAxWidget):
         :param fid_type:리얼타입
         :param data:실시간 데이터전문
         """
-        self.logging.logger.info("OnReceiveRealData와 연결된 슬롯 실행")
-        self.logging.logger.info("real_data 이벤트 : {0}".format(fid_type))
+        # self.logging.logger.info("OnReceiveRealData와 연결된 슬롯 실행")
+        self.logging.logger.info("Real Data 수신 정보 | 종목 코드 : {0}, FID : {1}, Data : {2}".format(code, fid_type, data))
         # print("real_data data : ", data)
         # print(type(data))
 
@@ -730,7 +751,8 @@ class Kiwoom(QAxWidget):
             OP_ERR_RQ_STRING_FAIL – 요청전문 작성 실패
             OP_ERR_NONE – 정상처리
         """
-        self.logging.logger.info("CommRqData 메소드 실행")
+        # self.logging.logger.info("CommRqData 메소드 실행")
+        self.logging.logger.info("TR Data 송신 | Rqname : " + rqname + ", Screen Number : " + screen_no)
 
         self.dynamicCall("commRqData(QString, QString, int, QString)", rqname, trcode, next, screen_no)
         self.tr_event_loop = QEventLoop()
@@ -754,7 +776,8 @@ class Kiwoom(QAxWidget):
         비고
             sArrCode – 종목간 구분은 ‘;’이다.
         """
-        self.logging.logger.info("CommKwRqData 메소드 실행")
+        # self.logging.logger.info("CommKwRqData 메소드 실행")
+        self.logging.logger.info("관심종목 조회 | 종목 리스트 : " + code_list + ", Screen Number : " + screen)
 
         self.dynamicCall("CommKwRqData(QString, int, int, int, QString, QString)", code_list, next, code_count, type, rqname, screen)
         self.tr_event_loop = QEventLoop()
@@ -770,7 +793,7 @@ class Kiwoom(QAxWidget):
         비고
             0:미연결, 1:연결완료
         """
-        self.logging.logger.info("GetConnectState 메소드 실행")
+        # self.logging.logger.info("GetConnectState 메소드 실행")
 
         result = self.dynamicCall("GetConnectState()")
         return result
@@ -787,7 +810,7 @@ class Kiwoom(QAxWidget):
         반환값
             수신 데이터
         """
-        self.logging.logger.info("GetCommData 메소드 실행")
+        # self.logging.logger.info("GetCommData 메소드 실행")
 
         ret = self.dynamicCall("GetCommData(QString, QString, int, QString", trcode, rqname, index, name)
         return ret.strip()
@@ -802,7 +825,7 @@ class Kiwoom(QAxWidget):
         반환값
             수신 데이터
         """
-        self.logging.logger.info("GetCommRealData 메소드 실행")
+        # self.logging.logger.info("GetCommRealData 메소드 실행")
 
         ret = self.dynamicCall("GetCommRealData(QString, int)", code, fid)
         return ret
@@ -826,9 +849,12 @@ class Kiwoom(QAxWidget):
             “FIREW_SECGB” – 방화벽 설정 여부. 0:미설정, 1:설정, 2:해지
             Ex) openApi.GetLoginInfo(“ACCOUNT_CNT”);
         """
-        self.logging.logger.info("GetLoginInfo 메소드 실행")
+        # self.logging.logger.info("GetLoginInfo 메소드 실행")
 
         ret = self.dynamicCall("GetLoginInfo(QString)", s_Tag)
+
+        self.logging.logger.info("사용자 정보 반환 | " + s_Tag + " : " + ret)
+
         return ret
 
     def get_master_code_name(self, code):
@@ -840,9 +866,12 @@ class Kiwoom(QAxWidget):
         반환값
             종목한글명
         """
-        self.logging.logger.info("GetMasterCodeName 메소드 실행")
+        # self.logging.logger.info("GetMasterCodeName 메소드 실행")
 
         code_name = self.dynamicCall("GetMasterCodeName(QString)", code)
+
+        self.logging.logger.info("종목코드 -> 한글명 | 종목코드 : " + code + ", 종목명 : " + code_name)
+
         return code_name
 
     def get_master_construction(self, code):
@@ -857,9 +886,12 @@ class Kiwoom(QAxWidget):
         비고
             감리구분 – 정상, 투자주의, 투자경고, 투자위험, 투자주의환기종목
         """
-        self.logging.logger.info("GetMasterConstruction 메소드 실행")
+        # self.logging.logger.info("GetMasterConstruction 메소드 실행")
 
         construction = self.dynamicCall("GetMasterConstruction(QString)", code)
+
+        self.logging.logger.info("감리구분 반환 | 종목코드 : " + code + ", 감리구분 : " + construction)
+
         return construction
 
     def get_master_stock_state(self, code):
@@ -874,9 +906,12 @@ class Kiwoom(QAxWidget):
         비고
             종목상태 – 정상, 증거금100%, 거래정지, 관리종목, 감리종목, 투자유의종목, 담보대출, 액면분할, 신용가능
         """
-        self.logging.logger.info("GetMasterStockState 메소드 실행")
+        # self.logging.logger.info("GetMasterStockState 메소드 실행")
 
         stock_state = self.dynamicCall("GetMasterStockState(QString)", code)
+
+        self.logging.logger.info("종목상태 반환 | 종목코드 : " + code + ", 종목상태 : " + stock_state)
+
         return stock_state
 
     def get_chejan_data(self, fid):
@@ -888,9 +923,10 @@ class Kiwoom(QAxWidget):
         반환값
             수신 데이터
         """
-        self.logging.logger.info("GetChejanData 메소드 실행")
+        # self.logging.logger.info("GetChejanData 메소드 실행")
 
         ret = self.dynamicCall("GetChejanData(int)", fid)
+
         return ret
 
     def send_order(self, rqname, screen_no, acc_no, order_type, code, quantity, price, hoga, order_no):
@@ -915,7 +951,8 @@ class Kiwoom(QAxWidget):
                     16:최유리IOC, 20:지정가FOK, 23:시장가FOK, 26:최유리FOK, 61:장전시간외종가, 62:시간외단일가, 81:장후시간외종가
                     ※ 시장가, 최유리지정가, 최우선지정가, 시장가IOC, 최유리IOC, 시장가FOK, 최유리FOK, 장전시간외, 장후시간외 주문시 주문가격을 입력하지 않습니다.
         """
-        self.logging.logger.info("SendOrder 메소드 실행")
+        # self.logging.logger.info("SendOrder 메소드 실행")
+        self.logging.logger.info("주식 주문 | 주문유형 : {0}, 종목코드 : {1}, 주문수량 : {2}, 주문단가 : {3}, 화면번호 : {4}".format(order_type, code, quantity, price, screen_no))
 
         # print(price)
         self.dynamicCall("SendOrder(QString, QString, QString, int, QString, int, int, QString, QString",
@@ -936,7 +973,7 @@ class Kiwoom(QAxWidget):
         :param id:아이템명
         :param value:입력 값
         """
-        self.logging.logger.info("SetInputValue 메소드 실행")
+        # self.logging.logger.info("SetInputValue 메소드 실행")
 
         self.dynamicCall("SetInputValue(QString, QString)", id, value)
 
@@ -957,7 +994,8 @@ class Kiwoom(QAxWidget):
                 마지막에 사용한 종목코드만 실시간 등록이 되고 기존에 있던 종목은 실시간이 자동 해지됨.
             “1”로 하면 같은화면에서 다른 종목들을 추가하게 되면 기존에 등록한 종목도 함께 실시간 시세를 받을 수 있음.
         """
-        self.logging.logger.info("SetRealReg 메소드 실행")
+        # self.logging.logger.info("SetRealReg 메소드 실행")
+        self.logging.logger.info("실시간 등록 | 종목코드 : {0}, 화면번호 : {1}".format(code_list, screen_no))
 
         # ret = self.dynamicCall("SetRealReg(QString, QString, QString, QString)", screen_no, code_list, fid_list, opt_type)
         # print("set_real_reg", ret)
@@ -974,7 +1012,8 @@ class Kiwoom(QAxWidget):
         반환값
             통신결과
         """
-        self.logging.logger.info("set_real_remove")
+        # self.logging.logger.info("set_real_remove")
+        self.logging.logger.info("실시간 등록 해제 | 종목코드 : {0}, 화면번호 : {1}".format(code, screen_no))
 
         self.dynamicCall("SetRealRemove(QString, QString)", screen_no, code)
 
