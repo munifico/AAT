@@ -47,7 +47,7 @@ class Log(QWidget,form_class):
         len_system_log = len(system_log_list)
         count_start_point = []
 
-        if len_system_log != 1:
+        if system_log_list != "0":
             for i in range(len_system_log):
                 if system_log_list[i][-21:-1] == "Kiwoom() class start":
                     count_start_point.append(i)
@@ -55,10 +55,16 @@ class Log(QWidget,form_class):
                 if system_log_list[i][-22:-1] == "Trading() class start":
                     count_start_point.append(i)
 
+                    if len_system_log > count_start_point[-1]:
+                        count_start_point = []
+                        break
+
+            if len(count_start_point) == 0:
+                return len_system_log
             return count_start_point[-1]
 
-        elif len_system_log == 1:
-            return 0
+        elif system_log_list == "0":
+            return len_system_log
 
     def log_check(self):
         system_log_list = self.open_file()
