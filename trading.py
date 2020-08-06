@@ -354,6 +354,8 @@ class Trading(QMainWindow, form_class):
             215 장운영구분
             216 투자자별 ticker
         """
+        self.trading_logging.logger.info("Hoga Search")
+
         self.checkBox_2.setEnabled(True)
 
         code = self.lineEdit_4.text()
@@ -396,13 +398,15 @@ class Trading(QMainWindow, form_class):
         ###
 
     def remove_real_data(self):
-        self.trading_logging.logger.info("remove_real_data")
+        # self.trading_logging.logger.info("remove_real_data")
 
         code = self.code
         self.kiwoom.set_real_remove(screen_no= self.screen_real_data, code= code)
         # print(code)
 
     def set_stacked_widget(self, num):
+        self.trading_logging.logger.info("Switch Stack | Number : " + str(num))
+
         self.checkBox.setChecked(False)
         self.checkBox_2.setChecked(False)
         self.checkBox_3.setChecked(False)
@@ -510,6 +514,7 @@ class Trading(QMainWindow, form_class):
         """
         매수 정정, 매도 정정은 거래 내역 만들고 추가
         """
+
         order_type_lookup = {'신규매수': 1, '신규매도': 2, '매수취소': 3, '매도취소':4}
         hoga_lookup = {'지정가': '00', '시장가': '03'}
 
@@ -527,6 +532,9 @@ class Trading(QMainWindow, form_class):
              self.kiwoom.send_order(rqname="send_order_req", screen_no=self.screen_order, acc_no=account, order_type=order_type_lookup[order_type],
                                     code=code, quantity=num, price=price, hoga=hoga_lookup[hoga], order_no=order_num)
              QMessageBox.about(self, "주문", "주문이 요청되었습니다.\n실시간 체결 현황을 확인해주세요")
+
+        self.trading_logging.logger.info("Order | Order Type : {0}, Stock Code : {1}, Quantity : {2}, Type : {3}, Price : {4}, Screen Number : {5}".
+                                         format(order_type, code, num, hoga, price, self.screen_order))
 
     def check_balance(self):
         self.kiwoom.reset_opw00018_output()
@@ -695,6 +703,8 @@ class Trading(QMainWindow, form_class):
                 stock_list.append(name)
                 self.interest_stock_list.append(stock_list)
 
+                self.trading_logging.logger.info("Add Interest Stock | Stock Code : {0}, Name : {1}".format(code, name))
+
                 list_count = len(self.interest_stock_list)
                 self.tableWidget_4.setRowCount(list_count)
 
@@ -732,6 +742,8 @@ class Trading(QMainWindow, form_class):
                     stock_list.append(name)
                     self.interest_stock_list.append(stock_list)
 
+                    self.trading_logging.logger.info("Add Interest Stock | Stock Code : {0}, Name : {1}".format(code, name))
+
                     list_count = len(self.interest_stock_list)
                     self.tableWidget_4.setRowCount(list_count)
 
@@ -764,8 +776,10 @@ class Trading(QMainWindow, form_class):
                 for stock in self.interest_stock_list:
                     if stock[0] == code:
                         self.interest_stock_list.remove(stock_list)
+
+                        self.trading_logging.logger.info("Delete Interest Stock | Stock Code : {0}, Name : {1}".format(code, name))
                     else:
-                        pass
+                        QMessageBox.about(self, "오류", "등록된 관심종목이 아닙니다.")
 
                 line_count = len(self.interest_stock_list)
                 self.tableWidget_4.setRowCount(line_count)
@@ -785,7 +799,7 @@ class Trading(QMainWindow, form_class):
     def info_interest_stock(self):
         cnt = len(self.interest_stock_list)
 
-        if self.interest_stock_list[0][0] == "":
+        if cnt == 0:
             pass
         else:
             code = self.interest_stock_list[0][0]
@@ -1084,13 +1098,13 @@ class Trading(QMainWindow, form_class):
 
 
     def stacked_0_timeout(self):
-        self.trading_logging.logger.info("timeout0")
+        # self.trading_logging.logger.info("timeout0")
 
         if self.checkBox.isChecked():
             self.check_balance()
 
     def stacked_0_real_chejan_timeout(self):
-        self.trading_logging.logger.info("timeout5")
+        # self.trading_logging.logger.info("timeout5")
 
         if len(self.kiwoom.chejan_lists) != 0:
             item_count = len(self.kiwoom.chejan_lists)
@@ -1111,13 +1125,13 @@ class Trading(QMainWindow, form_class):
             self.tableWidget_3.resizeColumnToContents(4)
 
     def stacked_0_execution_timeout(self):
-        self.trading_logging.logger.info("timeout6")
+        # self.trading_logging.logger.info("timeout6")
 
         if self.checkBox_6.isChecked():
             self.execution_listup()
 
     def stacked_1_timeout(self):
-        self.trading_logging.logger.info("timeout1")
+        # self.trading_logging.logger.info("timeout1")
 
         if self.checkBox_2.isChecked():
             if self.lineEdit_5.text() != "":
@@ -1388,7 +1402,7 @@ class Trading(QMainWindow, form_class):
                 # self.label_21.setText(self.kiwoom.real_hoga[0][9])
 
     def stacked_2_timeout(self):
-        self.trading_logging.logger.info("timeout2")
+        # self.trading_logging.logger.info("timeout2")
 
         if self.checkBox_3.isChecked():
             # self.kiwoom.interest_data
@@ -1422,13 +1436,13 @@ class Trading(QMainWindow, form_class):
             self.tableWidget_5.resizeColumnsToContents()
 
     def stacked_3_timeout(self):
-        self.trading_logging.logger.info("timeout3")
+        # self.trading_logging.logger.info("timeout3")
 
         if self.checkBox_4.isChecked():
             self.up_down()
 
     def stacked_4_timeout(self):
-        self.trading_logging.logger.info("timeout4")
+        # self.trading_logging.logger.info("timeout4")
 
         if self.checkBox_5.isChecked():
             self.surge_volume()

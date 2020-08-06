@@ -13,40 +13,11 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QGroupBox" name="groupBox">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>50</y>
-     <width>801</width>
-     <height>761</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>주식 거래 기록</string>
-   </property>
-   <widget class="QPlainTextEdit" name="plainTextEdit">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>50</y>
-      <width>651</width>
-      <height>601</height>
-     </rect>
-    </property>
-    <property name="readOnly">
-     <bool>true</bool>
-    </property>
-   </widget>
-  </widget>
   <widget class="QGroupBox" name="groupBox_3">
    <property name="geometry">
     <rect>
-     <x>1380</x>
-     <y>840</y>
+     <x>1190</x>
+     <y>1040</y>
      <width>611</width>
      <height>461</height>
     </rect>
@@ -74,8 +45,8 @@
   <widget class="QGroupBox" name="groupBox_2">
    <property name="geometry">
     <rect>
-     <x>110</x>
-     <y>70</y>
+     <x>30</x>
+     <y>20</y>
      <width>1821</width>
      <height>911</height>
     </rect>
@@ -109,6 +80,35 @@
       <y>450</y>
       <width>1761</width>
       <height>411</height>
+     </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>330</x>
+     <y>990</y>
+     <width>801</width>
+     <height>761</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>주식 거래 기록</string>
+   </property>
+   <widget class="QPlainTextEdit" name="plainTextEdit">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>50</y>
+      <width>651</width>
+      <height>601</height>
      </rect>
     </property>
     <property name="readOnly">
