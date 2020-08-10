@@ -107,6 +107,8 @@ class Kiwoom(QAxWidget):
             self._opt10075(rqname=rqname, trcode=trcode)
         elif rqname == "실시간체결요청":
             self._opt10076(rqname=rqname, trcode=trcode)
+        elif rqname == "주식기본정보요청":
+            self._opt10001(rqname=rqname, trcode=trcode)
         # OPT10023 opt10030 OPT10031 거래량 상위
         # opt10079 틱 차트 조회 KOA 돌려보기
         try:
@@ -466,6 +468,28 @@ class Kiwoom(QAxWidget):
             # self.execution_list[order_num].update({'주문수량': order_quantity})
             # self.execution_list[order_num].update({'체결수량': execution_quantity})
         # self.logging.logger.info("실시간 체결 요청 | " + self.execution_list)
+
+
+    def _opt10001(self, rqname, trcode):
+        """
+
+        :param rqname:
+        :param trcode:
+        :return:
+        """
+        self.consensus = {}
+
+        PER = self.get_comm_data(trcode=trcode, rqname=rqname, index=0, name="PER")
+        EPS = self.get_comm_data(trcode=trcode, rqname=rqname, index=0, name="EPS")
+        ROE = self.get_comm_data(trcode=trcode, rqname=rqname, index=0, name="ROE")
+        PBR = self.get_comm_data(trcode=trcode, rqname=rqname, index=0, name="PBR")
+        EV = self.get_comm_data(trcode=trcode, rqname=rqname, index=0, name="EV")
+
+        self.consensus['PER'] = PER
+        self.consensus['EPS'] = EPS
+        self.consensus['ROE'] = ROE
+        self.consensus['PBR'] = PBR
+        self.consensus['EV'] = EV
 
     def _receive_chejan_data(self, gubun, item_cnt, fid_list):
         """

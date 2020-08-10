@@ -67,6 +67,7 @@ class Trading(QMainWindow, form_class):
             self.screen_execution = str(int(self.screen_balance) + 200)
             self.screen_interest_stock = "4000"
             self.screen_real_data = "6000"
+            self.screen_consensus = "7000"
             self.screen_order = "9000"
 
             """
@@ -101,7 +102,7 @@ class Trading(QMainWindow, form_class):
             self.pushButton_6.clicked.connect(lambda:self.set_stacked_widget(num=3))
             self.pushButton_7.clicked.connect(lambda:self.set_stacked_widget(num=4))
             self.pushButton_8.clicked.connect(lambda:self.set_stacked_widget(num=5))
-            self.pushButton_9.clicked.connect(self.hoga)
+            self.pushButton_9.clicked.connect(self.hoga_total)
             self.pushButton_10.clicked.connect(lambda:self.hoga_clicked(num=10))
             self.pushButton_11.clicked.connect(lambda:self.hoga_clicked(num=11))
             self.pushButton_12.clicked.connect(lambda:self.hoga_clicked(num=12))
@@ -228,6 +229,10 @@ class Trading(QMainWindow, form_class):
             price = self.pushButton_29.text()
         value = int(price)
         self.spinBox_2.setValue(value)
+
+    def hoga_total(self):
+        self.hoga()
+        self.consensus()
 
     def hoga(self):
         """
@@ -396,6 +401,30 @@ class Trading(QMainWindow, form_class):
         # self.label_22.setText(self.kiwoom.real_data[10])
 
         ###
+
+    def consensus(self):
+        self.trading_logging.logger.info("Consensus Search")
+
+        code = self.lineEdit_4.text()
+        self.code = code
+
+        self.kiwoom.set_input_value(id="종목코드", value=code)
+        self.kiwoom.comm_rq_data(rqname="주식기본정보요청", trcode="opt10001", next=0, screen_no=self.screen_consensus)
+
+        ################
+
+        PER = self.kiwoom.consensus.get('PER')
+        EPS = self.kiwoom.consensus.get('EPS')
+        ROE = self.kiwoom.consensus.get('ROE')
+        PBR = self.kiwoom.consensus.get('PBR')
+        EV = self.kiwoom.consensus.get('EV')
+
+        self.label_32.setText(PER)
+        self.label_33.setText(EPS)
+        self.label_34.setText(ROE)
+        self.label_35.setText(PBR)
+        self.label_57.setText(EV)
+
 
     def remove_real_data(self):
         # self.trading_logging.logger.info("remove_real_data")
