@@ -2269,7 +2269,7 @@ QPushButton:hover
       </rect>
      </property>
      <property name="title">
-      <string>GroupBox</string>
+      <string>Consensus</string>
      </property>
      <widget class="QLabel" name="label_26">
       <property name="geometry">
