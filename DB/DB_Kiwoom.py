@@ -6,14 +6,14 @@ from config.error_code import *
 from config.kiwoom_type import *
 from config.log_class import *
 
-class Kiwoom(QAxWidget):
+class DB_Kiwoom(QAxWidget):
     def __init__(self):
         # kiwoom 클래스 시작
         super().__init__()
 
-        self.logging = Logging(name="kiwoom")
+        self.logging = Logging(name="DB")
 
-        self.logging.logger.info("Kiwoom() class start")
+        self.logging.logger.info("DB_Kiwoom() class start")
 
         #### 초기 설정 함수
         self._create_kiwoom_instance()
@@ -88,7 +88,7 @@ class Kiwoom(QAxWidget):
             self.logging.logger.info("TR Data 요청 | Rqname : " + rqname + ", TR Code : " + trcode + ", 연속조회 X")
 
         if rqname == "주식일봉차트조회요청":
-            self._opw00081(rqname=rqname, trcode=trcode)
+            self._opt10081(rqname=rqname, trcode=trcode)
 
         # OPT10023 opt10030 OPT10031 거래량 상위
         # opt10079 틱 차트 조회 KOA 돌려보기
@@ -107,12 +107,12 @@ class Kiwoom(QAxWidget):
         self.stock_ohlcv = {'date': [], 'start': [], 'high': [], 'low': [], 'close': [], 'volume': []}
 
         for i in range(cnt):
-            date = self.get_comm_data(trcode=trcode, rqnaem=rqname, index=i, name="일자")
-            start = self.get_comm_data(trcode=trcode, rqnaem=rqname, index=i, name="시가")
-            high = self.get_comm_data(trcode=trcode, rqnaem=rqname, index=i, name="고가")
-            low = self.get_comm_data(trcode=trcode, rqnaem=rqname, index=i, name="저가")
-            close = self.get_comm_data(trcode=trcode, rqnaem=rqname, index=i, name="현재가")
-            volume = self.get_comm_data(trcode=trcode, rqnaem=rqname, index=i, name="거래량")
+            date = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="일자")
+            start = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="시가")
+            high = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="고가")
+            low = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="저가")
+            close = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="현재가")
+            volume = self.get_comm_data(trcode=trcode, rqname=rqname, index=i, name="거래량")
 
             self.stock_ohlcv['date'].append(date)
             self.stock_ohlcv['start'].append(start)
@@ -263,10 +263,10 @@ class Kiwoom(QAxWidget):
 
 
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    kiwoom = Kiwoom()
-    kiwoom.show()
-    kiwoom.comm_connect()
-    app.exec_()
-    app = None
+# if __name__ == "__main__":
+#     app = QApplication(sys.argv)
+#     kiwoom = Kiwoom()
+#     kiwoom.show()
+#     kiwoom.comm_connect()
+#     app.exec_()
+#     app = None

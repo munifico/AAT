@@ -1,4 +1,3 @@
-
 from PyQt5 import uic
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
@@ -57,8 +56,12 @@ class Trading(QWidget, form_class):
             화면 번호
             1000 - 상한가 / 하한가
             2000 - 거래량
+            3000 - 잔고
+                3100 - 실시간 미체결
+                3200 - 실시간 체결
             4000 - 관심 종목
             6000 - 실시간 데이터 처리
+            7000 - 컨센서스 (재무재표 수치)
             9000 - 주문
             """
             self.screen_up_down_price = "1000"

@@ -1,24 +1,26 @@
 import logging.config
+import os
 from datetime import datetime
 # import datetime
 from PyQt5.QtCore import *
 
+
 class Logging():
     def __init__(self, name):
-        self.config_path = 'config/logging.conf'
+        # self.config_path = 'config/logging.conf'
+        self.config_path = os.path.join(os.path.dirname(__file__), "logging.conf")
         # self.log_path = 'log'
         self.name = name
-        kiwoom_log_file_name = "log/kiwoom.log"
-        trading_log_file_name = "log/trading.log"
+        kiwoom_log_file_name = os.path.join(os.path.dirname(os.path.dirname(__file__)), "log/kiwoom.log")
+        trading_log_file_name = os.path.join(os.path.dirname(os.path.dirname(__file__)), "log/trading.log")
 
-
-        logging.config.fileConfig(self.config_path, disable_existing_loggers=False, defaults={"kiwoom_log_file_name" : kiwoom_log_file_name,
-                                                                                            "trading_log_file_name" : trading_log_file_name})
+        logging.config.fileConfig(self.config_path, disable_existing_loggers=False,
+                                  defaults={"kiwoom_log_file_name": kiwoom_log_file_name,
+                                            "trading_log_file_name": trading_log_file_name})
 
         # logging.config.fileConfig(self.config_path)
         self.logger = logging.getLogger(self.name)
         # self.handler_file()
-
 
     # #로그설정
     # def handler_file(self):
