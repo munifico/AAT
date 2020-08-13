@@ -10,8 +10,9 @@ import time
 from config.log_class import *
 
 form_class = uic.loadUiType("trading.ui")[0]
-
-class Trading(QMainWindow, form_class):
+# QWidget 아닌가 QMainWIndow?
+# class Trading(QMainWindow, form_class):
+class Trading(QWidget, form_class):
     def __init__(self, parent, kiwoom):
         super(QWidget, self).__init__(parent)
         self.setupUi(self)
